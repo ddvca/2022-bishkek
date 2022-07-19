@@ -8,15 +8,9 @@ script=$(basename "$0")
 pwd=$PWD
 root=$pwd/..
 
-if ! ls -d day*/*/ | xargs cp scripts/{bash,tcl}.*
+if ! ls -d ../day*/lab*/ | xargs cp {top.,x_,xx_}*
 then
-    printf "$script: cannot copy bash and tcl scripts to day* subdirectories" 1>&2
-    exit 1
-fi
-
-if ! ls -d day*/*/ | xargs -I % cp scripts/gitignore.day_dir %.gitignore
-then
-    printf "$script: cannot copy gitignore.day_dir to .gitignore in day* subdirectories" 1>&2
+    printf "$script: cannot copy the required scripts to ../day*/lab* subdirectories" 1>&2
     exit 1
 fi
 
