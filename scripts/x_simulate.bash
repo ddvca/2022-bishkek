@@ -85,8 +85,8 @@ then
        || [ "$OSTYPE" = "cygwin"    ]  \
        || [ "$OSTYPE" = "msys"      ]
     then
-        gtkwave                                 \
-            --dump dump.vcd                     \
+        gtkwave                      \
+            --dump dump.vcd          \
             --script xx_gtkwave.tcl  \
             2>&1 | tee waveform.log
 
