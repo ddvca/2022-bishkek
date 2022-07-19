@@ -45,7 +45,7 @@ then
     exit 1
 fi
 
-if ! zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name
+if ! zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name -x ${root_name}/*/$script
 then
     printf "$script: cannot zip the package" 1>&2
     exit 1
