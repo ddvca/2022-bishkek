@@ -14,6 +14,12 @@ then
     exit 1
 fi
 
+if ! ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf
+then
+    printf "$script: cannot create top_extra.qsf in ../day*/lab* subdirectories" 1>&2
+    exit 1
+fi
+
 if ! command -v zip &> /dev/null
 then
   printf "$script: cannot find zip utility" 1>&2
