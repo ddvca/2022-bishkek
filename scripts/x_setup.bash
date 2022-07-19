@@ -67,14 +67,14 @@ guarded ()
 #-----------------------------------------------------------------------------
 
 INTELFPGA_INSTALL_DIR=intelFPGA_lite
-MODELSIM_DIR=modelsim_ase
+QUESTA_DIR=questa_fse
 QUARTUS_DIR=quartus
 
 if [ "$OSTYPE" = "linux-gnu" ]
 then
   INTELFPGA_INSTALL_PARENT_DIR="$HOME"
-  MODELSIM_BIN_DIR=bin
-  MODELSIM_LIB_DIR=lib32
+  QUESTA_BIN_DIR=bin
+  QUESTA_LIB_DIR=lib32
   QUARTUS_BIN_DIR=bin
 
 elif  [ "$OSTYPE" = "cygwin"    ]  \
@@ -82,8 +82,8 @@ elif  [ "$OSTYPE" = "cygwin"    ]  \
 then
   INTELFPGA_INSTALL_PARENT_DIR=/c
 
-  MODELSIM_BIN_DIR=win32aloem
-  MODELSIM_LIB_DIR=win32aloem
+  QUESTA_BIN_DIR=win64
+  QUESTA_LIB_DIR=win64
   QUARTUS_BIN_DIR=bin64
 else
   error 1 "this script does not support your OS '$OSTYPE'"
@@ -120,20 +120,20 @@ fi
 
 #-----------------------------------------------------------------------------
 
-export MODELSIM_ROOTDIR="$FIRST_VERSION_DIR/$MODELSIM_DIR"
+export QUESTA_ROOTDIR="$FIRST_VERSION_DIR/$QUESTA_DIR"
 
 if [ -z "$PATH" ]
 then
-    export PATH="$MODELSIM_ROOTDIR/$MODELSIM_BIN_DIR"
+    export PATH="$QUESTA_ROOTDIR/$QUESTA_BIN_DIR"
 else
-    export PATH="$PATH:$MODELSIM_ROOTDIR/$MODELSIM_BIN_DIR"
+    export PATH="$PATH:$QUESTA_ROOTDIR/$QUESTA_BIN_DIR"
 fi
 
 if [ -z "$LD_LIBRARY_PATH" ]
 then
-    export LD_LIBRARY_PATH="$MODELSIM_ROOTDIR/$MODELSIM_LIB_DIR"
+    export LD_LIBRARY_PATH="$QUESTA_ROOTDIR/$QUESTA_LIB_DIR"
 else
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$MODELSIM_ROOTDIR/$MODELSIM_LIB_DIR"
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$QUESTA_ROOTDIR/$QUESTA_LIB_DIR"
 fi
 
 export QUARTUS_ROOTDIR="$FIRST_VERSION_DIR/$QUARTUS_DIR"
@@ -149,16 +149,16 @@ then
             "'$INTELFPGA_INSTALL_PARENT_DIR/$INTELFPGA_INSTALL_DIR':"  \
             "'$ALL_VERSION_DIRS'"
 
-    info "MODELSIM_ROOTDIR=$MODELSIM_ROOTDIR"
+    info "QUESTA_ROOTDIR=$QUESTA_ROOTDIR"
     info "QUARTUS_ROOTDIR=$QUARTUS_ROOTDIR"
     info "PATH=$PATH"
     info "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 
-                     [ -d "$MODELSIM_ROOTDIR" ]  \
-    || error 1 "directory '$MODELSIM_ROOTDIR' expected"
+                     [ -d "$QUESTA_ROOTDIR" ]  \
+    || error 1 "directory '$QUESTA_ROOTDIR' expected"
 
-                     [ -d "$MODELSIM_ROOTDIR/$MODELSIM_BIN_DIR" ]  \
-    || error 1 "directory '$MODELSIM_ROOTDIR/$MODELSIM_BIN_DIR' expected"
+                     [ -d "$QUESTA_ROOTDIR/$QUESTA_BIN_DIR" ]  \
+    || error 1 "directory '$QUESTA_ROOTDIR/$QUESTA_BIN_DIR' expected"
 
                      [ -d "$QUARTUS_ROOTDIR" ]  \
     || error 1 "directory '$QUARTUS_ROOTDIR' expected"

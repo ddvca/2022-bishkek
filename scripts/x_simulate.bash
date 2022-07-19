@@ -18,18 +18,18 @@ is_command_available vsim     && run_vsim=1
 if [ $run_iverilog = 1 ] && [ $run_vsim = 1 ]
 then
     printf "Two Verilog simulators are available to run:"
-    printf " Icarus Verilog and Mentor ModelSim\n"
+    printf " Icarus Verilog and Siemens EDA Questa\n"
     printf "Which do you want to run?\n"
 
-    options="Icarus ModelSim Both"
+    options="Icarus Questa Both"
     PS3="Your choice: "
 
     select simulator in $options
     do
         case $simulator in
-        Icarus)   run_vsim=0     ; break ;;
-        ModelSim) run_iverilog=0 ; break ;;
-        Both)                      break ;;
+        Icarus) run_vsim=0     ; break ;;
+        Questa) run_iverilog=0 ; break ;;
+        Both)                    break ;;
         esac
     done
 fi
@@ -42,7 +42,7 @@ fi
 [ $run_iverilog = 0 ] && [ $run_vsim = 0 ] &&  \
     error 1 "No Verilog simulator is available to run."  \
             "You need to install either Icarus Verilog"  \
-            "or Mentor Questa / ModelSim."
+            "or Siemens EDA Questa."
 
 #-----------------------------------------------------------------------------
 
@@ -126,17 +126,17 @@ then
        || [ "$OSTYPE" = "cygwin"    ]  \
        || [ "$OSTYPE" = "msys"      ]
     then
-        vsim -gui -do xx_modelsim.tcl 2>&1 | tee modelsim.log
+        vsim -gui -do xx_questa.tcl 2>&1 | tee questa.log
     else
-        error 1 "don't know how to run ModelSim on your OS $OSTYPE"
+        error 1 "don't know how to run questa on your OS $OSTYPE"
     fi
 
     ec=$?
 
     if [ $ec != 0 ]
     then
-        grep -i -A 5 error modelsim.log 2>&1
-        error $ec "ModelSim failed"
+        grep -i -A 5 error questa.log 2>&1
+        error $ec "Questa failed"
     fi
 fi
 
