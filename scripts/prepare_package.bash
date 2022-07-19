@@ -4,51 +4,43 @@
 set +e  # Don't exit immediately if a command exits with a non-zero status
 
 root_name=2022-bishkek
+
 script=$(basename "$0")
 pwd=$PWD
 root=$pwd/..
 
-if ! ls -d ../day*/lab*/ | xargs cp {top.,x_,xx_}*
-then
-    printf "$script: cannot copy the required scripts to ../day*/lab* subdirectories" 1>&2
-    exit 1
-fi
+error ()
+{
+  printf "$script: $*\n" 1>&2
+  exit 1
+}
 
-if ! ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf
-then
-    printf "$script: cannot create top_extra.qsf in ../day*/lab* subdirectories" 1>&2
-    exit 1
-fi
+ls -d ../day*/lab*/ | xargs cp {top.,x_,xx_}* \
+  || error "cannot copy the required scripts to ../day*/lab* subdirectories"
+
+ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf \
+  || error "cannot create top_extra.qsf in ../day*/lab* subdirectories"
 
 if ! command -v zip &> /dev/null
 then
-  printf "$script: cannot find zip utility" 1>&2
+  printf "$script: cannot find zip utility"
 
   if [ "$OSTYPE" = "msys" ]
   then
-    printf "\n$script: download zip for Windows from https://sourceforge.net/projects/gnuwin32/files/zip/3.0/zip-3.0-setup.exe/download" 1>&2
-    printf "\n$script: then add zip to the path: %s" '%PROGRAMFILES(x86)%\GnuWin32\bin' 1>&2
+    printf "\n$script: download zip for Windows from https://sourceforge.net/projects/gnuwin32/files/zip/3.0/zip-3.0-setup.exe/download"
+    printf "\n$script: then add zip to the path: %s" '%PROGRAMFILES(x86)%\GnuWin32\bin'
   fi
 
   exit 1
 fi
 
-if ! rm -rf ${root_name}_*.zip
-then
-    printf "$script: cannot remove old zip files" 1>&2
-    exit 1
-fi
+rm -rf ${root_name}_*.zip \
+  || error "cannot remove old zip files"
 
-if ! cd $root/..
-then
-    printf "$script: something is wrong with directory structure or permissions" 1>&2
-    exit 1
-fi
+cd $root/.. \
+  || error "something is wrong with directory structure or permissions"
 
-if ! zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name -x ${root_name}/*/$script
-then
-    printf "$script: cannot zip the package" 1>&2
-    exit 1
-fi
+zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name -x ${root_name}/*/$script \
+  || error "cannot zip the package"
 
 exit 0
