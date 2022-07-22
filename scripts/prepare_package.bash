@@ -42,7 +42,7 @@ rm -rf ${root_name}_*.zip \
 cd $root/.. \
   || error "something is wrong with directory structure or permissions"
 
-zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name -x ${root_name}/*/$script \
+zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name/{day,README,LICENSE}* \
   || error "cannot zip the package"
 
 exit 0
