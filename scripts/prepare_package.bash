@@ -26,6 +26,9 @@ ls -d ../day*/homework/ | xargs -n 1 cp run_all* \
 ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf \
   || error "cannot create top_extra.qsf in ../day*/lab* subdirectories"
 
+cp ../day_1/lab_2_7segment_letter/*.jpg ../day_2/lab_6_7segment_word \
+  || error "cannot create a copy of pictures for 7segment example"
+
 if ! command -v zip &> /dev/null
 then
   printf "$script: cannot find zip utility"
