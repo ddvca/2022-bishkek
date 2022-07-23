@@ -34,6 +34,9 @@ module tb;
             $dumpvars;
         `endif
 
+        // Enable override
+        force i_top.enable = 1'b1;
+
         key_sw <= 4'b0;
 
         @ (posedge reset_n);

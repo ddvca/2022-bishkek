@@ -1,4 +1,3 @@
-
 module top
 (
     input        clk,
