@@ -80,13 +80,13 @@ module vga
         begin
             if (clk_en_cnt == (CLK_MHZ / VGA_CLOCK) - 1)
             begin 
-            	clk_en_cnt <= 3'b0;
-            	clk_en <= 1'b1;
+                clk_en_cnt <= 3'b0;
+                clk_en <= 1'b1;
             end
             else
             begin
-            	clk_en_cnt <= clk_en_cnt + 1;
-            	clk_en <= 1'b0;
+                clk_en_cnt <= clk_en_cnt + 1;
+                clk_en <= 1'b0;
             end
         end
     end
