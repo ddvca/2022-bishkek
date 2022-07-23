@@ -7,10 +7,7 @@ module tb;
     initial
     begin
         #0
-
-        `ifdef __ICARUS__
-            $dumpvars;
-        `endif
+        $dumpvars;
 
         repeat (8) #10 key_sw <= $random;
 
