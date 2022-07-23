@@ -12,7 +12,7 @@ endmodule
 
 module left_shift_of_8_by_3_using_for_inside_always (input  [7:0] a, output logic [7:0] res);
 
-  always @*
+  always_comb
     for (int i = 0; i < 8; i ++)
       res [i] = i < 3 ? 1'b0 : a [i - 3];
 

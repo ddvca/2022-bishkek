@@ -59,7 +59,7 @@ module top
     /*
     seven_seg_encoding_e letter;
     
-    always @*
+    always_comb
       case (key_sw)
       4'b0111: letter = A;
       4'b1011: letter = U;

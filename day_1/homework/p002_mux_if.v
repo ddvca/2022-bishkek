@@ -5,7 +5,7 @@ module mux_2_1
   output logic [3:0] y
 );
 
-  always @*
+  always_comb
     if (sel)
       y = d1;
     else
