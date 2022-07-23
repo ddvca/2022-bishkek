@@ -17,8 +17,11 @@ error ()
 
 git clean -d -f ..
 
-ls -d ../day*/lab*/ | xargs -n 1 cp {top.,x_,xx_,run_}* \
+ls -d ../day*/lab*/ | xargs -n 1 cp {top.,x_,xx_,run_icarus,run_questa}* \
   || error "cannot copy the required scripts to ../day*/lab* subdirectories"
+
+ls -d ../day*/homework/ | xargs -n 1 cp run_all* \
+  || error "cannot copy run_all scripts to ../day*/homework subdirectories"
 
 ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf \
   || error "cannot create top_extra.qsf in ../day*/lab* subdirectories"
