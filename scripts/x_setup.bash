@@ -74,7 +74,7 @@ if [ "$OSTYPE" = "linux-gnu" ]
 then
   INTELFPGA_INSTALL_PARENT_DIR="$HOME"
   QUESTA_BIN_DIR=bin
-  QUESTA_LIB_DIR=lib32
+  QUESTA_LIB_DIR=linux_x86_64
   QUARTUS_BIN_DIR=bin
 
 elif  [ "$OSTYPE" = "cygwin"    ]  \

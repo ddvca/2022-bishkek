@@ -52,12 +52,28 @@ module top
 
     //------------------------------------------------------------------------
 
+    typedef enum bit [2:0]
+    {
+      red    = 3'b100,
+      yellow = 3'b110,
+      cyan   = 3'b011
+
+      // TODO: Add other colors
+    }
+    rgb_t;
+
     always_comb
     begin
-      if (x ^ 2 + y ^ 2 < 100 ^ 2)
-        rgb = 3'b100;
+      // Circle
+
+      if (x ** 2 + y ** 2 < 100 ** 2)
+        rgb = red;
+      else if (x > 200 & y > 200 & x < 300 & y < 400) 
+        rgb = yellow;
       else
-        rgb = 3'b011;
+        rgb = cyan;
+
+      // TODO: Add other figures
     end
 
 endmodule

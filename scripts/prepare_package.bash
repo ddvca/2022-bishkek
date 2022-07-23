@@ -17,7 +17,7 @@ error ()
 
 git clean -d -f ..
 
-ls -d ../day*/lab*/ | xargs cp {top.,x_,xx_,run_}* \
+ls -d ../day*/lab*/ | xargs -n 1 cp {top.,x_,xx_,run_}* \
   || error "cannot copy the required scripts to ../day*/lab* subdirectories"
 
 ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf \

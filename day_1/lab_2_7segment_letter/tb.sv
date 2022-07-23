@@ -6,7 +6,6 @@ module tb;
 
     initial
     begin
-        #0
         $dumpvars;
 
         repeat (8) #10 key_sw <= $random;
