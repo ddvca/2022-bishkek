@@ -34,13 +34,17 @@ module top
     //
     //  0 means light
 
-    parameter [7:0] C = 8'b01100011,
-                    E = 8'b01100001,
-                    h = 8'b11010001,
-                    I = 8'b11110011,
-                    P = 8'b00110001;
+    typedef enum bit [7:0]
+    {
+        A = 8'b00010001,
+        B = 8'b11000001,
+        C = 8'b01100011,
+        K = 8'b01010001,
+        U = 8'b10000011
+    }
+    seven_seg_encoding_e;
 
-    assign abcdefgh = key_sw [0] ? C : E;
+    assign abcdefgh = key_sw [0] ? K : B;
     assign digit    = key_sw [1] ? 4'b1110 : 4'b1101;
 
     // Exercise 1: Display the first letters
@@ -50,19 +54,18 @@ module top
     // assign digit    = ...
 
     // Exercise 2: Display letters of a 4-character word
-    // using this code to display letter of ChIP as an example
+    // using this code to display letter of AUCA as an example
 
     /*
-
-    logic [7:0] letter;
+    seven_seg_encoding_e letter;
     
     always @*
       case (key_sw)
-      4'b0111: letter = C;
-      4'b1011: letter = h;
-      4'b1101: letter = I;
-      4'b1110: letter = P;
-      default: letter = E;
+      4'b0111: letter = A;
+      4'b1011: letter = U;
+      4'b1101: letter = C;
+      4'b1110: letter = A;
+      default: letter = K;
       endcase
       
     assign abcdefgh = letter;
