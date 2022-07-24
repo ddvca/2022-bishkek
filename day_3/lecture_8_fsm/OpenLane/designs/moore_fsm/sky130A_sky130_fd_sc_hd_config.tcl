@@ -1,4 +1,5 @@
 # SCL Configs
+
 set ::env(CLOCK_PERIOD) "14"
 set ::env(FP_CORE_UTIL) 40
 set ::env(SYNTH_MAX_FANOUT) 6

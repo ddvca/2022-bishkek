@@ -28,16 +28,17 @@ target_dir=$lecture_dir/$run_name
 mkdir $target_dir || error "Cannot create \"$target_dir\""
 
                                                                         # 01_main.log
-                                                                        # 08_mc_sta_violation.rpt
-   cp $last_run_dir/results/synthesis/moore_fsm.v             $target_dir/02_synthesis.v    \
-&& cp $last_run_dir/results/placement/moore_fsm.resized.v     $target_dir/03_placement.v    \
-&& cp $last_run_dir/results/cts/moore_fsm.resized.v           $target_dir/04_cts.v          \
-&& cp $last_run_dir/results/routing/moore_fsm.resized.v       $target_dir/05_routing.v      \
-&& cp $last_run_dir/results/final/verilog/gl/moore_fsm.v      $target_dir/06_final.v        \
-&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.rpt        $target_dir/07_mca_sta.rpt    \
-&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.area.rpt   $target_dir/09_mca_area.rpt   \
-&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.power.rpt  $target_dir/10_mca_power.rpt  \
-&& cp $last_run_dir/results/signoff/moore_fsm.mag             $target_dir/11_magic.mag      \
+                                                                        # 02_main_violation.log
+                                                                        # 09_mca_sta_violation.rpt
+   cp $last_run_dir/results/synthesis/moore_fsm.v             $target_dir/03_synthesis.v    \
+&& cp $last_run_dir/results/placement/moore_fsm.resized.v     $target_dir/04_placement.v    \
+&& cp $last_run_dir/results/cts/moore_fsm.resized.v           $target_dir/05_cts.v          \
+&& cp $last_run_dir/results/routing/moore_fsm.resized.v       $target_dir/06_routing.v      \
+&& cp $last_run_dir/results/final/verilog/gl/moore_fsm.v      $target_dir/07_final.v        \
+&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.rpt        $target_dir/08_mca_sta.rpt    \
+&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.area.rpt   $target_dir/10_mca_area.rpt   \
+&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.power.rpt  $target_dir/11_mca_power.rpt  \
+&& cp $last_run_dir/results/signoff/moore_fsm.mag             $target_dir/12_magic.mag      \
 || error "Cannot copy something"
 
 exit 0
