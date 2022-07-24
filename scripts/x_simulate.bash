@@ -1,5 +1,4 @@
 #!/bin/bash
-# x_simulate.bash
 
 . ./x_setup.bash
 

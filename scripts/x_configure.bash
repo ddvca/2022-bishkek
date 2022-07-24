@@ -1,5 +1,4 @@
 #!/bin/bash
-# x_configure.bash
 
 . ./x_setup.bash
 

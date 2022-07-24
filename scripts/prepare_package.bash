@@ -1,5 +1,4 @@
 #!/bin/bash
-# prepare_zip.bash
 
 set +e  # Don't exit immediately if a command exits with a non-zero status
 

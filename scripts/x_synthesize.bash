@@ -1,5 +1,4 @@
 #!/bin/bash
-# x_synthesize.bash
 
 . ./x_setup.bash
 
