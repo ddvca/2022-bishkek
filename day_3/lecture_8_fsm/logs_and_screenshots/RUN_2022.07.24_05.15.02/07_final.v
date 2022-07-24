@@ -1,4 +1,4 @@
-module moore_fsm (VGND,
+module snail_moore_fsm (VGND,
     VPWR,
     a,
     clk,

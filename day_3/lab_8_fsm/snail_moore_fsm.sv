@@ -1,4 +1,4 @@
-module moore_fsm
+module snail_moore_fsm
 (
     input  clk,
     input  reset,

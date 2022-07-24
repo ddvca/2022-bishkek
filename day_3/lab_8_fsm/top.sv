@@ -28,7 +28,7 @@ module top
     //------------------------------------------------------------------------
 
     wire enable;
-    wire fsm_in, moore_fsm_out, mealy_fsm_out;
+    wire fsm_in, snail_moore_fsm_out, snail_mealy_fsm_out;
 
     wire [3:0] shift_reg_par_out;
     assign led = ~ shift_reg_par_out;
@@ -45,11 +45,11 @@ module top
         .*
     );
 
-    moore_fsm i_moore_fsm 
-        (.en (enable), .a (fsm_in), .y (moore_fsm_out), .*);
+    snail_moore_fsm i_snail_moore_fsm 
+        (.en (enable), .a (fsm_in), .y (snail_moore_fsm_out), .*);
     
-    mealy_fsm i_mealy_fsm 
-        (.en (enable), .a (fsm_in), .y (mealy_fsm_out), .*);
+    snail_mealy_fsm i_snail_mealy_fsm 
+        (.en (enable), .a (fsm_in), .y (snail_mealy_fsm_out), .*);
     
     //------------------------------------------------------------------------
 
@@ -66,7 +66,7 @@ module top
     //  0 means light
 
     always_comb
-      case ({ mealy_fsm_out, moore_fsm_out })
+      case ({ snail_mealy_fsm_out, snail_moore_fsm_out })
       2'b00: abcdefgh = 8'b1111_1111;
       2'b01: abcdefgh = 8'b0011_1001;  // Moore only
       2'b10: abcdefgh = 8'b1100_0101;  // Mealy only

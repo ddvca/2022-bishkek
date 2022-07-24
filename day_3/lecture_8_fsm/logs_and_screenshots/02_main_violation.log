@@ -2,15 +2,15 @@ OpenLane 9accacfc19f9c26ad094e2f7143b53d2cb6a859a
 All rights reserved. (c) 2020-2022 Efabless Corporation and contributors.
 Available under the Apache License, version 2.0. See the LICENSE file for more details.
 
-[INFO]: Using design configuration at /openlane/designs/moore_fsm/config.tcl
-[INFO]: Sourcing Configurations from /openlane/designs/moore_fsm/config.tcl
+[INFO]: Using design configuration at /openlane/designs/snail_moore_fsm/config.tcl
+[INFO]: Sourcing Configurations from /openlane/designs/snail_moore_fsm/config.tcl
 [INFO]: PDKs root directory: /home/panchul/github/OpenLane/pdks
 [INFO]: PDK: sky130A
 [INFO]: Setting PDKPATH to /home/panchul/github/OpenLane/pdks/sky130A
 [INFO]: Standard Cell Library: sky130_fd_sc_hd
 [INFO]: Optimization Standard Cell Library is set to: sky130_fd_sc_hd
-[INFO]: Sourcing Configurations from /openlane/designs/moore_fsm/config.tcl
-[INFO]: Current run directory is /openlane/designs/moore_fsm/runs/RUN_2022.07.24_07.06.06
+[INFO]: Sourcing Configurations from /openlane/designs/snail_moore_fsm/config.tcl
+[INFO]: Current run directory is /openlane/designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06
 [INFO]: Preparing LEF files for the nom corner...
 [INFO]: Preparing LEF files for the min corner...
 [INFO]: Preparing LEF files for the max corner...
@@ -106,18 +106,18 @@ Available under the Apache License, version 2.0. See the LICENSE file for more d
 [INFO]: Running OpenROAD Antenna Rule Checker...
 [STEP 39]
 [INFO]: Running CVC...
-[INFO]: Saving current set of views in 'designs/moore_fsm/runs/RUN_2022.07.24_07.06.06/results/final'...
+[INFO]: Saving current set of views in 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/results/final'...
 [INFO]: Saving runtime environment...
 [INFO]: Generating final set of reports...
-[INFO]: Created manufacturability report at 'designs/moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/manufacturability.rpt'.
-[INFO]: Created metrics report at 'designs/moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/metrics.csv'.
+[INFO]: Created manufacturability report at 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/manufacturability.rpt'.
+[INFO]: Created metrics report at 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/metrics.csv'.
 [INFO]: There are no max slew violations in the design at the typical corner.
 [INFO]: There are no hold violations in the design at the typical corner.
-[ERROR]: There are setup violations in the design at the typical corner. Please refer to 'designs/moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/signoff/28-rcx_sta.max.rpt'.                                                                                                                                             
-[INFO]: Saving current set of views in 'designs/moore_fsm/runs/RUN_2022.07.24_07.06.06/results/final'...
+[ERROR]: There are setup violations in the design at the typical corner. Please refer to 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/signoff/28-rcx_sta.max.rpt'.                                                                                                                                             
+[INFO]: Saving current set of views in 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/results/final'...
 [INFO]: Generating final set of reports...
-[INFO]: Created manufacturability report at 'designs/moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/manufacturability.rpt'.
-[INFO]: Created metrics report at 'designs/moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/metrics.csv'.
+[INFO]: Created manufacturability report at 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/manufacturability.rpt'.
+[INFO]: Created metrics report at 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/metrics.csv'.
 [INFO]: Saving runtime environment...
 [ERROR]: Flow failed.
 [INFO]: The failure may have been because of the following warnings:

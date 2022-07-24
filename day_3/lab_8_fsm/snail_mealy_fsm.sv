@@ -1,4 +1,4 @@
-module mealy_fsm
+module snail_mealy_fsm
 (
     input  clk,
     input  reset,
