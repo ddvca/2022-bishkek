@@ -36,7 +36,7 @@ module top
     strobe_gen i_strobe_gen
         (.strobe (enable), .*);
 
-    shift_reg i_shift_reg # (.w (1))
+    shift_reg # (.depth (1)) i_shift_reg
     (
         .en      ( enable            ),
         .seq_in  ( ~& key_sw         ),  // Same as key_sw != 4'b1111
