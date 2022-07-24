@@ -2,7 +2,7 @@
 
 module shift_reg
 # (
-    parameter depth = 1
+    parameter depth = 2
 ) 
 (
     input                      clk,
@@ -17,7 +17,7 @@ module shift_reg
         if (reset)
             par_out <= '0;
         else if (en)
-            par_out <= { seq_in, par_out [depth - 1 : 1] };
+            par_out <= { seq_in, par_out [depth - 1:1] };
 
     assign seq_out = par_out [0];
 

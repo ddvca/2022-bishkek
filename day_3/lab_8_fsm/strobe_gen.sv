@@ -10,7 +10,7 @@ module strobe_gen
     output strobe
 );
 
-    wire [width - 1:0] cnt;
+    logic [width - 1:0] cnt;
 
     always_ff @ (posedge clk or posedge reset)
       if (reset)

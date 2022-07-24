@@ -36,7 +36,7 @@ module top
     strobe_gen i_strobe_gen
         (.strobe (enable), .*);
 
-    shift_reg # (.depth (1)) i_shift_reg
+    shift_reg # (.depth (4)) i_shift_reg
     (
         .en      ( enable            ),
         .seq_in  ( ~& key_sw         ),  // Same as key_sw != 4'b1111
@@ -66,10 +66,10 @@ module top
     //  0 means light
 
     always_comb
-      case ({ moore_fsm_out, mealy_fsm_out })
+      case ({ mealy_fsm_out, moore_fsm_out })
       2'b00: abcdefgh = 8'b1111_1111;
-      2'b01: abcdefgh = 8'b0011_1001;
-      2'b10: abcdefgh = 8'b1100_0101;
+      2'b01: abcdefgh = 8'b0011_1001;  // Moore only
+      2'b10: abcdefgh = 8'b1100_0101;  // Mealy only
       2'b11: abcdefgh = 8'b0000_0001;
       endcase
 

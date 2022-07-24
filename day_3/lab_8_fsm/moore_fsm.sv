@@ -11,7 +11,7 @@ module moore_fsm
     {
         S0 = 2'd0,
         S1 = 2'd1,
-        S1 = 2'd2
+        S2 = 2'd2
     }
     state_e;
 
