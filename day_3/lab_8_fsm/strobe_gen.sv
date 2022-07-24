@@ -2,7 +2,7 @@
 
 module strobe_gen
 # (
-    parameter w = 24
+    parameter width = 24
 )
 (
     input  clk,
@@ -10,13 +10,13 @@ module strobe_gen
     output strobe
 );
 
-    wire [w - 1:0] cnt;
+    wire [width - 1:0] cnt;
 
     always_ff @ (posedge clk or posedge reset)
       if (reset)
-        cnt <= 32'b0;
+        cnt <= '0;
       else
-        cnt <= cnt + 32'b1;
+        cnt <= cnt + width' (1);
 
     assign strobe = ~| cnt;  // Same as (cnt == '0)
 

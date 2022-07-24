@@ -44,9 +44,9 @@ module tb;
             // Enable override
 
             if (i == 20)
-                force i_top.i_shift_reg.en = 1'b1;
+                force i_top.enable = 1'b1;
             else if (i == 40)
-                release i_top.i_shift_reg.en;
+                release i_top.enable;
 
             @ (posedge clk);
             key_sw <= $random;

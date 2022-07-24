@@ -2,20 +2,20 @@
 
 module top
 (
-    input        clk,
-    input        reset_n,
+    input              clk,
+    input              reset_n,
     
-    input  [3:0] key_sw,
-    output [3:0] led,
+    input        [3:0] key_sw,
+    output       [3:0] led,
 
-    output [7:0] abcdefgh,
-    output [3:0] digit,
+    output logic [7:0] abcdefgh,
+    output       [3:0] digit,
 
-    output       buzzer,
+    output             buzzer,
 
-    output       hsync,
-    output       vsync,
-    output [2:0] rgb
+    output             hsync,
+    output             vsync,
+    output       [2:0] rgb
 );
 
     wire reset = ~ reset_n;
@@ -24,31 +24,33 @@ module top
     assign hsync  = 1'b1;
     assign vsync  = 1'b1;
     assign rgb    = 3'b0;
-    
-    //------------------------------------------------------------------------
-
-    logic [31:0] cnt;
-    
-    always_ff @ (posedge clk or posedge reset)
-      if (reset)
-        cnt <= 32'b0;
-      else
-        cnt <= cnt + 32'b1;
-
-    wire enable = (cnt [22:0] == 23'b0);
 
     //------------------------------------------------------------------------
 
-    logic [3:0] shift_reg;
+    wire enable;
+    wire fsm_in, moore_fsm_out, mealy_fsm_out;
+
+    wire [3:0] shift_reg_par_out;
+    assign led = ~ shift_reg_par_out;
+
+    strobe_gen i_strobe_gen
+        (.strobe (enable), .*);
+
+    shift_reg i_shift_reg # (.w (1))
+    (
+        .en      ( enable            ),
+        .seq_in  ( ~& key_sw         ),  // Same as key_sw != 4'b1111
+        .seq_out ( fsm_in            ),
+        .par_out ( shift_reg_par_out ),
+        .*
+    );
+
+    moore_fsm i_moore_fsm 
+        (.en (enable), .a (fsm_in), .y (moore_fsm_out), .*);
     
-    always_ff @ (posedge clk or posedge reset)
-      if (reset)
-        shift_reg <= 4'b0001;
-      else if (enable)
-        shift_reg <= { shift_reg [0], shift_reg [3:1] };
-
-    assign led = ~ shift_reg;
-
+    mealy_fsm i_mealy_fsm 
+        (.en (enable), .a (fsm_in), .y (mealy_fsm_out), .*);
+    
     //------------------------------------------------------------------------
 
     //   --a--
@@ -63,38 +65,17 @@ module top
     //
     //  0 means light
 
-    enum bit [7:0]
-    {
-        A = 8'b00010001,
-        B = 8'b11000001,
-        C = 8'b01100011,
-        K = 8'b01010001,
-        U = 8'b10000011
-    }
-    letter;
-    
     always_comb
-    begin
-      case (shift_reg)
-      4'b1000: letter = A;
-      4'b0100: letter = U;
-      4'b0010: letter = C;
-      4'b0001: letter = A;
-      default: letter = K;
+      case ({ moore_fsm_out, mealy_fsm_out })
+      2'b00: abcdefgh = 8'b1111_1111;
+      2'b01: abcdefgh = 8'b0011_1001;
+      2'b10: abcdefgh = 8'b1100_0101;
+      2'b11: abcdefgh = 8'b0000_0001;
       endcase
-    end
 
-    assign abcdefgh = letter;
-    assign digit    = ~ shift_reg;
+    assign digit = 4'b1110;
 
-    // Exercise 1: Increase the frequency of enable signal
-    // to the level your eyes see the letters as a solid word
-    // without any blinking. What is the threshold of such frequency?
-
-    // Exercise 2: Put your name or another word to the display.
-
-    // Exercise 3: Comment out the "default" clause from the "case" statement
-    // in the "always" block,and re-synthesize the example.
-    // Are you getting any warnings or errors? Try to explain why.
+    // Exercise: Implement FSM for recognizing other sequence,
+    // for example 0101
 
 endmodule
