@@ -101,7 +101,7 @@ module fsm_7_bits_coming_from_right
   input              clk,
   input              rst,
   input              new_bit,
-  output logic [3:0] rem
+  output logic [2:0] rem
 );
 
   // TODO
@@ -115,7 +115,7 @@ module fsm_7_bits_coming_from_left
   input              clk,
   input              rst,
   input              new_bit,
-  output logic [3:0] rem
+  output logic [2:0] rem
 );
 
   // TODO
@@ -136,7 +136,7 @@ module tb;
 
   wire [1:0] rem_3_bits_added_from_left;
   wire [1:0] rem_3_bits_added_from_right;
- 
+
   fsm_3_bits_coming_from_left i_fsm_3_left
   (
     clk,
@@ -157,7 +157,7 @@ module tb;
 
   wire [1:0] rem_4_bits_added_from_left;
   wire [1:0] rem_4_bits_added_from_right;
- 
+
   fsm_4_bits_coming_from_left i_fsm_4_left
   (
     clk,
@@ -178,7 +178,7 @@ module tb;
 
   wire [2:0] rem_5_bits_added_from_left;
   wire [2:0] rem_5_bits_added_from_right;
- 
+
   fsm_5_bits_coming_from_left i_fsm_5_left
   (
     clk,
@@ -199,7 +199,7 @@ module tb;
 
   wire [2:0] rem_7_bits_added_from_left;
   wire [2:0] rem_7_bits_added_from_right;
- 
+
   fsm_7_bits_coming_from_left i_fsm_7_left
   (
     clk,
@@ -309,24 +309,30 @@ module tb;
         if (   rem_3_bits_added_from_left
            !== expected_rem_3_bits_added_from_left )
         begin
-          $display ("%d added from left  word=%b %d rem_3=%0d expected=%0d",
+          $display ("%s FAIL: %d added from left  word=%b %d rem_3=%0d expected=%0d",
+            `__FILE__,
             $time,
             bits_added_from_left,
             bits_added_from_left,
             rem_3_bits_added_from_left,
             expected_rem_3_bits_added_from_left );
+
+          $finish;
         end
 
         if (   rem_3_bits_added_from_right
            !== expected_rem_3_bits_added_from_right )
         begin
-          $display ("%d added from right new_bit %b word=%b %d rem_3=%0d expected=%0d",
+          $display ("%s FAIL: %d added from right new_bit %b word=%b %d rem_3=%0d expected=%0d",
+            `__FILE__,
             $time,
             new_bit,
             bits_added_from_right,
             bits_added_from_right,
             rem_3_bits_added_from_right,
             expected_rem_3_bits_added_from_right );
+
+          $finish;
         end
 
         //------------------------------------------------------------
@@ -334,24 +340,30 @@ module tb;
         if (   rem_4_bits_added_from_left
            !== expected_rem_4_bits_added_from_left )
         begin
-          $display ("%d added from left  word=%b %d rem_4=%0d expected=%0d",
+          $display ("%s FAIL: %d added from left  word=%b %d rem_4=%0d expected=%0d",
+            `__FILE__,
             $time,
             bits_added_from_left,
             bits_added_from_left,
             rem_4_bits_added_from_left,
             expected_rem_4_bits_added_from_left );
+
+          $finish;
         end
 
         if (   rem_4_bits_added_from_right
            !== expected_rem_4_bits_added_from_right )
         begin
-          $display ("%d added from right new_bit %b word=%b %d rem_4=%0d expected=%0d",
+          $display ("%s FAIL: %d added from right new_bit %b word=%b %d rem_4=%0d expected=%0d",
+            `__FILE__,
             $time,
             new_bit,
             bits_added_from_right,
             bits_added_from_right,
             rem_4_bits_added_from_right,
             expected_rem_4_bits_added_from_right );
+
+          $finish;
         end
 
         //------------------------------------------------------------
@@ -359,24 +371,30 @@ module tb;
         if (   rem_5_bits_added_from_left
            !== expected_rem_5_bits_added_from_left )
         begin
-          $display ("%d added from left  word=%b %d rem_5=%0d expected=%0d",
+          $display ("%s FAIL: %d added from left  word=%b %d rem_5=%0d expected=%0d",
+            `__FILE__,
             $time,
             bits_added_from_left,
             bits_added_from_left,
             rem_5_bits_added_from_left,
             expected_rem_5_bits_added_from_left );
+
+          $finish;
         end
 
         if (   rem_5_bits_added_from_right
            !== expected_rem_5_bits_added_from_right )
         begin
-          $display ("%d added from right new_bit %b word=%b %d rem_5=%0d expected=%0d",
+          $display ("%s FAIL: %d added from right new_bit %b word=%b %d rem_5=%0d expected=%0d",
+            `__FILE__,
             $time,
             new_bit,
             bits_added_from_right,
             bits_added_from_right,
             rem_5_bits_added_from_right,
             expected_rem_5_bits_added_from_right );
+
+          $finish;
         end
 
         //------------------------------------------------------------
@@ -384,30 +402,37 @@ module tb;
         if (   rem_7_bits_added_from_left
            !== expected_rem_7_bits_added_from_left )
         begin
-          $display ("%d added from left  word=%b %d rem_7=%0d expected=%0d",
+          $display ("%s FAIL: %d added from left  word=%b %d rem_7=%0d expected=%0d",
+            `__FILE__,
             $time,
             bits_added_from_left,
             bits_added_from_left,
             rem_7_bits_added_from_left,
             expected_rem_7_bits_added_from_left );
+
+          $finish;
         end
 
         if (   rem_7_bits_added_from_right
            !== expected_rem_7_bits_added_from_right )
         begin
-          $display ("%d added from right new_bit %b word=%b %d rem_7=%0d expected=%0d",
+          $display ("%s FAIL: %d added from right new_bit %b word=%b %d rem_7=%0d expected=%0d",
+            `__FILE__,
             $time,
             new_bit,
             bits_added_from_right,
             bits_added_from_right,
             rem_7_bits_added_from_right,
             expected_rem_7_bits_added_from_right );
+
+          $finish;
         end
       end
     end
 
     //--------------------------------------------------------------------
 
+    $display ("%s PASS", `__FILE__);
     $finish;
   end
 
