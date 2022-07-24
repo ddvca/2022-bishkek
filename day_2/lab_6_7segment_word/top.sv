@@ -34,7 +34,7 @@ module top
         cnt <= 32'b0;
       else
         cnt <= cnt + 32'b1;
-        
+
     wire enable = (cnt [22:0] == 23'b0);
 
     //------------------------------------------------------------------------
@@ -47,7 +47,7 @@ module top
       else if (enable)
         shift_reg <= { shift_reg [0], shift_reg [3:1] };
 
-    assign led = shift_reg;
+    assign led = ~ shift_reg;
 
     //------------------------------------------------------------------------
 
