@@ -1,4 +1,4 @@
-strobe_gen.sv
-shift_reg.sv
-moore_fsm.sv
-mealy_fsm.sv
+set_global_assignment -name VERILOG_FILE strobe_gen.sv
+set_global_assignment -name VERILOG_FILE shift_reg.sv
+set_global_assignment -name VERILOG_FILE moore_fsm.sv
+set_global_assignment -name VERILOG_FILE mealy_fsm.sv
