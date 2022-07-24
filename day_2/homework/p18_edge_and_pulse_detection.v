@@ -81,12 +81,7 @@ module testbench;
     end
 
     $display ("%s PASS", `__FILE__);
-
-    `ifdef MODEL_TECH  // Mentor ModelSim and Questa
-      $stop;
-    `else
-      $finish;
-    `endif
+    $finish;
   end
 
 endmodule

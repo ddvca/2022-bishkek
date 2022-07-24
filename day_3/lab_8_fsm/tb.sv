@@ -16,7 +16,7 @@ module tb;
         clk = 1'b0;
 
         forever
-            # 10 clk = ~ clk;
+            # 5 clk = ~ clk;
     end
 
     initial
