@@ -28,7 +28,7 @@ ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf \
 cp ../day_1/lab_2_7segment_letter/*.jpg ../day_2/lab_6_7segment_word \
   || error "cannot create a copy of pictures for 7segment example"
 
-fsm_asic_dir=../day_3/lecture_8_fsm/OpenLane/designs/snail_moore_fsm/src
+fsm_asic_dir=../lecture/03_asic_openlane/src/OpenLane/designs/snail_moore_fsm/src
 mkdir -p $fsm_asic_dir
 
 cp ../day_3/lab_8_fsm/snail_moore_fsm.sv $fsm_asic_dir \
