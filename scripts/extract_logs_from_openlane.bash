@@ -14,7 +14,7 @@ runs_dir=../../OpenLane/designs/moore_fsm/runs
 
 [ -d $runs_dir ] || error "Cannot find OpenLane runs directory"
 
-last_run_dir=$(ls $runs_dir/RUN* | sort | tail -1)
+last_run_dir=$(ls $runs_dir | sort | tail -1)
 
 ! [ -z "$last_run_dir" ] || error "No RUN directory"
 
