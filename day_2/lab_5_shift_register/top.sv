@@ -1,3 +1,5 @@
+// Asynchronous reset here is needed for the FPGA board we use
+
 module top
 (
     input        clk,
@@ -29,7 +31,7 @@ module top
 
     logic [31:0] cnt;
     
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
       else
@@ -43,7 +45,7 @@ module top
 
     logic [3:0] shift_reg;
     
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
       if (reset)
         shift_reg <= 4'b0;
       else if (enable)

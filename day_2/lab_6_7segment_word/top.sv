@@ -1,3 +1,5 @@
+// Asynchronous reset here is needed for the FPGA board we use
+
 module top
 (
     input        clk,
@@ -18,7 +20,6 @@ module top
 
     wire reset = ~ reset_n;
 
-    assign led    = 4'hf;
     assign buzzer = 1'b0;
     assign hsync  = 1'b1;
     assign vsync  = 1'b1;
@@ -28,7 +29,7 @@ module top
 
     logic [31:0] cnt;
     
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
       else
@@ -40,11 +41,13 @@ module top
 
     logic [3:0] shift_reg;
     
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
       if (reset)
         shift_reg <= 4'b0001;
       else if (enable)
         shift_reg <= { shift_reg [0], shift_reg [3:1] };
+
+    assign led = shift_reg;
 
     //------------------------------------------------------------------------
 
@@ -60,7 +63,7 @@ module top
     //
     //  0 means light
 
-    typedef enum bit [7:0]
+    enum bit [7:0]
     {
         A = 8'b00010001,
         B = 8'b11000001,
@@ -68,18 +71,18 @@ module top
         K = 8'b01010001,
         U = 8'b10000011
     }
-    seven_seg_encoding_e;
-
-    logic [7:0] letter;
+    letter;
     
     always_comb
+    begin
       case (shift_reg)
-      4'b0111: letter = A;
-      4'b1011: letter = U;
-      4'b1101: letter = C;
-      4'b1110: letter = A;
+      4'b1000: letter = A;
+      4'b0100: letter = U;
+      4'b0010: letter = C;
+      4'b0001: letter = A;
       default: letter = K;
       endcase
+    end
 
     assign abcdefgh = letter;
     assign digit    = ~ shift_reg;

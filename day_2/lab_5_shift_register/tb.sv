@@ -34,17 +34,20 @@ module tb;
             $dumpvars;
         `endif
 
-        // Enable override
-        force i_top.enable = 1'b1;
-
         key_sw <= 4'b0;
 
         @ (posedge reset_n);
 
-        repeat (100)
+        for (int i = 0; i < 50; i ++)
         begin
-            @ (posedge clk);
+            // Enable override
+ 
+            if (i == 20)
+                force i_top.enable = 1'b1;
+            else if (i == 40)
+                release i_top.enable;
 
+            @ (posedge clk);
             key_sw <= $random;
         end
 
