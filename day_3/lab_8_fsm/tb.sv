@@ -1,17 +1,10 @@
-
 module tb;
 
     logic       clk;
     logic       reset_n;
     logic [3:0] key_sw;
 
-    top
-    # (
-        .debounce_depth             ( 1 ),
-        .shift_strobe_width         ( 1 ),
-        .seven_segment_strobe_width ( 1 )
-    )
-    i_top
+    top i_top
     (
         .clk     ( clk     ),
         .reset_n ( reset_n ),
@@ -46,10 +39,16 @@ module tb;
 
         @ (posedge reset_n);
 
-        repeat (1000)
+        for (int i = 0; i < 50; i ++)
         begin
-            @ (posedge clk);
+            // Enable override
 
+            if (i == 20)
+                force i_top.i_shift_reg.en = 1'b1;
+            else if (i == 40)
+                release i_top.i_shift_reg.en;
+
+            @ (posedge clk);
             key_sw <= $random;
         end
 

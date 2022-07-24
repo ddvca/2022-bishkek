@@ -1,9 +1,6 @@
+// Asynchronous reset here is needed for the FPGA board we use
+
 module top
-# (
-    parameter debounce_depth             = 8,
-              shift_strobe_width         = 23,
-              seven_segment_strobe_width = 10
-)
 (
     input        clk,
     input        reset_n,
@@ -21,6 +18,8 @@ module top
     output [2:0] rgb
 );
 
+    wire reset = ~ reset_n;
+
     assign buzzer = 1'b0;
     assign hsync  = 1'b1;
     assign vsync  = 1'b1;
@@ -28,123 +27,74 @@ module top
     
     //------------------------------------------------------------------------
 
-    wire reset = ~ reset_n;
-
-    //------------------------------------------------------------------------
-
-    wire [3:0] key_db;
-
-    sync_and_debounce # (.w (4), .depth (debounce_depth))
-        i_sync_and_debounce_key
-            (clk, reset, ~ key_sw, key_db);
-
-    wire [3:0] sw_db = key_db;
-
-    //------------------------------------------------------------------------
-
-    wire shift_strobe;
-
-    strobe_gen # (.w (shift_strobe_width)) i_shift_strobe
-        (clk, reset, shift_strobe);
-
-    wire [3:0] out_reg;
-
-    shift_register # (.w (4)) i_shift_reg
-    (
-        .clk     ( clk          ),
-        .reset   ( reset        ),
-        .en      ( shift_strobe ),
-        .in      ( key_db [3]   ),
-        .out_reg ( out_reg      )
-    );
-
-    assign led = ~ out_reg;
-
-    //------------------------------------------------------------------------
-
-    wire [7:0] shift_strobe_count;
-
-    counter # (8) i_shift_strobe_counter
-    (
-        .clk   ( clk                ),
-        .reset ( reset              ),
-        .en    ( shift_strobe       ),
-        .cnt   ( shift_strobe_count )
-    );
-
-    //------------------------------------------------------------------------
-
-    wire out_moore_fsm;
-
-    moore_fsm i_moore_fsm
-    (
-        .clk   ( clk           ),
-        .reset ( reset         ),
-        .en    ( shift_strobe  ),
-        .a     ( out_reg [0]   ),
-        .y     ( out_moore_fsm )
-    );
+    logic [31:0] cnt;
     
-    wire [3:0] moore_fsm_out_count;
+    always_ff @ (posedge clk or posedge reset)
+      if (reset)
+        cnt <= 32'b0;
+      else
+        cnt <= cnt + 32'b1;
 
-    counter # (4) i_moore_fsm_out_counter
-    (
-        .clk   ( clk                          ),
-        .reset ( reset                        ),
-        .en    ( shift_strobe & out_moore_fsm ),
-        .cnt   ( moore_fsm_out_count          )
-    );
+    wire enable = (cnt [22:0] == 23'b0);
 
     //------------------------------------------------------------------------
 
-    wire out_mealy_fsm;
-
-    mealy_fsm i_mealy_fsm
-    (
-        .clk   ( clk           ),
-        .reset ( reset         ),
-        .en    ( shift_strobe  ),
-        .a     ( out_reg [0]   ),
-        .y     ( out_mealy_fsm )
-    );
+    logic [3:0] shift_reg;
     
-    wire [3:0] mealy_fsm_out_count;
+    always_ff @ (posedge clk or posedge reset)
+      if (reset)
+        shift_reg <= 4'b0001;
+      else if (enable)
+        shift_reg <= { shift_reg [0], shift_reg [3:1] };
 
-    counter # (4) i_mealy_fsm_out_counter
-    (
-        .clk   ( clk                          ),
-        .reset ( reset                        ),
-        .en    ( shift_strobe & out_mealy_fsm ),
-        .cnt   ( mealy_fsm_out_count          )
-    );
+    assign led = ~ shift_reg;
 
     //------------------------------------------------------------------------
 
-    wire [15:0] number_to_display =
+    //   --a--
+    //  |     |
+    //  f     b
+    //  |     |
+    //   --g--
+    //  |     |
+    //  e     c
+    //  |     |
+    //   --d--  h
+    //
+    //  0 means light
+
+    enum bit [7:0]
     {
-        shift_strobe_count,
-        moore_fsm_out_count,
-        mealy_fsm_out_count
-    };
+        A = 8'b00010001,
+        B = 8'b11000001,
+        C = 8'b01100011,
+        K = 8'b01010001,
+        U = 8'b10000011
+    }
+    letter;
+    
+    always_comb
+    begin
+      case (shift_reg)
+      4'b1000: letter = A;
+      4'b0100: letter = U;
+      4'b0010: letter = C;
+      4'b0001: letter = A;
+      default: letter = K;
+      endcase
+    end
 
-    //------------------------------------------------------------------------
+    assign abcdefgh = letter;
+    assign digit    = ~ shift_reg;
 
-    wire seven_segment_strobe;
+    // Exercise 1: Increase the frequency of enable signal
+    // to the level your eyes see the letters as a solid word
+    // without any blinking. What is the threshold of such frequency?
 
-    strobe_gen # (.w (seven_segment_strobe_width))
-        i_seven_segment_strobe
-            (clk, reset, seven_segment_strobe);
+    // Exercise 2: Put your name or another word to the display.
 
-    seven_segment #(.w (16)) i_seven_segment
-    (
-        .clk     ( clk                  ),
-        .reset   ( reset                ),
-        .en      ( seven_segment_strobe ),
-        .num     ( number_to_display    ),
-        .dots    ( sw_db                ),
-        .abcdefg ( abcdefgh [7:1]       ),
-        .dot     ( abcdefgh [0]         ),
-        .anodes  ( digit                )
-    );
+    // Exercise 3: Comment out the "default" clause from the "case" statement
+    // in the "always" block,and re-synthesize the example.
+    // Are you getting any warnings or errors? Try to explain why.
 
 endmodule
