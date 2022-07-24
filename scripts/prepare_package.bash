@@ -53,7 +53,9 @@ rm -rf ${root_name}_*.zip \
 cd $root/.. \
   || error "something is wrong with directory structure or permissions"
 
-zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name/{day,lecture,README,LICENSE}* \
+# Not sure if I should put lecture to the package
+
+zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name/{day,README,LICENSE}* \
   || error "cannot zip the package"
 
 exit 0
