@@ -31,7 +31,7 @@ cp ../day_1/lab_2_7segment_letter/*.jpg ../day_2/lab_6_7segment_word \
 fsm_asic_dir=../lecture/3_asic_openlane/src/OpenLane/designs/snail_moore_fsm/src
 mkdir -p $fsm_asic_dir
 
-cp ../day_3/lab_8_fsm/snail_moore_fsm.sv $fsm_asic_dir \
+cp ../day_3/lab_8_snail_fsm/snail_moore_fsm.sv $fsm_asic_dir \
   || error "cannot create a copy of sources for ASIC flow"
 
 cp ../day_2/lab_7_note_recognition/digilent_pmod_mic3_spi_receiver.sv \
