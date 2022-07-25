@@ -34,6 +34,11 @@ mkdir -p $fsm_asic_dir
 cp ../day_3/lab_8_fsm/snail_moore_fsm.sv $fsm_asic_dir \
   || error "cannot create a copy of sources for ASIC flow"
 
+cp ../day_2/lab_7_note_recognition/digilent_pmod_mic3_spi_receiver.sv \
+   ../day_2/lab_7_note_recognition/music_notes.pdf \
+   ../day_3/lab_9_music_recognition \
+  || error "cannot create local copies of files for music recognition"
+
 if ! command -v zip &> /dev/null
 then
   printf "$script: cannot find zip utility"
