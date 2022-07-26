@@ -1,4 +1,4 @@
-`include "game_config.vh"
+`include "game_config.svh"
 
 module game_master_fsm_2_special_style_one_hot
 (

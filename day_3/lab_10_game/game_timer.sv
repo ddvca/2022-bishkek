@@ -1,4 +1,4 @@
-`include "game_config.vh"
+`include "game_config.svh"
 
 module game_timer # ( parameter width = 32 )
 (

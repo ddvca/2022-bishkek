@@ -1,4 +1,3 @@
-
 module top
 # (
     parameter clk_mhz = 50,

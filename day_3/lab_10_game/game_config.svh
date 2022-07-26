@@ -1,6 +1,5 @@
-`ifndef GAME_CONFIG_VH
-`define GAME_CONFIG_VH
-
+`ifndef GAME_CONFIG_SVH
+`define GAME_CONFIG_SVH
 
 `define SCREEN_WIDTH   640
 `define SCREEN_HEIGHT  480

@@ -39,6 +39,9 @@ cp ../day_2/lab_7_note_recognition/digilent_pmod_mic3_spi_receiver.sv \
    ../day_3/lab_9_music_recognition \
   || error "cannot create local copies of files for music recognition"
 
+cp ../day_1/lab_3_vga/vga.sv ../day_3/lab_10_game \
+  || error "cannot create a local copy of VGA file"
+
 if ! command -v zip &> /dev/null
 then
   printf "$script: cannot find zip utility"
