@@ -1,15 +1,18 @@
 module tb;
 
     logic       clk;
-    logic [3:0] key;
-    logic [3:0] sw;
+    logic       reset_n;
+    logic [3:0] key_sw;
 
-    top # (.clk_mhz (1))
+    top
+    # (
+        .clk_mhz (1)
+    )
     i_top
     (
-        .clk ( clk ),
-        .key ( key ),
-        .sw  ( sw  )
+        .clk     ( clk     ),
+        .reset_n ( reset_n ),
+        .key_sw  ( key_sw  )
     );
 
     initial
@@ -20,38 +23,30 @@ module tb;
             # 10 clk = ~ clk;
     end
 
-    logic reset;
-    
-    always_comb
-        key [3] = ~ reset;
-
     initial
     begin
-        reset <= 'bx;
+        reset_n <= 1'bx;
         repeat (2) @ (posedge clk);
-        reset <= 1;
+        reset_n <= 1'b0;
         repeat (2) @ (posedge clk);
-        reset <= 0;
+        reset_n <= 1'b1;
     end
 
     initial
     begin
-
         `ifdef __ICARUS__
             $dumpvars;
         `endif
 
-        key [2:0] <= 'b0;
-        sw        <= 'b0;
+        key_sw <= 4'b0;
 
-        @ (negedge reset);
+        @ (posedge reset_n);
 
-        repeat (10000)
+        repeat (1000)
         begin
             @ (posedge clk);
 
-            key [2:0] <= $random;
-            sw        <= $random;
+            key_sw <= $random;
         end
 
         `ifdef MODEL_TECH  // Mentor ModelSim and Questa

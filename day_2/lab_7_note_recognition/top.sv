@@ -5,21 +5,29 @@ module top
     parameter clk_mhz = 50
 )
 (
-    input             clk,
-    input      [ 3:0] key_sw,
+    input               clk,
+    input               reset_n,
+
+    input        [ 3:0] key_sw,
     output logic [ 3:0] led,
 
     output logic [ 7:0] abcdefgh,
     output logic [ 3:0] digit,
 
-    output            buzzer,
-    inout      [13:0] gpio,
+    output              buzzer,
 
-    input             reset_n
+    output              hsync,
+    output              vsync,
+    output       [ 2:0] rgb,
+
+    inout        [13:0] gpio
 );
 
     wire   reset  = ~ reset_n;
     assign buzzer = ~ reset;
+    assign hsync  = 1'b0;
+    assign vsync  = 1'b0;
+    assign rgb    = '0;
 
     //------------------------------------------------------------------------
     //
@@ -29,7 +37,7 @@ module top
 
     wire [15:0] value;
 
-    pmod_mic3_spi_receiver i_microphone
+    digilent_pmod_mic3_spi_receiver i_microphone
     (
         .clock ( clk       ),
         .reset ( reset     ),

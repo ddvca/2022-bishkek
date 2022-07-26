@@ -1,4 +1,4 @@
-module pmod_mic3_spi_receiver
+module digilent_pmod_mic3_spi_receiver
 (
     input             clock,
     input             reset,
