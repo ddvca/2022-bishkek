@@ -9,10 +9,10 @@ module top
     input               reset_n,
 
     input        [ 3:0] key_sw,
-    output logic [ 3:0] led,
+    output       [ 3:0] led,
 
     output logic [ 7:0] abcdefgh,
-    output logic [ 3:0] digit,
+    output       [ 3:0] digit,
 
     output              buzzer,
 
@@ -24,6 +24,7 @@ module top
 );
 
     wire   reset  = ~ reset_n;
+    assign led    = 4'b0;
     assign buzzer = ~ reset;
     assign hsync  = 1'b0;
     assign vsync  = 1'b0;
@@ -280,6 +281,8 @@ module top
             B  : abcdefgh <= 8'b11000001;  // B
             default : abcdefgh <= 8'b11111111;
             endcase
+
+    assign digit = 4'b1110;
 
     //------------------------------------------------------------------------
     //
