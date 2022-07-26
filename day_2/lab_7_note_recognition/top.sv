@@ -39,7 +39,7 @@ module top
 
     digilent_pmod_mic3_spi_receiver i_microphone
     (
-        .clk ( clk       ),
+        .clk   ( clk       ),
         .reset ( reset     ),
         .cs    ( gpio  [0] ),
         .sck   ( gpio  [6] ),
@@ -49,6 +49,15 @@ module top
 
     assign gpio [ 8] = 1'b0;  // GND
     assign gpio [10] = 1'b1;  // VCC
+
+    //------------------------------------------------------------------------
+    //
+    //  Exercise 1: Uncomment this instantation
+    //  to see the value coming from the microphone (in hexadecimal).
+    //
+    //------------------------------------------------------------------------
+
+    // seven_segment_4_digits i_7segment (.number (value), .*);
 
     //------------------------------------------------------------------------
     //
@@ -86,6 +95,24 @@ module top
                counter <= counter + 20'h1;
             end
         end
+
+    //------------------------------------------------------------------------
+    //
+    //  Exercise 2: Uncomment this instantation
+    //  to see the value of the counter.
+    //
+    //------------------------------------------------------------------------
+
+    // seven_segment_4_digits i_7segment (.number (counter), .*);
+
+    //------------------------------------------------------------------------
+    //
+    //  Exercise 3: Uncomment this instantation
+    //  to see the period of the sound wave coming from the microphone.
+    //
+    //------------------------------------------------------------------------
+
+    // seven_segment_4_digits i_7segment (.number (distance), .*);
 
     //------------------------------------------------------------------------
     //
@@ -230,283 +257,35 @@ module top
 
     //------------------------------------------------------------------------
     //
-    //  FSMs
-    //
-    //------------------------------------------------------------------------
-
-    localparam w_state = 4;  // Let's keep to 16 states
-    localparam n_fsms  = 3;
-
-    localparam [3:0] recognized = 4'hf;
-
-    logic [w_state - 1:0] states [0:n_fsms - 1];
-
-    //------------------------------------------------------------------------
-
-/*
- * TODO: Exercise 1:
- * Change melogy set.
- */
-
-`define SONGS_581
-//`define SONGS_423
-
-`ifdef SONGS_581
-
-    // No 5. The story of love
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-            states [0] <= 0;
-        else
-            case (states [0])
-             0: if ( t_note == Bf ) states [0] <=  1;
-             1: if ( t_note == D  ) states [0] <=  2;
-             2: if ( t_note == Bf ) states [0] <=  3;
-             3: if ( t_note == D  ) states [0] <=  4;
-             4: if ( t_note == Ef ) states [0] <=  5;
-             5: if ( t_note == D  ) states [0] <=  6;
-             6: if ( t_note == C  ) states [0] <=  7;
-             7: if ( t_note == A  ) states [0] <=  8;
-             8: if ( t_note == C  ) states [0] <=  9;
-             9: if ( t_note == A  ) states [0] <= 10;
-            10: if ( t_note == C  ) states [0] <= 11;
-            11: if ( t_note == D  ) states [0] <= 12;
-            12: if ( t_note == C  ) states [0] <= 13;
-            13: if ( t_note == Bf ) states [0] <= 14;
-            14: if ( t_note == G  ) states [0] <= recognized;
-            endcase
-
-    // No 8. Godfather
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-            states [1] <= 0;
-        else
-            case (states [1])
-             0: if ( t_note == G  ) states [1] <=  1;
-             1: if ( t_note == C  ) states [1] <=  2;
-             2: if ( t_note == Ef ) states [1] <=  3;
-             3: if ( t_note == D  ) states [1] <=  4;
-             4: if ( t_note == C  ) states [1] <=  5;
-             5: if ( t_note == Ef ) states [1] <=  6;
-             6: if ( t_note == C  ) states [1] <=  7;
-             7: if ( t_note == D  ) states [1] <=  8;
-             8: if ( t_note == C  ) states [1] <=  9;
-             9: if ( t_note == Af ) states [1] <= 10;
-            10: if ( t_note == Bf ) states [1] <= 11;
-            11: if ( t_note == G  ) states [1] <= 12;
-            12: if ( t_note == C  ) states [1] <= 13;
-            13: if ( t_note == Ef ) states [1] <= 14;
-            14: if ( t_note == D  ) states [1] <= recognized;
-            endcase
-
-    // No 1. Gangsters Song
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-            states [2] <= 0;
-        else
-            case (states [2])
-             0: if ( t_note == E  ) states [2] <=  1;
-             1: if ( t_note == F  ) states [2] <=  2;
-             2: if ( t_note == E  ) states [2] <=  3;
-             3: if ( t_note == A  ) states [2] <=  4;
-             4: if ( t_note == B  ) states [2] <=  5;
-             5: if ( t_note == C  ) states [2] <=  6;
-             6: if ( t_note == D  ) states [2] <=  7;
-             7: if ( t_note == C  ) states [2] <=  8;
-             8: if ( t_note == B  ) states [2] <=  9;
-             9: if ( t_note == C  ) states [2] <= 10;
-            10: if ( t_note == G  ) states [2] <= 11;
-            11: if ( t_note == C  ) states [2] <= 12;
-            12: if ( t_note == A  ) states [2] <= 13;
-            13: if ( t_note == C  ) states [2] <= 14;
-            14: if ( t_note == A  ) states [2] <= recognized;
-            endcase
-
-`elsif SONGS_423
-
-    // No 4. Fly away on the wings of wind
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-            states [0] <= 0;
-        else
-            case (states [0])
-             0: if ( t_note == G  ) states [0] <=  1;
-             1: if ( t_note == D  ) states [0] <=  2;
-             2: if ( t_note == C  ) states [0] <=  3;
-             3: if ( t_note == D  ) states [0] <=  4;
-             4: if ( t_note == Bf ) states [0] <=  5;
-             5: if ( t_note == A  ) states [0] <=  6;
-             6: if ( t_note == G  ) states [0] <=  7;
-             7: if ( t_note == A  ) states [0] <=  8;
-             8: if ( t_note == Bf ) states [0] <=  9;
-             9: if ( t_note == C  ) states [0] <= 10;
-            10: if ( t_note == D  ) states [0] <= 11;
-            11: if ( t_note == A  ) states [0] <= 12;
-            12: if ( t_note == G  ) states [0] <= 13;
-            13: if ( t_note == F  ) states [0] <= 14;
-            14: if ( t_note == D  ) states [0] <= recognized;
-            endcase
-
-    // No 2. Winged Swing
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-            states [1] <= 0;
-        else
-            case (states [1])
-             0: if ( t_note == A  ) states [1] <=  1;
-             1: if ( t_note == Fs ) states [1] <=  2;
-             2: if ( t_note == G  ) states [1] <=  3;
-             3: if ( t_note == Fs ) states [1] <=  4;
-             4: if ( t_note == E  ) states [1] <=  5;
-             5: if ( t_note == B  ) states [1] <=  6;
-             6: if ( t_note == A  ) states [1] <=  7;
-             7: if ( t_note == Gs ) states [1] <=  8;
-             8: if ( t_note == A  ) states [1] <=  9;
-             9: if ( t_note == D  ) states [1] <= 10;
-            10: if ( t_note == C  ) states [1] <= 11;
-            11: if ( t_note == Bf ) states [1] <= 12;
-            12: if ( t_note == A  ) states [1] <= 13;
-            13: if ( t_note == B  ) states [1] <= 14;
-            14: if ( t_note == A  ) states [1] <= recognized;
-            endcase
-
-    // No 3. Yesterday by Beatles
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-            states [2] <= 0;
-        else
-            case (states [2])
-             0: if ( t_note == G  ) states [2] <=  1;
-             1: if ( t_note == F  ) states [2] <=  2;
-             2: if ( t_note == A  ) states [2] <=  3;
-             3: if ( t_note == B  ) states [2] <=  4;
-             4: if ( t_note == Cs ) states [2] <=  5;
-             5: if ( t_note == D  ) states [2] <=  6;
-             6: if ( t_note == E  ) states [2] <=  7;
-             7: if ( t_note == F  ) states [2] <=  8;
-             8: if ( t_note == E  ) states [2] <=  9;
-             9: if ( t_note == D  ) states [2] <= 10;
-            10: if ( t_note == C  ) states [2] <= 11;
-            11: if ( t_note == Bf ) states [2] <= 12;
-            12: if ( t_note == A  ) states [2] <= 13;
-            13: if ( t_note == G  ) states [2] <= 14;
-            14: if ( t_note == Bf ) states [2] <= recognized;
-            endcase
-
-`endif
-
-    //------------------------------------------------------------------------
-    //
-    //  The dynamic seven segment display logic
-    //
-    //------------------------------------------------------------------------
-
-    logic [15:0] digit_enable_cnt;
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-            digit_enable_cnt <= 0;
-        else
-            digit_enable_cnt <= digit_enable_cnt + 1;
-
-    wire digit_enable = & digit_enable_cnt;
-
-    //------------------------------------------------------------------------
-
-    logic  [2:0] i_digit_r;
-    wire [2:0] i_digit = i_digit_r + 3'd1;
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-        begin
-            i_digit_r <= 3'd0;
-            digit     <= 8'b0;
-        end
-        else if (digit_enable)
-        begin
-            i_digit_r <= i_digit;
-            digit     <= ~ (8'b00000001 << i_digit);
-        end
-
-    //------------------------------------------------------------------------
-    //
     //  The output to seven segment display
     //
     //------------------------------------------------------------------------
 
     always_ff @ (posedge clk or posedge reset)
         if (reset)
-        begin
             abcdefgh <= 8'b11111111;
-        end
-        else if (digit_enable)
-        begin
-            if (i_digit == 3'd3)
-                case (t_note)
-                C  : abcdefgh <= 8'b01100011;  // C   // abcdefgh
-                Cs : abcdefgh <= 8'b01100010;  // C#
-                D  : abcdefgh <= 8'b10000101;  // D   //   --a-- 
-                Ds : abcdefgh <= 8'b10000100;  // D#  //  |     |
-                E  : abcdefgh <= 8'b01100001;  // E   //  f     b
-                F  : abcdefgh <= 8'b01110001;  // F   //  |     |
-                Fs : abcdefgh <= 8'b01110000;  // F#  //   --g-- 
-                G  : abcdefgh <= 8'b01000011;  // G   //  |     |
-                Gs : abcdefgh <= 8'b01000010;  // G#  //  e     c
-                A  : abcdefgh <= 8'b00010001;  // A   //  |     |
-                As : abcdefgh <= 8'b00010000;  // A#  //   --d--  h
-                B  : abcdefgh <= 8'b11000001;  // B
-                default : abcdefgh <= 8'b11111111;
-                endcase
-            else if (i_digit < n_fsms)
-                case (states [n_fsms - 1 - i_digit])
-                4'h0: abcdefgh <= 8'b00000011;
-                4'h1: abcdefgh <= 8'b10011111;
-                4'h2: abcdefgh <= 8'b00100101;
-                4'h3: abcdefgh <= 8'b00001101;
-                4'h4: abcdefgh <= 8'b10011001;
-                4'h5: abcdefgh <= 8'b01001001;
-                4'h6: abcdefgh <= 8'b01000001;
-                4'h7: abcdefgh <= 8'b00011111;
-                4'h8: abcdefgh <= 8'b00000001;
-                4'h9: abcdefgh <= 8'b00011001;
-                4'ha: abcdefgh <= 8'b00010001;
-                4'hb: abcdefgh <= 8'b11000001;
-                4'hc: abcdefgh <= 8'b01100011;
-                4'hd: abcdefgh <= 8'b10000101;
-                4'he: abcdefgh <= 8'b01100001;
-                // 4'hf: abcdefgh <= 8'b01110001;  // F
-                4'hf: abcdefgh <= 8'b00111001;  // Upper o - recognized
-                endcase
-            else
-                abcdefgh <= 8'b11111111;
-        end
+        else
+            case (t_note)
+            C  : abcdefgh <= 8'b01100011;  // C   // abcdefgh
+            Cs : abcdefgh <= 8'b01100010;  // C#
+            D  : abcdefgh <= 8'b10000101;  // D   //   --a-- 
+            Ds : abcdefgh <= 8'b10000100;  // D#  //  |     |
+            E  : abcdefgh <= 8'b01100001;  // E   //  f     b
+            F  : abcdefgh <= 8'b01110001;  // F   //  |     |
+            Fs : abcdefgh <= 8'b01110000;  // F#  //   --g-- 
+            G  : abcdefgh <= 8'b01000011;  // G   //  |     |
+            Gs : abcdefgh <= 8'b01000010;  // G#  //  e     c
+            A  : abcdefgh <= 8'b00010001;  // A   //  |     |
+            As : abcdefgh <= 8'b00010000;  // A#  //   --d--  h
+            B  : abcdefgh <= 8'b11000001;  // B
+            default : abcdefgh <= 8'b11111111;
+            endcase
 
     //------------------------------------------------------------------------
     //
-    //  The auxiliary output to LED
+    //  Exercise 4: Replace filtered note with unfiltered note.
+    //  Do you see the difference?Uncomment this instantation
     //
     //------------------------------------------------------------------------
-
-    logic [7:0] new_led;
-    integer i;
-
-    always_comb
-    begin
-        new_led [7:1] = 7'b0;
-
-        for (i = 0; i < n_fsms; i = i + 1)
-            new_led [7 - i] = (states [i] == recognized);
-
-        new_led [0] = & new_led [7:1];  // All recognized
-    end
-
-    always_ff @ (posedge clk or posedge reset)
-        led <= new_led;
 
 endmodule
