@@ -72,8 +72,15 @@ QUARTUS_DIR=quartus
 if [ "$OSTYPE" = "linux-gnu" ]
 then
   INTELFPGA_INSTALL_PARENT_DIR="$HOME"
+
   QUESTA_BIN_DIR=bin
   QUESTA_LIB_DIR=linux_x86_64
+
+  if [ -z "$LM_LICENSE_FILE" ]
+  then
+    export LM_LICENSE_FILE=$HOME/flexlm/license.dat
+  fi
+
   QUARTUS_BIN_DIR=bin
 
 elif  [ "$OSTYPE" = "cygwin"    ]  \
@@ -83,6 +90,12 @@ then
 
   QUESTA_BIN_DIR=win64
   QUESTA_LIB_DIR=win64
+
+  if [ -z "$LM_LICENSE_FILE" ]
+  then
+    export LM_LICENSE_FILE=/c/flexlm/license.dat
+  fi
+
   QUARTUS_BIN_DIR=bin64
 else
   error 1 "this script does not support your OS '$OSTYPE'"
