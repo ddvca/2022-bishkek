@@ -56,7 +56,8 @@ module top
     {
       red    = 3'b100,
       yellow = 3'b110,
-      cyan   = 3'b011
+      cyan   = 3'b011,
+      white  = 3'b111
 
       // TODO: Add other colors
     }
@@ -70,6 +71,8 @@ module top
         rgb = red;
       else if (x > 200 & y > 200 & x < 300 & y < 400) 
         rgb = yellow;
+      else if (key_sw == 4'b1111 & (x - 600) ** 2 + (y - 200) ** 2 < 70 ** 2)
+        rgb = white;
       else
         rgb = cyan;
 
