@@ -11,7 +11,7 @@ module game_timer # ( parameter width = 32 )
 
     logic [width - 1:0] counter;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
             running <= 1'b0;

@@ -42,7 +42,7 @@ module game_sprite_control
     logic [ DX_WIDTH - 1:0] dx;
     logic [ DY_WIDTH - 1:0] dy;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
             x  <= 1'b0;
@@ -61,7 +61,7 @@ module game_sprite_control
             y <= y + { { `Y_WIDTH - DY_WIDTH { dy [DY_WIDTH - 1] } }, dy };
         end
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
             dx <= 1'b0;

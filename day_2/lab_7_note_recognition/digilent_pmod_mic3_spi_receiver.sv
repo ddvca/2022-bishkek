@@ -1,6 +1,6 @@
 module digilent_pmod_mic3_spi_receiver
 (
-    input             clock,
+    input             clk,
     input             reset,
     output            cs,
     output            sck,
@@ -11,7 +11,7 @@ module digilent_pmod_mic3_spi_receiver
     logic [ 6:0] cnt;
     logic [15:0] shift;
 
-    always_ff @ (posedge clock)
+    always_ff @ (posedge clk or posedge reset)
     begin
         if (reset)
             cnt <= 7'b100;
@@ -25,7 +25,7 @@ module digilent_pmod_mic3_spi_receiver
     wire sample_bit = ( cs == 1'b0 && cnt [1:0] == 2'b11 );
     wire value_done = ( cnt [6:0] == 7'b0 );
 
-    always_ff @ (posedge clock)
+    always_ff @ (posedge clk or posedge reset)
     begin
         if (reset)
         begin

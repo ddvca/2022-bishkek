@@ -18,7 +18,7 @@ module game_overlap
     output logic                  overlap
 );
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             overlap <= 1'b0;
         else
