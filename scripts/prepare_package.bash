@@ -25,21 +25,21 @@ ls -d ../day*/homework/ | xargs -n 1 cp run_all* \
 ls -d ../day*/lab*/ | xargs -I % touch %top_extra.qsf \
   || error "cannot create top_extra.qsf in ../day*/lab* subdirectories"
 
-cp ../day_1/lab_2_7segment_letter/*.jpg ../day_2/lab_6_7segment_word \
+cp ../day_1/lab_02_7segment_letter/*.jpg ../day_2/lab_06_7segment_word \
   || error "cannot create a copy of pictures for 7segment example"
 
 fsm_asic_dir=../lecture/3_asic_openlane/src/OpenLane/designs/snail_moore_fsm/src
 mkdir -p $fsm_asic_dir
 
-cp ../day_3/lab_8_snail_fsm/snail_moore_fsm.sv $fsm_asic_dir \
+cp ../day_3/lab_08_snail_fsm/snail_moore_fsm.sv $fsm_asic_dir \
   || error "cannot create a copy of sources for ASIC flow"
 
-cp ../day_2/lab_7_note_recognition/digilent_pmod_mic3_spi_receiver.sv \
-   ../day_2/lab_7_note_recognition/music_notes.pdf \
-   ../day_3/lab_9_music_recognition \
+cp ../day_2/lab_07_note_recognition/digilent_pmod_mic3_spi_receiver.sv \
+   ../day_2/lab_07_note_recognition/music_notes.pdf \
+   ../day_3/lab_09_music_recognition \
   || error "cannot create local copies of files for music recognition"
 
-cp ../day_1/lab_3_vga/vga.sv ../day_3/lab_10_game \
+cp ../day_1/lab_03_vga/vga.sv ../day_3/lab_10_game \
   || error "cannot create a local copy of VGA file"
 
 if ! command -v zip &> /dev/null
