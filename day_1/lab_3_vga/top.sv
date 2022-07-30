@@ -29,6 +29,8 @@ module top
 
     //------------------------------------------------------------------------
 
+    wire display_on;
+
     wire [X_WIDTH - 1:0] x;
     wire [Y_WIDTH - 1:0] y;
  
@@ -45,7 +47,7 @@ module top
         .reset      ( ~ reset_n    ),
         .hsync      (   hsync      ),
         .vsync      (   vsync      ),
-        .display_on (              ),
+        .display_on (   display_on ),
         .hpos       (   x          ),
         .vpos       (   y          )
     );
@@ -54,9 +56,10 @@ module top
 
     typedef enum bit [2:0]
     {
+      black  = 3'b000,
+      cyan   = 3'b011,
       red    = 3'b100,
       yellow = 3'b110,
-      cyan   = 3'b011,
       white  = 3'b111
 
       // TODO: Add other colors
@@ -67,7 +70,9 @@ module top
     begin
       // Circle
 
-      if (x ** 2 + y ** 2 < 100 ** 2)
+      if (~ display_on)
+        rgb = black;
+      else if (x ** 2 + y ** 2 < 100 ** 2)
         rgb = red;
       else if (x > 200 & y > 200 & x < 300 & y < 400) 
         rgb = yellow;
