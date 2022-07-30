@@ -9,7 +9,7 @@ module game_strobe # ( parameter width = 32 )
 
     logic [width - 1:0] counter;
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
         if (reset)
         begin
             counter <= { width, 1'b0 };

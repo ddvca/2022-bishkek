@@ -139,7 +139,7 @@ module game_master_fsm_1_regular_state_encoded
 
     //------------------------------------------------------------------------
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
         if (reset)
         begin
             state                         <= STATE_START;

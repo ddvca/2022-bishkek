@@ -31,7 +31,7 @@ module top
 
     logic [31:0] cnt;
     
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
       if (reset)
         cnt <= 32'b0;
       else
@@ -45,7 +45,7 @@ module top
 
     logic [3:0] shift_reg;
     
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
       if (reset)
         shift_reg <= 4'b0;
       else if (enable)

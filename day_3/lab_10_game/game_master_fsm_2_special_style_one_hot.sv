@@ -151,7 +151,7 @@ module game_master_fsm_2_special_style_one_hot
 
     //------------------------------------------------------------------------
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
         if (reset)
         begin
             state                         <= (1 << STATE_START);

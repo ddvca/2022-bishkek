@@ -12,7 +12,7 @@ module strobe_gen
 
     logic [width - 1:0] cnt;
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
       if (reset)
         cnt <= '0;
       else

@@ -131,7 +131,7 @@ module game_sprite_display
 
     //------------------------------------------------------------------------
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
         if (reset)
             rgb_en <= 1'b0;
         else if (x_hit && y_hit)
@@ -139,7 +139,7 @@ module game_sprite_display
         else
             rgb_en <= 1'b0;
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
         if (reset)
         begin
             sprite_within_screen <= 1'b0;

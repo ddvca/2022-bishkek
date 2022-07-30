@@ -19,7 +19,7 @@ module snail_moore_fsm
 
     // State register
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
         if (reset)
             state <= S0;
         else if (en)

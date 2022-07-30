@@ -153,7 +153,7 @@ module game_master_fsm_3_special_style_signals_from_state
 
     //------------------------------------------------------------------------
 
-    always_ff @ (posedge clk or posedge reset)
+    always_ff @ (posedge clk)
         if (reset)
             state <= STATE_START;
         else
