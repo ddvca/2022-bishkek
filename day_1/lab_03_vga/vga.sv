@@ -72,7 +72,8 @@ module vga
     logic [3:0] clk_en_cnt;
     logic clk_en;
 
-    always_ff @ (posedge clk) begin
+    always_ff @ (posedge clk or posedge reset)
+    begin
         if (reset)
         begin
             clk_en_cnt <= 3'b0;
@@ -95,7 +96,7 @@ module vga
 
     // Making all outputs registered
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
     begin
         if (reset)
         begin

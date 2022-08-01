@@ -35,7 +35,7 @@ module seven_segment_4_digits
 
     logic [15:0] cnt;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             cnt <= 16'd0;
         else
@@ -43,7 +43,7 @@ module seven_segment_4_digits
 
     logic [1:0] i;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
     begin
         if (reset)
         begin

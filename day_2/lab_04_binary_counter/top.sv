@@ -33,7 +33,7 @@ module top
 
     logic [31:0] cnt;
     
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
       else
@@ -59,7 +59,7 @@ module top
 
     logic key_r;
     
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
       if (reset)
         key_r <= 1'b0;
       else
@@ -69,7 +69,7 @@ module top
 
     logic [3:0] cnt;
     
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 4'b0;
       else if (key_pressed)

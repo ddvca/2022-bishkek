@@ -64,7 +64,7 @@ module top
 
     localparam [15:0] threshold = 16'h1100;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
             prev_value <= 16'h0;
@@ -203,7 +203,7 @@ module top
 
     logic  [w_note - 1:0] d_note;  // Delayed note
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             d_note <= no_note;
         else
@@ -212,7 +212,7 @@ module top
     logic  [17:0] t_cnt;           // Threshold counter
     logic  [w_note - 1:0] t_note;  // Thresholded note
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             t_cnt <= 0;
         else
@@ -221,7 +221,7 @@ module top
             else
                 t_cnt <= 0;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             t_note <= no_note;
         else
@@ -255,7 +255,7 @@ module top
 
     // No 5. The story of love
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             states [0] <= 0;
         else
@@ -279,7 +279,7 @@ module top
 
     // No 8. Godfather
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             states [1] <= 0;
         else
@@ -303,7 +303,7 @@ module top
 
     // No 1. Gangsters Song
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             states [2] <= 0;
         else
@@ -329,7 +329,7 @@ module top
 
     // No 4. Fly away on the wings of wind
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             states [0] <= 0;
         else
@@ -353,7 +353,7 @@ module top
 
     // No 2. Winged Swing
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             states [1] <= 0;
         else
@@ -377,7 +377,7 @@ module top
 
     // No 3. Yesterday by Beatles
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             states [2] <= 0;
         else
@@ -409,7 +409,7 @@ module top
 
     logic [15:0] digit_enable_cnt;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             digit_enable_cnt <= 0;
         else
@@ -422,7 +422,7 @@ module top
     logic  [2:0] i_digit_r;
     wire [2:0] i_digit = i_digit_r + 3'd1;
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
             i_digit_r <= 3'd0;
@@ -440,7 +440,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
             abcdefgh <= 8'b11111111;

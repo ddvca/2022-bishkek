@@ -13,7 +13,7 @@ module shift_reg
     output logic [depth - 1:0] par_out
 );
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             par_out <= '0;
         else if (en)

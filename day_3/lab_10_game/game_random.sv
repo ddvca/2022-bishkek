@@ -9,7 +9,7 @@ module game_random
 
     // Uses LFSR, Linear Feedback Shift Register
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk or posedge reset)
         if (reset)
             random <= 16'b1111111111111;
         else
