@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Note: this script assumes that $PWD does not have spaces and weird characters
+
 set +e  # Don't exit immediately if a command exits with a non-zero status
 
 root_name=2022-bishkek
@@ -30,7 +32,7 @@ then
   grep -rlIPU '\r$' ../*/
 
   error "there are text files with DOS/Windows CR-LF line endings." \
-        "You can fix them by doing:\ngrep -rlIPU '\\\\r\$' \"$root/*/\" | xargs dos2unix"
+        "You can fix them by doing:\ngrep -rlIPU '\\\\r\$' $root/*/ | xargs dos2unix"
 fi
 
 #        "grep -rlIPU '\\r\\\$' \"$root/*/\" | xargs dos2unix"
