@@ -6,7 +6,7 @@ root_name=2022-bishkek
 
 script=$(basename "$0")
 pwd=$PWD
-root=$pwd/..
+root=$(readlink -e ..)
 
 error ()
 {
@@ -15,6 +15,25 @@ error ()
 }
 
 git clean -d -f ..
+
+# Search for the text files with DOS/Windows CR-LF line endings
+
+# -r - recursive
+# -l - file list
+# -q - status only
+# -I - Ignore binary files
+# -P - Perl-style regexp
+# -U - don't strip CR from text file by default
+
+if [ "$OSTYPE" = linux-gnu ] && grep -rqIPU '\r$' ../*/
+then
+  grep -rlIPU '\r$' ../*/
+
+  error "there are text files with DOS/Windows CR-LF line endings." \
+        "You can fix them by doing:\ngrep -rlIPU '\\\\r\$' \"$root/*/\" | xargs dos2unix"
+fi
+
+#        "grep -rlIPU '\\r\\\$' \"$root/*/\" | xargs dos2unix"
 
 ls -d ../day*/lab*/ | xargs -n 1 cp {top.,x_,xx_,run_icarus,run_questa}* \
   || error "cannot copy the required scripts to ../day*/lab* subdirectories"
