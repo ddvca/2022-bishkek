@@ -80,9 +80,12 @@ rm -rf ${root_name}_*.zip \
 cd $root/.. \
   || error "something is wrong with directory structure or permissions"
 
-# Not sure if I should put lecture to the package
+package_name=${root_name}_$(date '+%Y%m%d_%H%M%S')
 
-zip -r $pwd/${root_name}_$(date '+%Y%m%d_%H%M%S').zip $root_name/{day,README,LICENSE}* \
-  || error "cannot zip the package"
+zip -r $pwd/$package_name.zip $root_name/{day,lecture,README,LICENSE}* \
+  || error "cannot zip the full package"
+
+zip -r $pwd/${package_name}_labs_only_no_lecture.zip $root_name/{day,README,LICENSE}* \
+  || error "cannot zip the labs-only no-lecture package"
 
 exit 0
