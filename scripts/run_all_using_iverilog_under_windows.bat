@@ -1,6 +1,6 @@
 echo ALL PROBLEMS > log.txt
 
-for %%f in (*.v) do (
+for %%f in (*.sv) do (
     C:\iverilog\bin\iverilog -g2005-sv %%f >> log.txt 2>&1
     C:\iverilog\bin\vvp a.out >> log.txt 2>&1
     rem C:\iverilog\gtkwave\bin\gtkwave dump.vcd
