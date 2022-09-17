@@ -52,13 +52,14 @@ pkg_src_root=$(readlink -e ..)
 git clean -d -f .. \
   || error "cannot remove local files that are not added to the Git repository"
 
-trap cleanup SIGINT SIGTERM ERR EXIT
+# We dont't need to cleanup on EXIT
+trap cleanup SIGINT SIGTERM ERR
 
 cleanup ()
 {
-  trap - SIGINT SIGTERM ERR EXIT
+  trap - SIGINT SIGTERM ERR
   cd "$pkg_src_root"
-  git clean -d -f ..
+  git clean -d -f
 }
 
 #-----------------------------------------------------------------------------
