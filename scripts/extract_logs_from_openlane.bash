@@ -27,18 +27,18 @@ target_dir=$lecture_dir/$run_name
 ! [ -d $target_dir ] || error "\"$target_dir\" already exists"
 mkdir $target_dir || error "Cannot create \"$target_dir\""
 
-                                                                        # 01_main.log
-                                                                        # 02_main_violation.log
-                                                                        # 09_mca_sta_violation.rpt
-   cp $last_run_dir/results/synthesis/snail_moore_fsm.v             $target_dir/03_synthesis.v    \
-&& cp $last_run_dir/results/placement/snail_moore_fsm.resized.v     $target_dir/04_placement.v    \
-&& cp $last_run_dir/results/cts/snail_moore_fsm.resized.v           $target_dir/05_cts.v          \
-&& cp $last_run_dir/results/routing/snail_moore_fsm.resized.v       $target_dir/06_routing.v      \
-&& cp $last_run_dir/results/final/verilog/gl/snail_moore_fsm.v      $target_dir/07_final.v        \
-&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.rpt        $target_dir/08_mca_sta.rpt    \
-&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.area.rpt   $target_dir/10_mca_area.rpt   \
-&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.power.rpt  $target_dir/11_mca_power.rpt  \
-&& cp $last_run_dir/results/signoff/snail_moore_fsm.mag             $target_dir/12_magic.mag      \
+                                                                           # 01_main.log
+                                                                           # 02_main_violation.log
+                                                                           # 09_mca_sta_violation.rpt
+   cp $last_run_dir/results/synthesis/snail_moore_fsm.v          $target_dir/03_synthesis.v    \
+&& cp $last_run_dir/results/placement/snail_moore_fsm.resized.v  $target_dir/04_placement.v    \
+&& cp $last_run_dir/results/cts/snail_moore_fsm.resized.v        $target_dir/05_cts.v          \
+&& cp $last_run_dir/results/routing/snail_moore_fsm.resized.v    $target_dir/06_routing.v      \
+&& cp $last_run_dir/results/final/verilog/gl/snail_moore_fsm.v   $target_dir/07_final.v        \
+&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.rpt           $target_dir/08_mca_sta.rpt    \
+&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.area.rpt      $target_dir/10_mca_area.rpt   \
+&& cp $last_run_dir/reports/signoff/29-rcx_mca_sta.power.rpt     $target_dir/11_mca_power.rpt  \
+&& cp $last_run_dir/results/signoff/snail_moore_fsm.mag          $target_dir/12_magic.mag      \
 || error "Cannot copy something"
 
 exit 0
