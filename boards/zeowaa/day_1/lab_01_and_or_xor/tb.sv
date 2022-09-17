@@ -7,8 +7,6 @@ module tb;
 
     initial
     begin
-        #0
-
         `ifdef __ICARUS__
             $dumpvars;
         `endif
