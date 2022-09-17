@@ -1,6 +1,29 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set +e  # Don't exit immediately if a command exits with a non-zero status
+#-----------------------------------------------------------------------------
+
+#
+#  Setting advised in https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+#  Arguments against it https://www.reddit.com/r/commandline/comments/g1vsxk/comment/fniifmk/
+#  Another idea http://redsymbol.net/articles/unofficial-bash-strict-mode/
+#
+#  set -e           - Exit immediately if a command exits with a non-zero
+#                     status.  Note that failing commands in a conditional
+#                     statement will not cause an immediate exit.
+#
+#  set -o pipefail  - Sets the pipeline exit code to zero only if all
+#                     commands of the pipeline exit successfully.
+#
+#  set -u           - Causes the bash shell to treat unset variables as an
+#                     error and exit immediately.
+#
+#  set -x           - Causes bash to print each command before executing it.
+#
+#  set -E           - Improves handling ERR signals
+
+set -Eeuxo pipefail
+
+#-----------------------------------------------------------------------------
 
 pkg_src_root_name=2022-bishkek
 
@@ -28,6 +51,15 @@ pkg_src_root=$(readlink -e ..)
 
 git clean -d -f .. \
   || error "cannot remove local files that are not added to the Git repository"
+
+trap cleanup SIGINT SIGTERM ERR EXIT
+
+cleanup ()
+{
+  trap - SIGINT SIGTERM ERR EXIT
+  cd "$pkg_src_root"
+  git clean -d -f ..
+}
 
 #-----------------------------------------------------------------------------
 
