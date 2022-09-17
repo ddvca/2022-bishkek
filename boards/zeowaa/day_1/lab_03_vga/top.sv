@@ -1,18 +1,18 @@
 module top
 (
-    input         clk,
-    input  [ 3:0] key,
-    input  [ 7:0] sw,
-    output [11:0] led,
+    input               clk,
+    input        [ 3:0] key,
+    input        [ 7:0] sw,
+    output       [11:0] led,
 
-    output [ 7:0] abcdefgh,
-    output [ 7:0] digit,
+    output       [ 7:0] abcdefgh,
+    output       [ 7:0] digit,
 
-    output        vsync,
-    output        hsync,
-    output [ 2:0] rgb,
+    output              vsync,
+    output              hsync,
+    output logic [ 2:0] rgb,
 
-    inout  [18:0] gpio
+    inout        [18:0] gpio
 );
 
     localparam X_WIDTH = 10,
@@ -76,7 +76,7 @@ module top
         rgb = red;
       else if (x > 200 & y > 200 & x < 300 & y < 400) 
         rgb = yellow;
-      else if (key_sw == 4'b1111 & (x - 600) ** 2 + (y - 200) ** 2 < 70 ** 2)
+      else if (key == 4'b1111 & (x - 600) ** 2 + (y - 200) ** 2 < 70 ** 2)
         rgb = white;
       else
         rgb = cyan;
