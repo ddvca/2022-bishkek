@@ -1,19 +1,18 @@
 module top
 (
-    input              clk,
-    input              reset_n,
+    input         clk,
+    input  [ 3:0] key,
+    input  [ 7:0] sw,
+    output [11:0] led,
 
-    input        [3:0] key_sw,
-    output       [3:0] led,
+    output [ 7:0] abcdefgh,
+    output [ 7:0] digit,
 
-    output       [7:0] abcdefgh,
-    output       [3:0] digit,
+    output        vsync,
+    output        hsync,
+    output [ 2:0] rgb,
 
-    output             buzzer,
-
-    output             hsync,
-    output             vsync,
-    output logic [2:0] rgb
+    inout  [18:0] gpio
 );
 
     localparam X_WIDTH = 10,
@@ -22,10 +21,11 @@ module top
 
     //------------------------------------------------------------------------
 
-    assign led       = key_sw;
-    assign abcdefgh  = 8'hff;
-    assign digit     = 4'hf;
-    assign buzzer    = 1'b0;
+    wire reset = ~ key [3];
+
+    assign led      = { key, sw };
+    assign abcdefgh = 8'hff;
+    assign digit    = 8'hff;
 
     //------------------------------------------------------------------------
 
@@ -43,13 +43,13 @@ module top
     )
     i_vga
     (
-        .clk        (   clk        ), 
-        .reset      ( ~ reset_n    ),
-        .hsync      (   hsync      ),
-        .vsync      (   vsync      ),
-        .display_on (   display_on ),
-        .hpos       (   x          ),
-        .vpos       (   y          )
+        .clk        ( clk        ), 
+        .reset      ( reset      ),
+        .hsync      ( hsync      ),
+        .vsync      ( vsync      ),
+        .display_on ( display_on ),
+        .hpos       ( x          ),
+        .vpos       ( y          )
     );
 
     //------------------------------------------------------------------------
