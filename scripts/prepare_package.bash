@@ -138,13 +138,12 @@ cd "$pkg_src_root/.." \
 
 package_name=${pkg_src_root_name}_$(date '+%Y%m%d_%H%M%S')
 
-zip -r "$run_dir/$package_name.zip" $pkg_src_root_name/{boards,lecture,README,LICENSE}* \
+zip -r "$run_dir/$package_name.zip" $pkg_src_root_name/{boards/*/day,lecture,README,LICENSE}* \
   || error "cannot zip the full package"
 
 zip -r "$run_dir/${package_name}_labs_only_no_lecture.zip" \
-       $pkg_src_root_name/{boards,README,LICENSE}* \
+       $pkg_src_root_name/{boards/*/day,README,LICENSE}* \
   || error "cannot zip the labs-only no-lecture package"
-}
 
 #-----------------------------------------------------------------------------
 
