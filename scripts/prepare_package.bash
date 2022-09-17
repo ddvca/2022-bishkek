@@ -98,19 +98,12 @@ for board in $all_boards
 do
   [ -d ../boards/$board ] || continue
 
+  [ $board == $main_board ] \
+    || cp -r -u ../boards/$main_board/day* ../boards/$board
+
   ls -d ../boards/$board/day*/lab*/ \
     | xargs -n 1 cp ../boards/$board/scripts/* \
     || error "cannot copy the required board-specific scripts to ../boards/$board/day*/lab* subdirectories"
-done
-
-#-----------------------------------------------------------------------------
-
-for board in $all_boards
-do
-  if [ -d ../boards/$board ] && [ $board != $main_board ]
-  then
-    cp -r -u ../boards/$main_board/day* ../boards/$board
-  fi
 done
 
 #-----------------------------------------------------------------------------
