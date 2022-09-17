@@ -10,7 +10,7 @@ module tb;
             $dumpvars;
         `endif
 
-        repeat (8) #10 key_sw <= $random;
+        repeat (8) #10 key_sw <= $urandom ();
 
         `ifdef MODEL_TECH  // Mentor ModelSim and Questa
             $stop;

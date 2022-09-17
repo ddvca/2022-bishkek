@@ -49,7 +49,7 @@ module tb;
                 release i_top.enable;
 
             @ (posedge clk);
-            key_sw <= $random;
+            key_sw <= $urandom ();
         end
 
         `ifdef MODEL_TECH  // Mentor ModelSim and Questa
