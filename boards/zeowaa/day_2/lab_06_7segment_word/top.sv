@@ -1,30 +1,26 @@
-// Asynchronous reset here is needed for the FPGA board we use
-
 module top
 (
-    input        clk,
-    input        reset_n,
-    
-    input  [3:0] key_sw,
-    output [3:0] led,
+    input         clk,
+    input  [ 3:0] key,
+    input  [ 7:0] sw,
+    output [11:0] led,
 
-    output [7:0] abcdefgh,
-    output [3:0] digit,
+    output [ 7:0] abcdefgh,
+    output [ 7:0] digit,
 
-    output       buzzer,
+    output        vsync,
+    output        hsync,
+    output [ 2:0] rgb,
 
-    output       hsync,
-    output       vsync,
-    output [2:0] rgb
+    inout  [18:0] gpio
 );
 
-    wire reset = ~ reset_n;
+    wire   reset  = ~ key [3];
 
-    assign buzzer = 1'b0;
     assign hsync  = 1'b1;
     assign vsync  = 1'b1;
     assign rgb    = 3'b0;
-    
+
     //------------------------------------------------------------------------
 
     logic [31:0] cnt;
@@ -39,15 +35,15 @@ module top
 
     //------------------------------------------------------------------------
 
-    logic [3:0] shift_reg;
+    logic [7:0] shift_reg;
     
     always_ff @ (posedge clk or posedge reset)
       if (reset)
-        shift_reg <= 4'b0001;
+        shift_reg <= 8'b0000_0001;
       else if (enable)
-        shift_reg <= { shift_reg [0], shift_reg [3:1] };
+        shift_reg <= { shift_reg [0], shift_reg [7:1] };
 
-    assign led = ~ shift_reg;
+    assign led = { 4'b1111, ~ shift_reg };
 
     //------------------------------------------------------------------------
 
@@ -76,11 +72,16 @@ module top
     always_comb
     begin
       case (shift_reg)
-      4'b1000: letter = A;
-      4'b0100: letter = U;
-      4'b0010: letter = C;
-      4'b0001: letter = A;
-      default: letter = K;
+      8'b1000_0000: letter = A;
+      8'b0100_0000: letter = U;
+      8'b0010_0000: letter = C;
+      8'b0001_0000: letter = A;
+
+      8'b0000_1000: letter = A;
+      8'b0000_0100: letter = U;
+      8'b0000_0010: letter = C;
+      8'b0000_0001: letter = A;
+      default:      letter = K;
       endcase
     end
 
