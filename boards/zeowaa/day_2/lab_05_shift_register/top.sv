@@ -1,32 +1,28 @@
-// Asynchronous reset here is needed for the FPGA board we use
-
 module top
 (
-    input        clk,
-    input        reset_n,
-    
-    input  [3:0] key_sw,
-    output [3:0] led,
+    input         clk,
+    input  [ 3:0] key,
+    input  [ 7:0] sw,
+    output [11:0] led,
 
-    output [7:0] abcdefgh,
-    output [3:0] digit,
+    output [ 7:0] abcdefgh,
+    output [ 7:0] digit,
 
-    output       buzzer,
+    output        vsync,
+    output        hsync,
+    output [ 2:0] rgb,
 
-    output       hsync,
-    output       vsync,
-    output [2:0] rgb
+    inout  [18:0] gpio
 );
 
-    wire reset = ~ reset_n;
+    wire reset = ~ key [3];
 
-    assign abcdefgh  = 8'hff;
-    assign digit     = 4'hf;
-    assign buzzer    = 1'b0;
-    assign hsync     = 1'b1;
-    assign vsync     = 1'b1;
-    assign rgb       = 3'b0;
-    
+    assign abcdefgh = 8'hff;
+    assign digit    = 8'hff;
+    assign hsync    = 1'b1;
+    assign vsync    = 1'b1;
+    assign rgb      = 3'b0;
+
     //------------------------------------------------------------------------
 
     logic [31:0] cnt;
@@ -41,15 +37,15 @@ module top
 
     //------------------------------------------------------------------------
 
-    wire button_on = ~ key_sw [0];
+    wire button_on = ~ key [0];
 
-    logic [3:0] shift_reg;
+    logic [11:0] shift_reg;
     
     always_ff @ (posedge clk or posedge reset)
       if (reset)
-        shift_reg <= 4'b0;
+        shift_reg <= 12'b0;
       else if (enable)
-        shift_reg <= { button_on, shift_reg [3:1] };
+        shift_reg <= { button_on, shift_reg [11:1] };
 
     assign led = ~ shift_reg;
 
