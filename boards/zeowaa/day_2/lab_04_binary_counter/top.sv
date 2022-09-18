@@ -1,45 +1,41 @@
-// Asynchronous reset here is needed for the FPGA board we use
-
 module top
 (
-    input        clk,
-    input        reset_n,
-    
-    input  [3:0] key_sw,
-    output [3:0] led,
+    input         clk,
+    input  [ 3:0] key,
+    input  [ 7:0] sw,
+    output [11:0] led,
 
-    output [7:0] abcdefgh,
-    output [3:0] digit,
+    output [ 7:0] abcdefgh,
+    output [ 7:0] digit,
 
-    output       buzzer,
+    output        vsync,
+    output        hsync,
+    output [ 2:0] rgb,
 
-    output       hsync,
-    output       vsync,
-    output [2:0] rgb
+    inout  [18:0] gpio
 );
 
-    wire reset = ~ reset_n;
+    wire reset = ~ key [3];
 
-    assign abcdefgh  = 8'hff;
-    assign digit     = 4'hf;
-    assign buzzer    = 1'b0;
-    assign hsync     = 1'b1;
-    assign vsync     = 1'b1;
-    assign rgb       = 3'b0;
+    assign abcdefgh = 8'hff;
+    assign digit    = 8'hff;
+    assign hsync    = 1'b1;
+    assign vsync    = 1'b1;
+    assign rgb      = 3'b0;
 
     // Exercise 1: Free running counter.
     // How do you change the speed of LED blinking?
     // Try different bit slices to display.
 
     logic [31:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
       else
         cnt <= cnt + 32'b1;
 
-    assign led = ~ cnt [27:24];
+    assign led = ~ cnt [31:20];
 
     // Exercise 2: Key-controlled counter.
     // Comment out the code above.
@@ -55,25 +51,23 @@ module top
 
     /*
 
-    wire key = key_sw [0];
-
     logic key_r;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         key_r <= 1'b0;
       else
-        key_r <= key;
-        
-    wire key_pressed = ~ key & key_r;
+        key_r <= key [0];
 
-    logic [3:0] cnt;
-    
+    wire key_pressed = ~ key [0] & key_r;
+
+    logic [11:0] cnt;
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
-        cnt <= 4'b0;
+        cnt <= 12'b0;
       else if (key_pressed)
-        cnt <= cnt + 4'b1;
+        cnt <= cnt + 12'b1;
 
     assign led = ~ cnt;
 
