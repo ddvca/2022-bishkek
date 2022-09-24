@@ -5,19 +5,19 @@ module top
     parameter clk_mhz = 50
 )
 (
-    input         clk,
-    input  [ 3:0] key,
-    input  [ 7:0] sw,
-    output [11:0] led,
+    input               clk,
+    input        [ 3:0] key,
+    input        [ 7:0] sw,
+    output       [11:0] led,
 
-    output [ 7:0] abcdefgh,
-    output [ 7:0] digit,
+    output logic [ 7:0] abcdefgh,
+    output       [ 7:0] digit,
 
-    output        vsync,
-    output        hsync,
-    output [ 2:0] rgb,
+    output              vsync,
+    output              hsync,
+    output       [ 2:0] rgb,
 
-    inout  [18:0] gpio
+    inout        [18:0] gpio
 );
 
     wire   reset  = ~ key [3];
