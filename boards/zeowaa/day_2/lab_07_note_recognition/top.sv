@@ -45,8 +45,10 @@ module top
         .value ( value     )
     );
 
-    assign gpio [ 8] = 1'b0;  // GND
-    assign gpio [10] = 1'b1;  // VCC
+    // Next physical GPIO pin on the board is already connected to GND
+    // So we need to assign only VCC
+
+    assign gpio [8] = 1'b1;  // VCC
 
     //------------------------------------------------------------------------
     //
