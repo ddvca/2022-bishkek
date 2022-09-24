@@ -5,30 +5,27 @@ module top
     parameter clk_mhz = 50
 )
 (
-    input               clk,
-    input               reset_n,
+    input         clk,
+    input  [ 3:0] key,
+    input  [ 7:0] sw,
+    output [11:0] led,
 
-    input        [ 3:0] key_sw,
-    output       [ 3:0] led,
+    output [ 7:0] abcdefgh,
+    output [ 7:0] digit,
 
-    output logic [ 7:0] abcdefgh,
-    output       [ 3:0] digit,
+    output        vsync,
+    output        hsync,
+    output [ 2:0] rgb,
 
-    output              buzzer,
-
-    output              hsync,
-    output              vsync,
-    output       [ 2:0] rgb,
-
-    inout        [13:0] gpio
+    inout  [18:0] gpio
 );
 
-    wire   reset  = ~ reset_n;
-    assign led    = 4'b0;
-    assign buzzer = ~ reset;
-    assign hsync  = 1'b0;
-    assign vsync  = 1'b0;
-    assign rgb    = '0;
+    wire   reset  = ~ key [3];
+
+    assign led    = 12'bfff;
+    assign hsync  = 1'b1;
+    assign vsync  = 1'b1;
+    assign rgb    = 3'b0;
 
     //------------------------------------------------------------------------
     //
@@ -58,7 +55,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    // seven_segment_4_digits i_7segment (.number (value), .*);
+    // seven_segment_8_digits i_7segment (.number (value), .*);
 
     //------------------------------------------------------------------------
     //
@@ -104,7 +101,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    // seven_segment_4_digits i_7segment (.number (counter), .*);
+    // seven_segment_8_digits i_7segment (.number (counter), .*);
 
     //------------------------------------------------------------------------
     //
@@ -113,7 +110,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    // seven_segment_4_digits i_7segment (.number (distance), .*);
+    // seven_segment_8_digits i_7segment (.number (distance), .*);
 
     //------------------------------------------------------------------------
     //
@@ -282,7 +279,7 @@ module top
             default : abcdefgh <= 8'b11111111;
             endcase
 
-    assign digit = 4'b1110;
+    assign digit = 8'b1111_1110;
 
     //------------------------------------------------------------------------
     //
