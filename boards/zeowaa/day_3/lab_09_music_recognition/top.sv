@@ -6,28 +6,25 @@ module top
 )
 (
     input               clk,
-    input               reset_n,
-
-    input        [ 3:0] key_sw,
-    output logic [ 3:0] led,
+    input        [ 3:0] key,
+    input        [ 7:0] sw,
+    output       [11:0] led,
 
     output logic [ 7:0] abcdefgh,
-    output logic [ 3:0] digit,
+    output       [ 7:0] digit,
 
-    output              buzzer,
-
-    output              hsync,
     output              vsync,
+    output              hsync,
     output       [ 2:0] rgb,
 
-    inout        [13:0] gpio
+    inout        [18:0] gpio
 );
 
-    wire   reset  = ~ reset_n;
-    assign buzzer = ~ reset;
-    assign hsync  = 1'b0;
-    assign vsync  = 1'b0;
-    assign rgb    = '0;
+    wire   reset  = ~ key [3];
+
+    assign hsync  = 1'b1;
+    assign vsync  = 1'b1;
+    assign rgb    = 3'b0;
 
     //------------------------------------------------------------------------
     //
@@ -47,8 +44,10 @@ module top
         .value ( value     )
     );
 
-    assign gpio [ 8] = 1'b0;  // GND
-    assign gpio [10] = 1'b1;  // VCC
+    // Next physical GPIO pin on the board is already connected to GND
+    // So we need to assign only VCC
+
+    assign gpio [8] = 1'b1;  // VCC
 
     //------------------------------------------------------------------------
     //
@@ -494,13 +493,12 @@ module top
     //------------------------------------------------------------------------
 
     logic [7:0] new_led;
-    integer i;
 
     always_comb
     begin
         new_led [7:1] = 7'b0;
 
-        for (i = 0; i < n_fsms; i = i + 1)
+        for (int i = 0; i < n_fsms; i = i + 1)
             new_led [7 - i] = (states [i] == recognized);
 
         new_led [0] = & new_led [7:1];  // All recognized

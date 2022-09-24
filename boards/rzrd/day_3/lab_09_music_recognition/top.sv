@@ -419,19 +419,19 @@ module top
 
     //------------------------------------------------------------------------
 
-    logic  [2:0] i_digit_r;
-    wire [2:0] i_digit = i_digit_r + 3'd1;
+    logic  [1:0] i_digit_r;
+    wire [1:0] i_digit = i_digit_r + 2'd1;
 
     always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
-            i_digit_r <= 3'd0;
-            digit     <= 8'b0;
+            i_digit_r <= 2'd0;
+            digit     <= 4'b0;
         end
         else if (digit_enable)
         begin
             i_digit_r <= i_digit;
-            digit     <= ~ (8'b00000001 << i_digit);
+            digit     <= ~ (4'b0001 << i_digit);
         end
 
     //------------------------------------------------------------------------
@@ -493,17 +493,16 @@ module top
     //
     //------------------------------------------------------------------------
 
-    logic [7:0] new_led;
-    integer i;
+    logic [3:0] new_led;
 
     always_comb
     begin
-        new_led [7:1] = 7'b0;
+        new_led [3:1] = 3'b0;
 
-        for (i = 0; i < n_fsms; i = i + 1)
-            new_led [7 - i] = (states [i] == recognized);
+        for (int i = 0; i < n_fsms; i = i + 1)
+            new_led [3 - i] = (states [i] == recognized);
 
-        new_led [0] = & new_led [7:1];  // All recognized
+        new_led [0] = & new_led [3:1];  // All recognized
     end
 
     always_ff @ (posedge clk)
