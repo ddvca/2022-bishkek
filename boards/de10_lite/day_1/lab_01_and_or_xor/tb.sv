@@ -1,8 +1,9 @@
 module tb;
 
-    logic [3:0] key_sw;
+    logic [1:0] key;
+    logic [9:0] sw;
 
-    top i_top (.key_sw (key_sw));
+    top i_top (.key (key), .sw (sw));
 
     initial
     begin
@@ -10,7 +11,7 @@ module tb;
             $dumpvars;
         `endif
 
-        repeat (8) #10 key_sw <= $urandom ();
+        repeat (8) #10 { key, sw } <= $urandom ();
 
         `ifdef MODEL_TECH  // Mentor ModelSim and Questa
             $stop;
