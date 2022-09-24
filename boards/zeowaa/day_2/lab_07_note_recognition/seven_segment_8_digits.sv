@@ -1,6 +1,6 @@
 module seven_segment_8_digits
 (
-    input               clock,
+    input               clk,
     input               reset,
     input        [31:0] number,
 
@@ -35,7 +35,7 @@ module seven_segment_8_digits
 
     logic [15:0] cnt;
 
-    always @ (posedge clock or posedge reset)
+    always @ (posedge clk or posedge reset)
         if (reset)
             cnt <= 16'd0;
         else
@@ -43,7 +43,7 @@ module seven_segment_8_digits
 
     logic [2:0] i;
 
-    always @ (posedge clock or posedge reset)
+    always @ (posedge clk or posedge reset)
     begin
         if (reset)
         begin
