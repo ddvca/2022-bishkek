@@ -22,7 +22,7 @@ module top
 
     wire   reset  = ~ key [3];
 
-    assign led    = 12'bfff;
+    assign led    = 12'hfff;
     assign hsync  = 1'b1;
     assign vsync  = 1'b1;
     assign rgb    = 3'b0;
