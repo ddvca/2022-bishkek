@@ -141,6 +141,11 @@ done
 
 #-----------------------------------------------------------------------------
 
+rm -f ../boards/{de10_lite,zeowaa}/day*/lab*/seven_segment_4_digits.sv \
+  || error "cannot remove unnecessary module"
+
+#-----------------------------------------------------------------------------
+
 if ! command -v zip &> /dev/null
 then
   printf "$script: cannot find zip utility"
