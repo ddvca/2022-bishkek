@@ -1,29 +1,25 @@
-// Asynchronous reset here is needed for the FPGA board we use
-
 module top
 (
-    input              clk,
-    input              reset_n,
-    
-    input        [3:0] key_sw,
-    output       [3:0] led,
+    input               clk, 
+    input        [ 3:0] key,
+    input        [ 7:0] sw,
+    output       [11:0] led,
 
-    output logic [7:0] abcdefgh,
-    output       [3:0] digit,
+    output logic [ 7:0] abcdefgh,
+    output       [ 7:0] digit,
 
-    output             buzzer,
+    output              vsync,
+    output              hsync,
+    output       [ 2:0] rgb,
 
-    output             hsync,
-    output             vsync,
-    output       [2:0] rgb
+    inout        [18:0] gpio
 );
 
-    wire reset = ~ reset_n;
+    wire reset = ~ key [3];
 
-    assign buzzer = 1'b0;
-    assign hsync  = 1'b1;
-    assign vsync  = 1'b1;
-    assign rgb    = 3'b0;
+    assign hsync = 1'b1;
+    assign vsync = 1'b1;
+    assign rgb   = 3'b0;
 
     //------------------------------------------------------------------------
 
@@ -39,7 +35,7 @@ module top
     shift_reg # (.depth (4)) i_shift_reg
     (
         .en      ( enable            ),
-        .seq_in  ( ~& key_sw         ),  // Same as key_sw != 4'b1111
+        .seq_in  ( ~& key            ),  // Same as key != 4'b1111
         .seq_out ( fsm_in            ),
         .par_out ( shift_reg_par_out ),
         .*
@@ -73,7 +69,7 @@ module top
       2'b11: abcdefgh = 8'b0000_0001;
       endcase
 
-    assign digit = 4'b1110;
+    assign digit = 8'b1111_1110;
 
     // Exercise: Implement FSM for recognizing other sequence,
     // for example 0101
