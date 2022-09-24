@@ -8,10 +8,10 @@ module top
     input               clk,
     input        [ 3:0] key,
     input        [ 7:0] sw,
-    output       [11:0] led,
+    output logic [11:0] led,
 
     output logic [ 7:0] abcdefgh,
-    output       [ 7:0] digit,
+    output logic [ 7:0] digit,
 
     output              vsync,
     output              hsync,

@@ -132,7 +132,7 @@ do
   [ -d ../boards/$board ] || continue
 
   [ $board == $main_board ] \
-    || cp -r -u ../boards/$main_board/day* ../boards/$board
+    || cp -r -n ../boards/$main_board/day* ../boards/$board
 
   ls -d ../boards/$board/day*/lab*/ \
     | xargs -n 1 cp ../boards/$board/scripts/* \
