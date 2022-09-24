@@ -4,34 +4,31 @@ module top
               strobe_to_update_xy_counter_width = 20
 )
 (
-    input        clk,
-    input        reset_n,
-    
-    input  [3:0] key_sw,
-    output [3:0] led,
+    input               clk,
+    input        [ 3:0] key,
+    input        [ 7:0] sw,
+    output logic [11:0] led,
 
-    output [7:0] abcdefgh,
-    output [3:0] digit,
+    output logic [ 7:0] abcdefgh,
+    output logic [ 7:0] digit,
 
-    output       buzzer,
+    output              vsync,
+    output              hsync,
+    output       [ 2:0] rgb,
 
-    output       hsync,
-    output       vsync,
-    output [2:0] rgb
+    inout        [18:0] gpio
 );
 
-    assign led       = key_sw;
-    assign abcdefgh  = { key_sw, key_sw };
-    assign digit     = 4'b0;
-    assign buzzer    = 1'b0;
+    wire   reset       = ~ key [3];
 
-    wire launch_key = key_sw != 4'b1111;  // Any key is pressed
-    
-    // Either of two leftmost keys is pressed
-    wire left_key   = key_sw [3:2] != 2'b11;
+    assign led         =   key;
+    assign abcdefgh    =   sw;
+    assign digit       =   { key, key };
 
-    // Either of two rightmost keys is pressed
-    wire right_key  = key_sw [1:0] != 2'b11;
+    wire   left_key    = ~ key [1];
+    wire   right_key   = ~ key [0];
+
+    wire   launch_key  =   left_key | right_key;
 
     game_top
     # (
@@ -43,7 +40,7 @@ module top
     i_game_top
     (
         .clk              (   clk                   ),
-        .reset            ( ~ reset_n               ),
+        .reset            (   reset                 ),
 
         .launch_key       (   launch_key            ),
         .left_right_keys  ( { left_key, right_key } ),
