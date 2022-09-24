@@ -55,7 +55,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    seven_segment_8_digits i_7segment (.number (32' (value)), .*);
+    // seven_segment_8_digits i_7segment (.number (32' (value)), .*);
 
     //------------------------------------------------------------------------
     //
@@ -101,7 +101,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    // seven_segment_8_digits i_7segment (.number (counter), .*);
+    // seven_segment_8_digits i_7segment (.number (32' (counter)), .*);
 
     //------------------------------------------------------------------------
     //
@@ -110,7 +110,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    // seven_segment_8_digits i_7segment (.number (distance), .*);
+    // seven_segment_8_digits i_7segment (.number (32' (distance)), .*);
 
     //------------------------------------------------------------------------
     //
@@ -258,7 +258,7 @@ module top
     //  The output to seven segment display
     //
     //------------------------------------------------------------------------
-/*
+
     always_ff @ (posedge clk or posedge reset)
         if (reset)
             abcdefgh <= 8'b11111111;
@@ -280,7 +280,7 @@ module top
             endcase
 
     assign digit = 8'b1111_1110;
-*/
+
     //------------------------------------------------------------------------
     //
     //  Exercise 4: Replace filtered note with unfiltered note.
