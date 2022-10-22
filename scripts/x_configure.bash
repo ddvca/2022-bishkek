@@ -4,6 +4,8 @@
 
 is_command_available_or_error quartus_pgm " from Intel FPGA Quartus II package"
 
+killall jtagd 2>/dev/null
+
 guarded quartus_pgm -l &> cable_list
 
 CABLE_NAME_1=$(grep "1) " cable_list | sed 's/1) //')
@@ -23,5 +25,6 @@ else
     error 1 "cannot detect a USB-Blaster cable connected"
 fi
 
-rm cable_list
+rm -f cable_list
+
 exit 0
