@@ -41,16 +41,12 @@ error ()
 }
 
 run_dir="$PWD"
-
-cd "$script_dir" \
-  || error "cannot cd \"$script_dir\""
-
+cd "$script_dir"
 pkg_src_root=$(readlink -e ..)
 
 #-----------------------------------------------------------------------------
 
-git clean -d -f .. \
-  || error "cannot remove local files that are not added to the Git repository"
+git clean -d -f ..
 
 # We dont't need to cleanup on EXIT
 trap cleanup SIGINT SIGTERM ERR
@@ -96,34 +92,27 @@ fi
 fsm_asic_dir=../lecture/3_asic_openlane/src/OpenLane/designs/snail_moore_fsm/src
 mkdir -p $fsm_asic_dir
 
-cp ../boards/$main_board/day_3/lab_08_snail_fsm/snail_moore_fsm.sv $fsm_asic_dir \
-  || error "cannot create a copy of sources for ASIC flow"
+cp ../boards/$main_board/day_3/lab_08_snail_fsm/snail_moore_fsm.sv $fsm_asic_dir
 
 #-----------------------------------------------------------------------------
 
 ls -d ../boards/$main_board/day*/lab*/ \
-  | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}* \
-  || error "cannot copy the required common scripts to ../boards/$main_board/day*/lab* subdirectories"
+  | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}*
 
-ls -d ../boards/$main_board/day*/lab*/ | xargs -I % touch %top_extra.qsf \
-  || error "cannot create top_extra.qsf in ../boards/$main_board/day*/lab* subdirectories"
+ls -d ../boards/$main_board/day*/lab*/ | xargs -I % touch %top_extra.qsf
 
 ls -d ../boards/$main_board/day*/homework/ \
-  | xargs -n 1 cp run_all* \
-  || error "cannot copy run_all scripts to ../boards/$main_board/day*/homework subdirectories"
+  | xargs -n 1 cp run_all*
 
 cp ../boards/$main_board/day_1/lab_02_7segment_letter/*.jpg \
-   ../boards/$main_board/day_2/lab_06_7segment_word \
-  || error "cannot create a copy of pictures for 7segment example"
+   ../boards/$main_board/day_2/lab_06_7segment_word
 
 cp ../boards/$main_board/day_2/lab_07_note_recognition/digilent_pmod_mic3_spi_receiver.sv \
    ../boards/$main_board/day_2/lab_07_note_recognition/music_notes.pdf \
-   ../boards/$main_board/day_3/lab_09_music_recognition \
-  || error "cannot create local copies of files for music recognition"
+   ../boards/$main_board/day_3/lab_09_music_recognition
 
 cp ../boards/$main_board/day_1/lab_03_vga/vga.sv \
-   ../boards/$main_board/day_3/lab_10_game \
-  || error "cannot create a local copy of VGA file"
+   ../boards/$main_board/day_3/lab_10_game
 
 #-----------------------------------------------------------------------------
 
@@ -135,14 +124,12 @@ do
     || cp -r -n ../boards/$main_board/day* ../boards/$board
 
   ls -d ../boards/$board/day*/lab*/ \
-    | xargs -n 1 cp ../boards/$board/scripts/* \
-    || error "cannot copy the required board-specific scripts to ../boards/$board/day*/lab* subdirectories"
+    | xargs -n 1 cp ../boards/$board/scripts/*
 done
 
 #-----------------------------------------------------------------------------
 
-rm -f ../boards/{de10_lite,zeowaa}/day*/lab*/seven_segment_4_digits.sv \
-  || error "cannot remove unnecessary module"
+rm -f ../boards/{de10_lite,zeowaa}/day*/lab*/seven_segment_4_digits.sv
 
 #-----------------------------------------------------------------------------
 
@@ -161,21 +148,12 @@ fi
 
 #-----------------------------------------------------------------------------
 
-rm -rf ${pkg_src_root_name}_*.zip \
-  || error "cannot remove old zip files"
-
-cd "$pkg_src_root/.." \
-  || error "something is wrong with directory structure or permissions"
+rm -rf ${pkg_src_root_name}_*.zip
+cd "$pkg_src_root/.."
 
 package_name=${pkg_src_root_name}_$(date '+%Y%m%d_%H%M%S')
 
-zip -r "$run_dir/$package_name.zip" $pkg_src_root_name/{boards/*/day,lecture,README,LICENSE}* \
-  || error "cannot zip the full package"
+zip -r "$run_dir/$package_name.zip" $pkg_src_root_name/{boards/*/day,lecture,README,LICENSE}*
 
 zip -r "$run_dir/${package_name}_labs_only_no_lecture.zip" \
-       $pkg_src_root_name/{boards/*/day,README,LICENSE}* \
-  || error "cannot zip the labs-only no-lecture package"
-
-#-----------------------------------------------------------------------------
-
-exit 0
+       $pkg_src_root_name/{boards/*/day,README,LICENSE}*
