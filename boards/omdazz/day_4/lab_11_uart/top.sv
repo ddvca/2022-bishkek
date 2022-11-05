@@ -70,16 +70,18 @@ module top
 
     logic [31:0] last_bytes;
 
-    always @ (posedge clk)
-        if (byte_valid)
-            last_bytes <= { byte_data, last_bytes [31:8] };
+    always @ (posedge clk or posedge reset)
+        if (reset)
+            last_bytes <= '0;
+        else if (byte_valid)
+            last_bytes <= { last_bytes [23:0], byte_data };
 
     logic [15:0] number;
 
     always_comb
         case (key_sw)
-        default: number = last_bytes   [31:16];
-        4'b0111: number = last_bytes   [15: 0];
+        default: number = last_bytes   [15: 0];
+        4'b0111: number = last_bytes   [31:16];
         4'b1011: number = word_data    [31:16];
         4'b1101: number = word_data    [15: 0];
         4'b1110: number = word_address [15: 0];
