@@ -98,8 +98,8 @@ cp ../boards/$main_board/day_3/lab_08_snail_fsm/snail_moore_fsm.sv $fsm_asic_dir
 
 lab_glob=../boards/$main_board/day*/lab*/
 
-ls -d $lab_glob | xargs -n 1 rm -rf run
-ls -d $lab_glob | xargs -n 1 mkdir  run
+ls -d $lab_glob | xargs -n 1 -I % rm -rf %run
+ls -d $lab_glob | xargs -n 1 -I % mkdir  %run
 
 ls -d ${lab_glob}run | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}*
 ls -d ${lab_glob}run | xargs -I % touch %top_extra.qsf
