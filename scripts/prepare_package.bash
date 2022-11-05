@@ -136,8 +136,7 @@ do
     
   for d in ../boards/$board/day*/lab*
   do
-                                         # | read is to get the return code
-       find $d -maxdepth 1 -name '*extra*' | read \
+       ls $d/*extra* &> /dev/null \
     && cp $d/*extra* $d/run
   done
 done

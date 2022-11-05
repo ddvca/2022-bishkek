@@ -12,4 +12,4 @@ set_false_path -from * -to hsync
 set_false_path -from * -to vsync
 set_false_path -from * -to [get_ports {rgb[*]}]
 
-source ../top_extra.sdc
+source top_extra.sdc
