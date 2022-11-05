@@ -49,14 +49,8 @@ module tb;
 
         for (int i = 0; i < 50; i ++)
         begin
-            // Enable override
-
-            if (i == 20)
-                force i_top.enable = 1'b1;
-            else if (i == 40)
-                release i_top.enable;
-
             @ (posedge clk);
+
             key_sw <= $urandom ();
             rx     <= $urandom ();
         end

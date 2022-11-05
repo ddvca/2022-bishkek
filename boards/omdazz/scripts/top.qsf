@@ -11,7 +11,7 @@ set_global_assignment   -name SEARCH_PATH               ..
 set_global_assignment   -name VERILOG_FILE              top.sv
 set_global_assignment   -name SDC_FILE                  top.sdc
 
-source top_extra.qsf
+source ../top_extra.qsf
 
 set_global_assignment   -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
 

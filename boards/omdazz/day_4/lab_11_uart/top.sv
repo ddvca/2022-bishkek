@@ -42,12 +42,12 @@ module top
     )
     receiver (.*);
 
-    wire                       word_valid;
-    wire [address_width - 1:0] word_address;
-    wire [data_width    - 1:0] word_data;
+    wire        word_valid;
+    wire [31:0] word_address;
+    wire [31:0] word_data;
 
-    wire                       busy;
-    wire                       error;
+    wire        busy;
+    wire        error;
 
     hex_parser
     # (
