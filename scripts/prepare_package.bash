@@ -133,6 +133,13 @@ do
 
   ls -d ../boards/$board/day*/lab*/run/ \
     | xargs -n 1 cp ../boards/$board/scripts/*
+    
+  for d in ../boards/$board/day*/lab*
+  do
+                                         # | read is to get the return code
+       find $d -maxdepth 1 -name '*extra*' | read \
+    && cp $d/*extra* $d/run
+  done
 done
 
 #-----------------------------------------------------------------------------
