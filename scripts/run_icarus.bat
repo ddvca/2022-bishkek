@@ -1,3 +1,3 @@
-iverilog -g2005-sv *.sv
+iverilog -g2005-sv -I .. ../*.sv
 vvp a.out
 gtkwave --dump dump.vcd --script xx_gtkwave.tcl
