@@ -1,4 +1,4 @@
-module boot_uart_receiver
+module uart_receiver
 # (
     parameter clk_frequency = 50 * 1000 * 1000,
               baud_rate     = 115200
