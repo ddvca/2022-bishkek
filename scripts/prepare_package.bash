@@ -96,13 +96,15 @@ cp ../boards/$main_board/day_3/lab_08_snail_fsm/snail_moore_fsm.sv $fsm_asic_dir
 
 #-----------------------------------------------------------------------------
 
-ls -d ../boards/$main_board/day*/lab*/ \
-  | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}*
+lab_glob=../boards/$main_board/day*/lab*/
 
-ls -d ../boards/$main_board/day*/lab*/ | xargs -I % touch %top_extra.qsf
+ls -d $lab_glob | xargs -n 1 rm -rf run
+ls -d $lab_glob | xargs -n 1 mkdir  run
 
-ls -d ../boards/$main_board/day*/homework/ \
-  | xargs -n 1 cp run_all*
+ls -d ${lab_glob}run | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}*
+ls -d ${lab_glob}run | xargs -I % touch %top_extra.qsf
+
+ls -d ../boards/$main_board/day*/homework/ | xargs -n 1 cp run_all*
 
 cp ../boards/$main_board/day_1/lab_02_7segment_letter/*.jpg \
    ../boards/$main_board/day_2/lab_06_7segment_word
@@ -123,7 +125,7 @@ do
   [ $board == $main_board ] \
     || cp -r -n ../boards/$main_board/day* ../boards/$board
 
-  ls -d ../boards/$board/day*/lab*/ \
+  ls -d ../boards/$board/day*/lab*/run \
     | xargs -n 1 cp ../boards/$board/scripts/*
 done
 
