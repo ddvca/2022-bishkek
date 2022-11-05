@@ -4,7 +4,7 @@ module top
 # (
     parameter clk_frequency       = 50 * 1000 * 1000,
               baud_rate           = 115200,
-              timeout_in_seconds  = 10000
+              timeout_in_seconds  = 10
 )
 (
     input        clk,
@@ -66,7 +66,7 @@ module top
         .*
     );
 
-    assign led = { byte_valid, word_valid, busy, error };
+    assign led = ~ { byte_valid, word_valid, busy, error };
 
     logic [31:0] last_bytes;
 
