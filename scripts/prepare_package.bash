@@ -101,8 +101,11 @@ lab_glob=../boards/$main_board/day*/lab*/
 ls -d $lab_glob | xargs -n 1 -I % rm -rf %run
 ls -d $lab_glob | xargs -n 1 -I % mkdir  %run
 
-ls -d ${lab_glob}run | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}*
-ls -d ${lab_glob}run | xargs -I % touch %top_extra.qsf
+ls -d ${lab_glob}run \
+  | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}*
+
+ls -d ${lab_glob}run \
+  | xargs -I % touch %top_extra.{qsf,sdc} %xx_gtkwave_extra.tcl
 
 ls -d ../boards/$main_board/day*/homework/ | xargs -n 1 cp run_all*
 

@@ -22,3 +22,5 @@ set_false_path -from * -to [get_ports {vga_g[*]}]
 set_false_path -from * -to [get_ports {vga_b[*]}]
 
 set_false_path -from * -to [get_ports {gpio[*]}]
+
+source top_extra.sdc

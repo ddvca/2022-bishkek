@@ -16,6 +16,8 @@ lappend all_signals tb.i_top.vsync
 lappend all_signals tb.i_top.hsync
 lappend all_signals tb.i_top.rgb
 
+source xx_gtkwave_extra.tcl
+
 set num_added [ gtkwave::addSignalsFromList $all_signals ]
 
 gtkwave::/Time/Zoom/Zoom_Full

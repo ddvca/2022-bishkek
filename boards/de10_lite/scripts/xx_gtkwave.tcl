@@ -19,6 +19,8 @@ lappend all_signals tb.i_top.vga_g
 lappend all_signals tb.i_top.vga_b
 lappend all_signals tb.i_top.gpio
 
+source xx_gtkwave_extra.tcl
+
 set num_added [ gtkwave::addSignalsFromList $all_signals ]
 
 gtkwave::/Time/Zoom/Zoom_Full

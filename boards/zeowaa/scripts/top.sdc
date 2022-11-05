@@ -17,3 +17,5 @@ set_false_path -from * -to vsync
 set_false_path -from * -to hsync
 set_false_path -from * -to [get_ports {rgb[*]}]
 set_false_path -from * -to [get_ports {gpio[*]}]
+
+source top_extra.sdc

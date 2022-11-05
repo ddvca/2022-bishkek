@@ -1,0 +1,4 @@
+set_global_assignment -name VERILOG_FILE hex_parser.sv
+set_global_assignment -name VERILOG_FILE uart_receiver.sv
+
+set_location_assignment PIN_115 -to rx
