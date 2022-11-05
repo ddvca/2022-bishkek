@@ -136,8 +136,8 @@ do
     
   for d in ../boards/$board/day*/lab*
   do
-       ls $d/*extra* &> /dev/null \
-    && cp $d/*extra* $d/run
+    ls $d/*extra*  &> /dev/null && cp $d/*extra*  $d/run
+    ls $d/x_*.bash &> /dev/null && cp $d/x_*.bash $d/run
   done
 done
 
