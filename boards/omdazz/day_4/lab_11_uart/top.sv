@@ -4,7 +4,7 @@ module top
 # (
     parameter clk_frequency       = 50 * 1000 * 1000,
               baud_rate           = 115200,
-              timeout_in_seconds  = 1
+              timeout_in_seconds  = 10000
 )
 (
     input        clk,
