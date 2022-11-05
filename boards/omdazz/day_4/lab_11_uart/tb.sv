@@ -6,7 +6,7 @@ module tb;
     logic       rx;
 
     top
-    (
+    # (
         .clk_frequency      (   50 ),
         .baud_rate          (    1 ),
         .timeout_in_seconds ( 1000 )

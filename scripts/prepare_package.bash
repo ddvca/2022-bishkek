@@ -119,6 +119,9 @@ cp ../boards/$main_board/day_2/lab_07_note_recognition/digilent_pmod_mic3_spi_re
 cp ../boards/$main_board/day_1/lab_03_vga/vga.sv \
    ../boards/$main_board/day_3/lab_10_game
 
+cp ../boards/$main_board/day_2/lab_07_note_recognition/seven_segment_4_digits.sv \
+   ../boards/$main_board/day_4/lab_11_uart
+
 #-----------------------------------------------------------------------------
 
 for board in $all_boards

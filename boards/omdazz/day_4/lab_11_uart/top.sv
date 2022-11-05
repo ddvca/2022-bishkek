@@ -54,6 +54,7 @@ module top
         .clk_frequency       ( clk_frequency      ),
         .timeout_in_seconds  ( timeout_in_seconds )
     )
+    parser
     (
         .in_valid     ( byte_valid   ),
         .in_char      ( byte_data    ),
