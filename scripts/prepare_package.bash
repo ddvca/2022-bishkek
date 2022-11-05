@@ -27,8 +27,8 @@ set -Eeuxo pipefail
 
 pkg_src_root_name=2022-bishkek
 
-main_board=rzrd
-all_boards="$main_board de10_lite omdazz piswords zeowaa"
+main_board=omdazz
+all_boards="$main_board de10_lite piswords rzrd zeowaa"
 
 script_path="$0"
 script=$(basename "$script_path")
