@@ -101,10 +101,10 @@ lab_glob=../boards/$main_board/day*/lab*/
 ls -d $lab_glob | xargs -n 1 -I % rm -rf %run
 ls -d $lab_glob | xargs -n 1 -I % mkdir  %run
 
-ls -d ${lab_glob}run \
+ls -d ${lab_glob}run/ \
   | xargs -n 1 cp {top.qpf,x_,xx_,run_icarus,run_questa}*
 
-ls -d ${lab_glob}run \
+ls -d ${lab_glob}run/ \
   | xargs -I % touch %top_extra.{qsf,sdc} %xx_gtkwave_extra.tcl
 
 ls -d ../boards/$main_board/day*/homework/ | xargs -n 1 cp run_all*
@@ -128,7 +128,7 @@ do
   [ $board == $main_board ] \
     || cp -r -n ../boards/$main_board/day* ../boards/$board
 
-  ls -d ../boards/$board/day*/lab*/run \
+  ls -d ../boards/$board/day*/lab*/run/ \
     | xargs -n 1 cp ../boards/$board/scripts/*
 done
 
