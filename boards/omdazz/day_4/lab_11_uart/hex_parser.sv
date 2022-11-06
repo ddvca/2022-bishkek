@@ -64,7 +64,7 @@ module hex_parser
 
        if (in_char >= CHAR_0 && in_char <= CHAR_9)
            ;
-       else if (in_char >= CHAR_a && in_char <= CHAR_a)
+       else if (in_char >= CHAR_a && in_char <= CHAR_f)
            nibble = in_char - CHAR_a + 10;
        else if (in_char >= CHAR_A && in_char <= CHAR_F)
            nibble = in_char - CHAR_A + 10;
@@ -115,7 +115,7 @@ module hex_parser
         else if (timeout)
             out_valid <= '0;
         else
-            out_valid <=   in_valid
+            out_valid <=   nibble_valid
                          & nibble_counter == num_nibbles_in_data - 1;
 
     always_ff @ (posedge clk or posedge reset)

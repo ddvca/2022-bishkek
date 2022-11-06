@@ -23,5 +23,5 @@ fi
 
 dev=/dev/ttyUSB0
 
-stty -F $dev raw speed 115200 -crtscts cs8 -parenb -cstopb &> /dev/null
-cat > $dev
+guarded stty -F $dev raw speed 115200 -crtscts cs8 -parenb -cstopb &> /dev/null
+guarded cat > $dev
