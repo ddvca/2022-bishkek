@@ -11,7 +11,7 @@ debug the script.
 ## Settings for the relaxed flavor
 
 ```
-set +e  \# Don't exit immediately if a command exits with a non-zero status
+set +e  # Don't exit immediately if a command exits with a non-zero status
 ```
 
 ## Settings for the strict flavor
