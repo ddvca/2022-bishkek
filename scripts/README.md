@@ -17,7 +17,9 @@ set +e  \# Don't exit immediately if a command exits with a non-zero status
 ## Settings for the strict flavor
 
 These setting are advised in https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+
 Arguments against: it https://www.reddit.com/r/commandline/comments/g1vsxk/comment/fniifmk/
+
 Another idea: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 
 ```
