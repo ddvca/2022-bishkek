@@ -23,7 +23,7 @@ module top
     assign led       = key_sw;
     assign abcdefgh  = { key_sw, key_sw };
     assign digit     = 4'b0;
-    assign buzzer    = 1'b0;
+    assign buzzer    = 1'b1;
 
     wire launch_key = key_sw != 4'b1111;  // Any key is pressed
     

@@ -27,7 +27,7 @@ module top
 
     wire reset = ~ reset_n;
 
-    assign buzzer = 1'b0;
+    assign buzzer = 1'b1;
     assign hsync  = 1'b1;
     assign vsync  = 1'b1;
     assign rgb    = 3'b0;

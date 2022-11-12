@@ -25,7 +25,7 @@ module top
     assign led       = key_sw;
     assign abcdefgh  = 8'hff;
     assign digit     = 4'hf;
-    assign buzzer    = 1'b0;
+    assign buzzer    = 1'b1;
 
     //------------------------------------------------------------------------
 
