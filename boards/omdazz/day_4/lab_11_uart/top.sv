@@ -76,15 +76,35 @@ module top
         else if (byte_valid)
             last_bytes <= { last_bytes [23:0], byte_data };
 
+    logic [31:0] last_address;
+    logic [31:0] last_word;
+
+    always @ (posedge clk or posedge reset)
+        if (reset)
+        begin
+            last_address <= '0;
+            last_word    <= '0;
+        end
+        else if (word_valid)
+        begin
+            last_address <= word_address;
+            last_word    <= word_data;
+        end
+
     logic [15:0] number;
 
     always_comb
         case (key_sw)
         default: number = last_bytes   [15: 0];
         4'b0111: number = last_bytes   [31:16];
-        4'b1011: number = word_data    [31:16];
-        4'b1101: number = word_data    [15: 0];
-        4'b1110: number = word_address [15: 0];
+
+        4'b1011: number = last_word    [31:16];
+        4'b1101: number = last_word    [15: 0];
+        4'b1110: number = last_address [15: 0];
+
+        4'b0011: number = word_data    [31:16];
+        4'b1001: number = word_data    [15: 0];
+        4'b1100: number = word_address [15: 0];
         endcase
 
     seven_segment_4_digits display (.*);

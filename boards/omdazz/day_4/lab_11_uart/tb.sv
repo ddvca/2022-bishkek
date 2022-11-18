@@ -62,4 +62,30 @@ module tb;
         `endif
     end
 
+    logic       in_valid;
+    logic [7:0] in_char;
+
+    hex_parser i_parser
+    (
+        .clk      (   clk      ),
+        .reset    ( ~ reset_n  ),
+        .in_valid (   in_valid ),
+        .in_char  (   in_char  )
+    );
+
+    initial
+    begin
+        in_valid <= 1'b0;
+
+        @ (posedge reset_n);
+
+        for (int i = 0; i < 50; i ++)
+        begin
+            @ (posedge clk);
+
+            in_valid <= 1'b1;
+            in_char  <= "0" + i % 10;
+        end
+    end
+
 endmodule
