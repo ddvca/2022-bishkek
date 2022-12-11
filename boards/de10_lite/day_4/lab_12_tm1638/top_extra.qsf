@@ -1,0 +1,1 @@
+set_global_assignment -name VERILOG_FILE tm1638_led_display_keys.sv

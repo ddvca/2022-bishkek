@@ -1,4 +1,3 @@
-
 set_global_assignment   -name DEVICE                    10M50DAF484C7G
 
 set_global_assignment   -name VERILOG_INPUT_VERSION     SYSTEMVERILOG_2005
