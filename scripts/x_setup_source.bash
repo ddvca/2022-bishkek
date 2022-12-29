@@ -178,3 +178,15 @@ then
                      [ -d "$QUARTUS_ROOTDIR/$QUARTUS_BIN_DIR" ]  \
     || error 1 "directory '$QUARTUS_ROOTDIR/$QUARTUS_BIN_DIR' expected"
 fi
+
+#-----------------------------------------------------------------------------
+
+# Workarounds for Quartus library problems
+# that are uncovered under RED OS from https://www.red-soft.ru
+
+if    ! [ -f /usr/lib64/libcrypt.so.1 ] \
+   &&   [ -f /usr/lib64/libcrypt.so   ]
+then
+    ln -sf /usr/lib64/libcrypt.so libcrypt.so.1
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD"
+fi
