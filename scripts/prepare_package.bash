@@ -5,8 +5,6 @@ set -Eeuxo pipefail
 
 #-----------------------------------------------------------------------------
 
-pkg_src_root_name=2022-bishkek
-
 main_board=omdazz
 all_boards="$main_board de10_lite piswords rzrd zeowaa"
 
@@ -23,6 +21,7 @@ error ()
 run_dir="$PWD"
 cd "$script_dir"
 pkg_src_root=$(readlink -e ..)
+pkg_src_root_name=$(basename "$pkg_src_root")
 
 #-----------------------------------------------------------------------------
 
