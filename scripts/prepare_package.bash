@@ -8,6 +8,8 @@ set -Eeuxo pipefail
 main_board=omdazz
 all_boards="$main_board de10_lite piswords rzrd zeowaa"
 
+#-----------------------------------------------------------------------------
+
 script_path="$0"
 script=$(basename "$script_path")
 script_dir=$(dirname "$script_path")
