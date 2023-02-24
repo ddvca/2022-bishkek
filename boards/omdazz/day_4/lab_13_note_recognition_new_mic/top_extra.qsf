@@ -1,0 +1,2 @@
+set_global_assignment -name VERILOG_FILE inmp441_mic_i2s_receiver.sv
+set_global_assignment -name VERILOG_FILE seven_segment_4_digits.sv
