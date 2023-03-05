@@ -36,7 +36,8 @@ module top
     //
     //------------------------------------------------------------------------
 
-    wire [23:0] value;
+    wire [23:0] value_24;
+    wire [15:0] value = value_24 [23:8];
 
     inmp441_mic_i2s_receiver i_microphone
     (
@@ -46,7 +47,7 @@ module top
         .ws    ( gpio  [3] ),
         .sck   ( gpio  [5] ),
         .sd    ( gpio  [4] ),
-        .value ( value     )
+        .value ( value_24  )
     );
 
     assign gpio [0] = 1'b0;  // GND
@@ -59,7 +60,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    seven_segment_4_digits i_7segment (.number (value [15:0]), .*);
+    // seven_segment_4_digits i_7segment (.number (value), .*);
 
     //------------------------------------------------------------------------
     //
@@ -69,16 +70,16 @@ module top
 
     // It is enough for the counter to be 20 bit. Why?
 
-    logic [23:0] prev_value;
+    logic [15:0] prev_value;
     logic [19:0] counter;
     logic [19:0] distance;
 
-    localparam [23:0] threshold = 24'h110000;
+    localparam [15:0] threshold = 16'h1100;
 
     always_ff @ (posedge clk or posedge reset)
         if (reset)
         begin
-            prev_value <= 24'h0;
+            prev_value <= 16'h0;
             counter    <= 20'h0;
             distance   <= 20'h0;
         end
@@ -114,7 +115,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    // seven_segment_4_digits i_7segment (.number (distance), .*);
+    seven_segment_4_digits i_7segment (.number (distance [19:4]), .*);
 
     //------------------------------------------------------------------------
     //

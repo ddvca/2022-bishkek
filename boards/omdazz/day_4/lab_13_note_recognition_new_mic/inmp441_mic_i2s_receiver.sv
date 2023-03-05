@@ -9,7 +9,7 @@ module inmp441_mic_i2s_receiver
     output logic [23:0] value
 );
 
-    assign lr = 1'b1;
+    assign lr = 1'b0;
 
     logic [8:0] cnt;
 
@@ -19,20 +19,21 @@ module inmp441_mic_i2s_receiver
         else
             cnt <= cnt + 1'd1;
 
-    assign sck = cnt [3];
+    assign sck = cnt [3];               // 50 MHz / 16   = 3.13 MHz
 
     always_ff @ (posedge clk or posedge reset)
         if (reset)
-            ws <= '0;
-        else if (cnt == 9'd15)
+            ws <= 1'b1;
+        else if (cnt == 9'd15)          // 50 MHz / 1024 = 4.9  KHz
             ws <= ~ ws;
 
     wire sample_bit
-        = cnt >= 9'd39)
-          cnt <= 9' (39 + 23 * 16))
-          cnt [3:0] == 4'd7);
+        =    ws == lr
+          && cnt >= 9'd39               // 1.5 sck cycle
+          && cnt <= 9' (39 + 23 * 16)   // sampling 0 to 23
+          && cnt [3:0] == 4'd7;         // posedge sck
 
-    wire value_done = (cnt == '0);
+    wire value_done = (ws == lr) & (cnt == '1);
 
     logic [23:0] shift;
 

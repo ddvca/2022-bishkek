@@ -42,7 +42,7 @@ module tb;
 
         @ (posedge reset_n);
 
-        repeat (1000)
+        repeat (2000)
         begin
             @ (posedge clk);
 
