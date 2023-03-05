@@ -1,0 +1,11 @@
+lappend all_signals tb.i_top.i_microphone.clk
+lappend all_signals tb.i_top.i_microphone.reset
+lappend all_signals tb.i_top.i_microphone.lr
+lappend all_signals tb.i_top.i_microphone.cnt
+lappend all_signals tb.i_top.i_microphone.ws
+lappend all_signals tb.i_top.i_microphone.sck
+lappend all_signals tb.i_top.i_microphone.sd
+lappend all_signals tb.i_top.i_microphone.sample_bit
+lappend all_signals tb.i_top.i_microphone.value_done
+lappend all_signals tb.i_top.i_microphone.shift
+lappend all_signals tb.i_top.i_microphone.value
