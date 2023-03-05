@@ -55,6 +55,38 @@ module top
 
     //------------------------------------------------------------------------
     //
+    //  Number distribution experiments
+    //
+    //------------------------------------------------------------------------
+
+    `ifdef COMMENT_OUT
+
+    logic [31:0] cnt1, cnt2;
+
+    always_ff @ (posedge clk or posedge reset)
+        if (reset)
+        begin
+            cnt1 <= '0;
+            cnt2 <= '0;
+        end
+        else
+        begin
+            if (value_24 [0])
+                cnt1 <= cnt1 + 1'd1;
+            else
+                cnt2 <= cnt2 + 1'd1;
+        end
+
+    seven_segment_4_digits i_7segment
+    (
+        .number ({ cnt1 [31:24], cnt2 [31:24] }),
+        .*
+    );
+
+    `endif
+
+    //------------------------------------------------------------------------
+    //
     //  Exercise 1: Uncomment this instantation
     //  to see the value coming from the microphone (in hexadecimal).
     //
@@ -74,7 +106,10 @@ module top
     logic [19:0] counter;
     logic [19:0] distance;
 
-    localparam [15:0] threshold = 16'h1100;
+    localparam [15:0] threshold = 16'h1000;
+
+    // A way to investigate thresholds
+    // wire [15:0] threshold = { ~ key_sw, 12'b0 };
 
     always_ff @ (posedge clk or posedge reset)
         if (reset)
@@ -88,7 +123,7 @@ module top
             prev_value <= value;
 
             if (  value      >= threshold
-                & prev_value < threshold)
+                & prev_value <  threshold)
             begin
                distance <= counter;
                counter  <= 20'h0;
@@ -115,7 +150,7 @@ module top
     //
     //------------------------------------------------------------------------
 
-    seven_segment_4_digits i_7segment (.number (distance [19:4]), .*);
+    // seven_segment_4_digits i_7segment (.number (distance [19:4]), .*);
 
     //------------------------------------------------------------------------
     //
@@ -263,7 +298,7 @@ module top
     //  The output to seven segment display
     //
     //------------------------------------------------------------------------
-/*
+
     always_ff @ (posedge clk or posedge reset)
         if (reset)
             abcdefgh <= 8'b11111111;
@@ -285,7 +320,7 @@ module top
             endcase
 
     assign digit = 4'b1110;
-*/
+
     //------------------------------------------------------------------------
     //
     //  Exercise 4: Replace filtered note with unfiltered note.
