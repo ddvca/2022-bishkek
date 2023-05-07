@@ -43,14 +43,14 @@ module top
     (
         .clk   ( clk       ),
         .reset ( reset     ),
-        .lr    ( gpio  [1] ),
+        .lr    ( gpio  [5] ),
         .ws    ( gpio  [3] ),
-        .sck   ( gpio  [5] ),
-        .sd    ( gpio  [4] ),
+        .sck   ( gpio  [1] ),
+        .sd    ( gpio  [0] ),
         .value ( value_24  )
     );
 
-    assign gpio [0] = 1'b0;  // GND
+    assign gpio [4] = 1'b0;  // GND
     assign gpio [2] = 1'b1;  // VCC
 
     //------------------------------------------------------------------------
