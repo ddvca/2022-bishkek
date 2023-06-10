@@ -1,1 +1,1 @@
-set_global_assignment -name VERILOG_FILE seven_segment_4_digits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE seven_segment_4_digits.sv
