@@ -1,8 +1,6 @@
 module top
 (
     input           clk,
-    input           max10_clk1_50,
-    input           max10_clk2_50,
 
     input   [ 1:0]  key,
     input   [ 9:0]  sw,
@@ -26,7 +24,6 @@ module top
 
     assign led  = 10'b0;
 
-    wire clk   = max10_clk1_50;
     wire reset = sw [9];
 
     //   --a--
