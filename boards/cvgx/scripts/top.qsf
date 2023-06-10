@@ -10,13 +10,6 @@ set_global_assignment   -name SDC_FILE                  top.sdc
 
 source top_extra.qsf
 
-set_global_assignment   -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
-
-set_instance_assignment -name IO_STANDARD               "3.3-V LVTTL" -to *
-set_instance_assignment -name IO_STANDARD               "3.3 V Schmitt Trigger" -to key[0]
-set_instance_assignment -name IO_STANDARD               "3.3 V Schmitt Trigger" -to key[1]
-set_instance_assignment -name IO_STANDARD               "3.3 V Schmitt Trigger" -to arduino_reset_n
-
 set_location_assignment PIN_N5   -to clk
 
 # set_location_assignment PIN_N5   -to adc_clk_10
