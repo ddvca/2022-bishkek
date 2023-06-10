@@ -1,31 +1,38 @@
-// Asynchronous reset here is needed for the FPGA board we use
-
 module top
 (
-    input        clk,
-    input        reset_n,
-    
-    input  [3:0] key_sw,
-    output [3:0] led,
+    input           adc_clk_10,
+    input           max10_clk1_50,
+    input           max10_clk2_50,
 
-    output [7:0] abcdefgh,
-    output [3:0] digit,
+    input   [ 1:0]  key,
+    input   [ 9:0]  sw,
+    output  [ 9:0]  led,
 
-    output       buzzer,
+    output  [ 7:0]  hex0,
+    output  [ 7:0]  hex1,
+    output  [ 7:0]  hex2,
+    output  [ 7:0]  hex3,
+    output  [ 7:0]  hex4,
+    output  [ 7:0]  hex5,
 
-    output       hsync,
-    output       vsync,
-    output [2:0] rgb
+    output          vga_hs,
+    output          vga_vs,
+    output  [ 3:0]  vga_r,
+    output  [ 3:0]  vga_g,
+    output  [ 3:0]  vga_b,
+
+    inout   [35:0]  gpio
 );
 
-    wire reset = ~ reset_n;
+    assign hex0 = 8'hff;
+    assign hex1 = 8'hff;
+    assign hex2 = 8'hff;
+    assign hex3 = 8'hff;
+    assign hex4 = 8'hff;
+    assign hex5 = 8'hff;
 
-    assign abcdefgh  = 8'hff;
-    assign digit     = 4'hf;
-    assign buzzer    = 1'b0;
-    assign hsync     = 1'b1;
-    assign vsync     = 1'b1;
-    assign rgb       = 3'b0;
+    wire clk   = max10_clk1_50;
+    wire reset = sw [9];
 
     // Exercise 1: Free running counter.
     // How do you change the speed of LED blinking?
@@ -38,8 +45,8 @@ module top
         cnt <= 32'b0;
       else
         cnt <= cnt + 32'b1;
-
-    assign led = ~ cnt [27:24];
+        
+    assign led = cnt [29:20];
 
     // Exercise 2: Key-controlled counter.
     // Comment out the code above.
@@ -55,27 +62,25 @@ module top
 
     /*
 
-    wire key = key_sw [0];
-
     logic key_r;
     
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         key_r <= 1'b0;
       else
-        key_r <= key;
+        key_r <= key [0];
         
-    wire key_pressed = ~ key & key_r;
+    wire key_pressed = ~ key [0] & key_r;
 
-    logic [3:0] cnt;
-    
+    logic [9:0] cnt;
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
-        cnt <= 4'b0;
+        cnt <= 10'b0;
       else if (key_pressed)
-        cnt <= cnt + 4'b1;
-
-    assign led = ~ cnt;
+        cnt <= cnt + 10'b1;
+        
+    assign led = cnt;
 
     */
 
