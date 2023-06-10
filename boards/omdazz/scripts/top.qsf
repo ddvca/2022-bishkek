@@ -1,8 +1,6 @@
   set_global_assignment -name DEVICE                    EP4CE6E22C8
 # set_global_assignment -name DEVICE                    EP4CE10E22C8
 
-set_global_assignment   -name VERILOG_INPUT_VERSION     SYSTEMVERILOG_2005
-
 set_global_assignment   -name NUM_PARALLEL_PROCESSORS   4
 set_global_assignment   -name PROJECT_OUTPUT_DIRECTORY  .
 
