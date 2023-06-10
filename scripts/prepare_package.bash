@@ -27,7 +27,9 @@ pkg_src_root_name=$(basename "$pkg_src_root")
 
 #-----------------------------------------------------------------------------
 
-git clean -d -f ..
+mv ../.gitignore ../gitignore
+git clean -d -f ../*/
+mv ../gitignore ../.gitignore
 
 # We dont't need to cleanup on EXIT
 trap cleanup SIGINT SIGTERM ERR
