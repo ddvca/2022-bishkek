@@ -12,9 +12,9 @@ module tb;
     )
     i_top
     (
-        .max10_clk1_50 ( clk ),
-        .key           ( key ),
-        .sw            ( sw  )
+        .clk ( clk ),
+        .key ( key ),
+        .sw  ( sw  )
     );
 
     initial
