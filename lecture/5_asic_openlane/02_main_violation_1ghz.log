@@ -113,7 +113,7 @@ Available under the Apache License, version 2.0. See the LICENSE file for more d
 [INFO]: Created metrics report at 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/metrics.csv'.
 [INFO]: There are no max slew violations in the design at the typical corner.
 [INFO]: There are no hold violations in the design at the typical corner.
-[ERROR]: There are setup violations in the design at the typical corner. Please refer to 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/signoff/28-rcx_sta.max.rpt'.                                                                                                                                             
+[ERROR]: There are setup violations in the design at the typical corner. Please refer to 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/signoff/28-rcx_sta.max.rpt'.
 [INFO]: Saving current set of views in 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/results/final'...
 [INFO]: Generating final set of reports...
 [INFO]: Created manufacturability report at 'designs/snail_moore_fsm/runs/RUN_2022.07.24_07.06.06/reports/manufacturability.rpt'.

@@ -2,7 +2,7 @@ module top
 (
     input        clk,
     input        reset_n,
-    
+
     input  [3:0] key_sw,
     output [3:0] led,
 
@@ -25,16 +25,16 @@ module top
 
     wire a = ~ key_sw [0];
     wire b = ~ key_sw [1];
-    
+
     wire result = a ^ b;
 
     assign led [0] = ~ result;
-    
+
     assign led [1] = ~ (~ key_sw [0] ^ ~ key_sw [1]);
 
     // Exercise 1: Change the code below.
     // Assign to led [2] the result of AND operation
-    
+
     assign led [2] = 1'b0;
 
     // Exercise 2: Change the code below.

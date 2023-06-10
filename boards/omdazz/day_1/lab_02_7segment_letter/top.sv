@@ -2,7 +2,7 @@ module top
 (
     input        clk,
     input        reset_n,
-    
+
     input  [3:0] key_sw,
     output [3:0] led,
 
@@ -58,7 +58,7 @@ module top
 
     /*
     seven_seg_encoding_e letter;
-    
+
     always_comb
       case (key_sw)
       4'b0111: letter = A;
@@ -67,7 +67,7 @@ module top
       4'b1110: letter = A;
       default: letter = K;
       endcase
-      
+
     assign abcdefgh = letter;
     assign digit    = key_sw == 4'b1111 ? 4'b0000 : key_sw;
     */

@@ -46,14 +46,14 @@ module testbench;
         # 1;
 
         $display ("TEST %b & %b = %b", a, b, o);
-    
+
         if (o !== (a & b))
           begin
             $display ("%s FAIL: %h EXPECTED", `__FILE__, a & b);
             $finish;
           end
       end
-      
+
       $display ("%s PASS", `__FILE__);
       $finish;
     end

@@ -268,11 +268,11 @@ module top
             case (t_note)
             C  : abcdefgh <= 8'b01100011;  // C   // abcdefgh
             Cs : abcdefgh <= 8'b01100010;  // C#
-            D  : abcdefgh <= 8'b10000101;  // D   //   --a-- 
+            D  : abcdefgh <= 8'b10000101;  // D   //   --a--
             Ds : abcdefgh <= 8'b10000100;  // D#  //  |     |
             E  : abcdefgh <= 8'b01100001;  // E   //  f     b
             F  : abcdefgh <= 8'b01110001;  // F   //  |     |
-            Fs : abcdefgh <= 8'b01110000;  // F#  //   --g-- 
+            Fs : abcdefgh <= 8'b01110000;  // F#  //   --g--
             G  : abcdefgh <= 8'b01000011;  // G   //  |     |
             Gs : abcdefgh <= 8'b01000010;  // G#  //  e     c
             A  : abcdefgh <= 8'b00010001;  // A   //  |     |

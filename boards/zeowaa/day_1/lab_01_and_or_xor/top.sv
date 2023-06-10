@@ -23,16 +23,16 @@ module top
 
     wire a = ~ key [0];
     wire b = ~ key [1];
-    
+
     wire result = a ^ b;
 
     assign led [0] = ~ result;
-    
+
     assign led [1] = ~ (~ key [0] ^ ~ key [1]);
 
     // Exercise 1: Change the code below.
     // Write the same for AND and OR operations
-    
+
     assign led [2] = 1'b1;
     assign led [3] = 1'b1;
 

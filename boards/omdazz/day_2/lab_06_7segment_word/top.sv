@@ -4,7 +4,7 @@ module top
 (
     input        clk,
     input        reset_n,
-    
+
     input  [3:0] key_sw,
     output [3:0] led,
 
@@ -24,11 +24,11 @@ module top
     assign hsync  = 1'b1;
     assign vsync  = 1'b1;
     assign rgb    = 3'b0;
-    
+
     //------------------------------------------------------------------------
 
     logic [31:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
@@ -40,7 +40,7 @@ module top
     //------------------------------------------------------------------------
 
     logic [3:0] shift_reg;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         shift_reg <= 4'b0001;
@@ -72,7 +72,7 @@ module top
         U = 8'b10000011
     }
     letter;
-    
+
     always_comb
     begin
       case (shift_reg)

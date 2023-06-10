@@ -78,9 +78,9 @@ module testbench;
           `__FILE__, t_sum);
         $finish;
       end
-    
+
   endtask
-  
+
   initial
     begin
       test (  0,  0, 0);
@@ -94,37 +94,37 @@ module testbench;
       test (  4, -7, 0);
       test ( -4,  7, 0);
       test ( -4, -7, 1);
-      
+
       test (  3,  5, 1);
       test (  3, -5, 0);
       test ( -3,  5, 0);
       test ( -3, -5, 0);
-      
+
       test (  3,  6, 1);
       test (  3, -6, 0);
       test ( -3,  6, 0);
       test ( -3, -6, 1);
-      
+
       test (  2,  1, 0);
       test ( -2,  1, 0);
       test (  2, -1, 0);
       test ( -2, -1, 0);
-                
+
       test (  7,  4, 1);
       test ( -7,  4, 0);
       test (  7, -4, 0);
       test ( -7, -4, 1);
-                
+
       test (  5,  3, 1);
       test ( -5,  3, 0);
       test (  5, -3, 0);
       test ( -5, -3, 0);
-                
+
       test (  6,  3, 1);
       test ( -6,  3, 0);
       test (  6, -3, 0);
       test ( -6, -3, 1);
-      
+
       test (  1,  1, 0);
       test (  1, -1, 0);
       test ( -1,  1, 0);

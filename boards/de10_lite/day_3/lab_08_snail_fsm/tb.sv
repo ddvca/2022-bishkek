@@ -26,7 +26,7 @@ module tb;
     end
 
     logic reset;
-    
+
     always_comb
         key [0] = ~ reset;
 

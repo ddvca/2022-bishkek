@@ -9,7 +9,7 @@ module tb;
     $finish;
   end
 
-  logic rst = 1'b1; 
+  logic rst = 1'b1;
   initial # 100 rst <= 1'b0;
 
   logic [8:0] cnt;

@@ -37,13 +37,13 @@ module top
     //------------------------------------------------------------------------
 
     logic [31:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
       else
         cnt <= cnt + 32'b1;
-        
+
     wire enable = (cnt [22:0] == 23'b0);
 
     //------------------------------------------------------------------------
@@ -51,7 +51,7 @@ module top
     wire button_on = ~ key [0];
 
     logic [9:0] shift_reg;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         shift_reg <= 10'b0;

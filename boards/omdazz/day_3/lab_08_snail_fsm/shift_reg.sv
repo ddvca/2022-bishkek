@@ -3,7 +3,7 @@
 module shift_reg
 # (
     parameter depth = 2
-) 
+)
 (
     input                      clk,
     input                      reset,

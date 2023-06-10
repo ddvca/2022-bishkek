@@ -24,7 +24,7 @@ module top
     //------------------------------------------------------------------------
 
     logic [31:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
@@ -36,7 +36,7 @@ module top
     //------------------------------------------------------------------------
 
     logic [7:0] shift_reg;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         shift_reg <= 8'b0000_0001;
@@ -68,7 +68,7 @@ module top
         U = 8'b10000011
     }
     letter;
-    
+
     always_comb
     begin
       case (shift_reg)

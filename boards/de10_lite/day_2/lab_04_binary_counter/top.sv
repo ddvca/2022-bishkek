@@ -39,13 +39,13 @@ module top
     // Try different bit slices to display.
 
     logic [31:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
       else
         cnt <= cnt + 32'b1;
-        
+
     assign led = cnt [29:20];
 
     // Exercise 2: Key-controlled counter.
@@ -63,13 +63,13 @@ module top
     /*
 
     logic key_r;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         key_r <= 1'b0;
       else
         key_r <= key [0];
-        
+
     wire key_pressed = ~ key [0] & key_r;
 
     logic [9:0] cnt;
@@ -79,7 +79,7 @@ module top
         cnt <= 10'b0;
       else if (key_pressed)
         cnt <= cnt + 10'b1;
-        
+
     assign led = cnt;
 
     */

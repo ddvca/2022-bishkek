@@ -4,7 +4,7 @@ module top
 (
     input        clk,
     input        reset_n,
-    
+
     input  [3:0] key_sw,
     output [3:0] led,
 
@@ -26,17 +26,17 @@ module top
     assign hsync     = 1'b1;
     assign vsync     = 1'b1;
     assign rgb       = 3'b0;
-    
+
     //------------------------------------------------------------------------
 
     logic [31:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
       else
         cnt <= cnt + 32'b1;
-        
+
     wire enable = (cnt [22:0] == 23'b0);
 
     //------------------------------------------------------------------------
@@ -44,7 +44,7 @@ module top
     wire button_on = ~ key_sw [0];
 
     logic [3:0] shift_reg;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         shift_reg <= 4'b0;

@@ -29,7 +29,7 @@ module game_top
 
         .HPOS_WIDTH          ( `X_WIDTH             ),
         .VPOS_WIDTH          ( `Y_WIDTH             ),
-        
+
         .CLK_MHZ             ( clk_mhz              )
     )
     i_vga

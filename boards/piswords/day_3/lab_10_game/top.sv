@@ -6,7 +6,7 @@ module top
 (
     input        clk,
     input        reset_n,
-    
+
     input  [3:0] key_sw,
     output [3:0] led,
 
@@ -26,7 +26,7 @@ module top
     assign buzzer    = 1'b0;
 
     wire launch_key = key_sw != 4'b1111;  // Any key is pressed
-    
+
     // Either of two leftmost keys is pressed
     wire left_key   = key_sw [3:2] != 2'b11;
 

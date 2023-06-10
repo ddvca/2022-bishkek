@@ -48,7 +48,7 @@ fi
 if [ $run_iverilog = 1 ]
 then
     iverilog -g2005-sv -I .. ../*.sv 2>&1 | tee icarus.compile.log
-        
+
     ec=$?
 
     if [ $ec != 0 ]

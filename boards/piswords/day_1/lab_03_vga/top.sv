@@ -33,17 +33,17 @@ module top
 
     wire [X_WIDTH - 1:0] x;
     wire [Y_WIDTH - 1:0] y;
- 
+
     vga
     # (
         .HPOS_WIDTH ( X_WIDTH      ),
         .VPOS_WIDTH ( Y_WIDTH      ),
-        
+
         .CLK_MHZ    ( CLK_MHZ      )
     )
     i_vga
     (
-        .clk        (   clk        ), 
+        .clk        (   clk        ),
         .reset      ( ~ reset_n    ),
         .hsync      (   hsync      ),
         .vsync      (   vsync      ),
@@ -74,7 +74,7 @@ module top
         rgb = black;
       else if (x ** 2 + y ** 2 < 100 ** 2)
         rgb = red;
-      else if (x > 200 & y > 200 & x < 300 & y < 400) 
+      else if (x > 200 & y > 200 & x < 300 & y < 400)
         rgb = yellow;
       else if (key_sw == 4'b1111 & (x - 600) ** 2 + (y - 200) ** 2 < 70 ** 2)
         rgb = white;

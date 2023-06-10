@@ -72,7 +72,7 @@ module top
 
     assign { hex5, hex4, hex3, hex2, hex1, hex0 }
       = shift_reg [6 * 8 - 1:0];
-      
+
     // Exercise 1: Modify the code so the speed and the direction
     // of the movement changes when you press a key.
 

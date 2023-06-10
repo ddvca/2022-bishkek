@@ -68,10 +68,10 @@ module testbench;
   signed_mul_4 i_signed_mul_4
     (.a (a), .b (b), .res (t_sres));
 
-  unsigned_mul #(n) i_unsigned_mul           
+  unsigned_mul #(n) i_unsigned_mul
     (.a (a), .b (b), .res (t_res));
 
-  signed_or_unsigned_mul #(.n (n)) i_signed_or_unsigned_mul 
+  signed_or_unsigned_mul #(.n (n)) i_signed_or_unsigned_mul
     (.a (a), .b (b), .sign (sign), .res (res));
 
   task test
@@ -106,7 +106,7 @@ module testbench;
         $finish;
       end
     end
-    
+
   endtask
 
   localparam signed [n - 1:0] smin = 1'b1 << (n - 1);

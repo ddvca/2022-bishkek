@@ -20,7 +20,7 @@ module vga
               V_BOTTOM            =  10,  // Vertical bottom border
               V_SYNC              =   2,  // Vertical sync # lines
               V_TOP               =  33,  // Vertical top border
-              
+
               CLK_MHZ             =  50,   // Clock frequency (50 or 100 MHz)
               VGA_CLOCK           =  25   // Pixel clock of VGA in MHz
 )
@@ -82,7 +82,7 @@ module vga
         else
         begin
             if (clk_en_cnt == (CLK_MHZ / VGA_CLOCK) - 1)
-            begin 
+            begin
                 clk_en_cnt <= 3'b0;
                 clk_en <= 1'b1;
             end

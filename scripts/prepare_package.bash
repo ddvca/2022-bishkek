@@ -189,7 +189,7 @@ do
 
   ls -d ../boards/$board/day*/lab*/run/ \
     | xargs -n 1 cp ../boards/$board/scripts/*
-    
+
   for d in ../boards/$board/day*/lab*
   do
     ls $d/*extra*  &> /dev/null && cp $d/*extra*  $d/run

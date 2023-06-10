@@ -43,14 +43,14 @@ module testbench;
         # 1;
 
         $display ("TEST ~ %b = %b", a, o);
-    
+
         if (o !== ~ a)
           begin
             $display ("%s FAIL: %h EXPECTED", `__FILE__, ~ a);
             $finish;
           end
       end
-      
+
       $display ("%s PASS", `__FILE__);
       $finish;
     end

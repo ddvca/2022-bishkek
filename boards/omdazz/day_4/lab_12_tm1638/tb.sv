@@ -20,7 +20,7 @@ module tb;
     end
 
     logic reset;
-    
+
     always_comb
         sw [9] = reset;
 

@@ -16,12 +16,12 @@ error ()
     [ $ec != 0 ] || return
 
     printf "$script: error: $*" 1>&2
-    
+
     if [ $ec != 1 ]
     then
         printf ". Exiting with code $ec." 1>&2
     fi
-    
+
     printf "\n" 1>&2
     exit $ec
 }

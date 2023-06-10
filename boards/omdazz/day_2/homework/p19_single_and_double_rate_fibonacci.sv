@@ -47,7 +47,7 @@ module testbench;
   end
 
   logic rst;
-    
+
   initial
   begin
     rst <= 'x;

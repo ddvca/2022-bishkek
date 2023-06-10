@@ -4,7 +4,7 @@ module top
 (
     input        clk,
     input        reset_n,
-    
+
     input  [3:0] key_sw,
     output [3:0] led,
 
@@ -32,7 +32,7 @@ module top
     // Try different bit slices to display.
 
     logic [31:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 32'b0;
@@ -58,17 +58,17 @@ module top
     wire key = key_sw [0];
 
     logic key_r;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         key_r <= 1'b0;
       else
         key_r <= key;
-        
+
     wire key_pressed = ~ key & key_r;
 
     logic [3:0] cnt;
-    
+
     always_ff @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 4'b0;

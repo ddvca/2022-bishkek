@@ -50,9 +50,9 @@ module testbench;
         $display ("%s FAIL: %d EXPECTED", `__FILE__, t_sum);
         $finish;
       end
-    
+
   endtask
-  
+
   initial
     begin
       test (  0,  0,  0);
@@ -66,37 +66,37 @@ module testbench;
       test (  4, -7, -3);
       test ( -4,  7,  3);
       test ( -4, -7, -8);
-      
+
       test (  3,  5,  7);
       test (  3, -5, -2);
       test ( -3,  5,  2);
       test ( -3, -5, -8);
-      
+
       test (  3,  6,  7);
       test (  3, -6, -3);
       test ( -3,  6,  3);
       test ( -3, -6, -8);
-      
+
       test (  2,  1,  3);
       test ( -2,  1, -1);
       test (  2, -1,  1);
       test ( -2, -1, -3);
-                
+
       test (  7,  4,  7);
       test ( -7,  4, -3);
       test (  7, -4,  3);
       test ( -7, -4, -8);
-                       
+
       test (  5,  3,  7);
       test ( -5,  3, -2);
       test (  5, -3,  2);
       test ( -5, -3, -8);
-                       
+
       test (  6,  3,  7);
       test ( -6,  3, -3);
       test (  6, -3,  3);
       test ( -6, -3, -8);
-      
+
       test (  1,  1,  2);
       test (  1, -1,  0);
       test ( -1,  1,  0);

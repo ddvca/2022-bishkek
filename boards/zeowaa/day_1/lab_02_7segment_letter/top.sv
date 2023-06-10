@@ -58,7 +58,7 @@ module top
 
     /*
     seven_seg_encoding_e letter;
-    
+
     always_comb
       case (key)
       4'b0111: letter = A;
@@ -67,7 +67,7 @@ module top
       4'b1110: letter = A;
       default: letter = K;
       endcase
-      
+
     assign abcdefgh = letter;
     assign digit    = key == 4'b1111 ? 8'h00 : { key, key };
     */
