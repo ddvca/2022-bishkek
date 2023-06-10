@@ -1,14 +1,14 @@
 module tb;
 
     logic       clk;
-    logic       reset_n;
-    logic [3:0] key_sw;
+    logic [1:0] key;
+    logic [9:0] sw;
 
     top i_top
     (
-        .clk     ( clk     ),
-        .reset_n ( reset_n ),
-        .key_sw  ( key_sw  )
+        .clk ( clk ),
+        .key ( key ),
+        .sw  ( sw  )
     );
 
     initial
@@ -19,13 +19,18 @@ module tb;
             # 5 clk = ~ clk;
     end
 
+    logic reset;
+    
+    always_comb
+        sw [9] = reset;
+
     initial
     begin
-        reset_n <= 1'bx;
+        reset <= 1'bx;
         repeat (2) @ (posedge clk);
-        reset_n <= 1'b0;
+        reset <= 1'b1;
         repeat (2) @ (posedge clk);
-        reset_n <= 1'b1;
+        reset <= 1'b0;
     end
 
     initial
@@ -34,21 +39,17 @@ module tb;
             $dumpvars;
         `endif
 
-        key_sw <= 4'b0;
+        key       <= 'b0;
+        sw  [8:0] <= 'b0;
 
-        @ (posedge reset_n);
+        @ (negedge reset);
 
-        for (int i = 0; i < 50; i ++)
+        repeat (1000)
         begin
-            // Enable override
- 
-            if (i == 20)
-                force i_top.enable = 1'b1;
-            else if (i == 40)
-                release i_top.enable;
-
             @ (posedge clk);
-            key_sw <= $urandom ();
+
+            key       <= $urandom ();
+            sw  [8:0] <= $urandom ();
         end
 
         `ifdef MODEL_TECH  // Mentor ModelSim and Questa
