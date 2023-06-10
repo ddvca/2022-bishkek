@@ -5,7 +5,7 @@ module top
               seven_segment_strobe_width = 10
 )
 (
-    input           adc_clk_10,
+    input           clk,
     input           max10_clk1_50,
     input           max10_clk2_50,
 

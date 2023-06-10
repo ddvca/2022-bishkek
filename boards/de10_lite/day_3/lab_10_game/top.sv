@@ -4,7 +4,7 @@ module top
               strobe_to_update_xy_counter_width = 20
 )
 (
-    input           adc_clk_10,
+    input           clk,
     input           max10_clk1_50,
     input           max10_clk2_50,
 
