@@ -32,101 +32,58 @@ module top
 
     //------------------------------------------------------------------------
 
-    wire shift_strobe;
+    wire enable;
+    wire fsm_in, moore_fsm_out, mealy_fsm_out;
 
-    strobe_gen # (.w (shift_strobe_width)) i_shift_strobe
-        (clk, reset, shift_strobe);
+    wire [3:0] shift_reg_par_out;
+    assign led = ~ shift_reg_par_out;
 
-    wire [9:0] out_reg;
+    strobe_gen i_strobe_gen
+        (.strobe (enable), .*);
 
-    shift_register # (.w (10)) i_shift_reg
+    shift_reg # (.depth (4)) i_shift_reg
     (
-        .clk     ( clk          ),
-        .reset   ( reset        ),
-        .en      ( shift_strobe ),
-        .in      ( ~ key [1]    ),
-        .out_reg ( out_reg      )
+        .en      ( enable            ),
+        .seq_in  ( ~ key [1]         ),
+        .seq_out ( fsm_in            ),
+        .par_out ( shift_reg_par_out ),
+        .*
     );
 
-    assign led = out_reg;
+    snail_moore_fsm i_moore_fsm
+        (.en (enable), .a (fsm_in), .y (moore_fsm_out), .*);
+
+    snail_mealy_fsm i_mealy_fsm
+        (.en (enable), .a (fsm_in), .y (mealy_fsm_out), .*);
 
     //------------------------------------------------------------------------
 
-    wire [15:0] shift_strobe_count;
+    //   --a--
+    //  |     |
+    //  f     b
+    //  |     |
+    //   --g--
+    //  |     |
+    //  e     c
+    //  |     |
+    //   --d--  h
+    //
+    //  0 means light
 
-    counter # (16) i_shift_strobe_counter
-    (
-        .clk   ( clk                ),
-        .reset ( reset              ),
-        .en    ( shift_strobe       ),
-        .cnt   ( shift_strobe_count )
-    );
+    logic [7:0] hgfedcba;
 
-    //------------------------------------------------------------------------
+    always_comb
+      case ({ mealy_fsm_out, moore_fsm_out })
+      2'b00: hgfedcba = 8'b1111_1111;
+      2'b01: hgfedcba = 8'b1001_1100;  // Moore only
+      2'b10: hgfedcba = 8'b1010_0011;  // Mealy only
+      2'b11: hgfedcba = 8'b1000_0000;
+      endcase
 
-    wire out_moore_fsm;
+    assign hex0 = hgfedcba;
+    assign { hex5, hex4, hex3, hex2, hex1 } = '1;
 
-    moore_fsm i_moore_fsm
-    (
-        .clk   ( clk           ),
-        .reset ( reset         ),
-        .en    ( shift_strobe  ),
-        .a     ( out_reg [0]   ),
-        .y     ( out_moore_fsm )
-    );
-
-    wire [7:0] moore_fsm_out_count;
-
-    counter # (8) i_moore_fsm_out_counter
-    (
-        .clk   ( clk                          ),
-        .reset ( reset                        ),
-        .en    ( shift_strobe & out_moore_fsm ),
-        .cnt   ( moore_fsm_out_count          )
-    );
-
-    //------------------------------------------------------------------------
-
-    wire out_mealy_fsm;
-
-    mealy_fsm i_mealy_fsm
-    (
-        .clk   ( clk           ),
-        .reset ( reset         ),
-        .en    ( shift_strobe  ),
-        .a     ( out_reg [0]   ),
-        .y     ( out_mealy_fsm )
-    );
-
-    wire [7:0] mealy_fsm_out_count;
-
-    counter # (8) i_mealy_fsm_out_counter
-    (
-        .clk   ( clk                          ),
-        .reset ( reset                        ),
-        .en    ( shift_strobe & out_mealy_fsm ),
-        .cnt   ( mealy_fsm_out_count          )
-    );
-
-    //------------------------------------------------------------------------
-
-    wire [31:0] number_to_display =
-    {
-        shift_strobe_count,
-        moore_fsm_out_count,
-        mealy_fsm_out_count
-    };
-
-    //------------------------------------------------------------------------
-
-    seven_segment_digit i_digit_0 ( number_to_display [ 3: 0], hex0 [6:0]);
-    seven_segment_digit i_digit_1 ( number_to_display [ 7: 4], hex1 [6:0]);
-    seven_segment_digit i_digit_2 ( number_to_display [11: 8], hex2 [6:0]);
-    seven_segment_digit i_digit_3 ( number_to_display [15:12], hex3 [6:0]);
-    seven_segment_digit i_digit_4 ( number_to_display [19:16], hex4 [6:0]);
-    seven_segment_digit i_digit_5 ( number_to_display [23:20], hex5 [6:0]);
-
-    assign { hex5 [7], hex4 [7], hex3 [7], hex2 [7], hex1 [7], hex0 [7] }
-        = ~ sw [5:0];
+    // Exercise: Implement FSM for recognizing other sequence,
+    // for example 0101
 
 endmodule

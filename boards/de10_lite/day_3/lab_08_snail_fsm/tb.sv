@@ -6,7 +6,6 @@ module tb;
 
     top
     # (
-        .debounce_depth             ( 1 ),
         .shift_strobe_width         ( 1 ),
         .seven_segment_strobe_width ( 1 )
     )
