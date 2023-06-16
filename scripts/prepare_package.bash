@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # See the decription of these settings in scripts/README.md file
-set -Eeuxo pipefail
+set -Eeuo pipefail
+# set -x
 
 #-----------------------------------------------------------------------------
 

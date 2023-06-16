@@ -1,7 +1,6 @@
 module top
 #(
-    parameter debounce_depth             = 8,
-              shift_strobe_width         = 23,
+    parameter shift_strobe_width         = 23,
               seven_segment_strobe_width = 10
 )
 (
@@ -33,19 +32,6 @@ module top
 
     //------------------------------------------------------------------------
 
-    wire [1:0] key_db;
-    wire [9:0] sw_db;
-
-    sync_and_debounce # (.w (2), .depth (debounce_depth))
-        i_sync_and_debounce_key
-            (clk, reset, ~ key, key_db);
-
-    sync_and_debounce # (.w (10), .depth (debounce_depth))
-        i_sync_and_debounce_sw
-            (clk, reset, sw, sw_db);
-
-    //------------------------------------------------------------------------
-
     wire shift_strobe;
 
     strobe_gen # (.w (shift_strobe_width)) i_shift_strobe
@@ -58,7 +44,7 @@ module top
         .clk     ( clk          ),
         .reset   ( reset        ),
         .en      ( shift_strobe ),
-        .in      ( key_db [1]   ),
+        .in      ( ~ key [1]    ),
         .out_reg ( out_reg      )
     );
 
@@ -141,6 +127,6 @@ module top
     seven_segment_digit i_digit_5 ( number_to_display [23:20], hex5 [6:0]);
 
     assign { hex5 [7], hex4 [7], hex3 [7], hex2 [7], hex1 [7], hex0 [7] }
-        = ~ sw_db [5:0];
+        = ~ sw [5:0];
 
 endmodule
