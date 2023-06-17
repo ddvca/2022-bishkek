@@ -37,7 +37,7 @@ cleanup ()
 {
   trap - SIGINT SIGTERM ERR
   cd "$pkg_src_root"
-  git clean -d -f -x .
+  git clean -d -f -x . 1>&2 >/dev/null
 }
 
 #-----------------------------------------------------------------------------
