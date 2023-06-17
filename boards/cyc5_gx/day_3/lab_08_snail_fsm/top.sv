@@ -1,4 +1,7 @@
 module top
+#(
+    parameter shift_strobe_width = 23
+)
 (
     input           clk,
     input           rst_n,
@@ -27,13 +30,13 @@ module top
     wire enable;
     wire fsm_in, moore_fsm_out, mealy_fsm_out;
 
-    wire [3:0] shift_reg_par_out;
-    assign led = ~ shift_reg_par_out;
+    wire [9:0] shift_reg_par_out;
+    assign led = shift_reg_par_out;
 
-    strobe_gen i_strobe_gen
+    strobe_gen # (shift_strobe_width) i_strobe_gen
         (.strobe (enable), .*);
 
-    shift_reg # (.depth (4)) i_shift_reg
+    shift_reg # (.depth (10)) i_shift_reg
     (
         .en      ( enable            ),
         .seq_in  ( ~& key            ),  // Same as key != 4'b1111
@@ -62,36 +65,20 @@ module top
     //
     //  0 means light
 
+    logic [7:0] hgfedcba;
+
     always_comb
       case ({ mealy_fsm_out, moore_fsm_out })
-      2'b00: abcdefgh = 8'b1111_1111;
-      2'b01: abcdefgh = 8'b0011_1001;  // Moore only
-      2'b10: abcdefgh = 8'b1100_0101;  // Mealy only
-      2'b11: abcdefgh = 8'b0000_0001;
+      2'b00: hgfedcba = 8'b1111_1111;
+      2'b01: hgfedcba = 8'b1001_1100;  // Moore only
+      2'b10: hgfedcba = 8'b1010_0011;  // Mealy only
+      2'b11: hgfedcba = 8'b1000_0000;
       endcase
 
-    assign digit = 4'b1110;
+    assign hex0 = hgfedcba;
+    assign { hex3, hex2, hex1 } = '1;
 
     // Exercise: Implement FSM for recognizing other sequence,
     // for example 0101
-
-    wire [31:0] number_to_display =
-    {
-        shift_strobe_count,
-        moore_fsm_out_count,
-        mealy_fsm_out_count
-    };
-BROKEN
-    //------------------------------------------------------------------------
-
-    seven_segment_digit i_digit_0 ( number_to_display [ 3: 0], hex0 [6:0]);
-    seven_segment_digit i_digit_1 ( number_to_display [ 7: 4], hex1 [6:0]);
-    seven_segment_digit i_digit_2 ( number_to_display [11: 8], hex2 [6:0]);
-    seven_segment_digit i_digit_3 ( number_to_display [15:12], hex3 [6:0]);
-    seven_segment_digit i_digit_4 ( number_to_display [19:16], hex4 [6:0]);
-    seven_segment_digit i_digit_5 ( number_to_display [23:20], hex5 [6:0]);
-
-    assign { hex5 [7], hex4 [7], hex3 [7], hex2 [7], hex1 [7], hex0 [7] }
-        = ~ sw_db [5:0];
 
 endmodule

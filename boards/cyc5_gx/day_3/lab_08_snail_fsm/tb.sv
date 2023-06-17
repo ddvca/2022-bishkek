@@ -5,11 +5,7 @@ module tb;
     logic  [ 9:0] sw;
 
     top
-    # (
-        .debounce_depth             ( 1 ),
-        .shift_strobe_width         ( 1 ),
-        .seven_segment_strobe_width ( 1 )
-    )
+    # (.shift_strobe_width (1))
     i_top
     (
         .clk ( clk ),
