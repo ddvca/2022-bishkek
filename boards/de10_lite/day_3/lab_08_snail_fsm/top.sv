@@ -1,7 +1,6 @@
 module top
 #(
-    parameter shift_strobe_width         = 23,
-              seven_segment_strobe_width = 10
+    parameter shift_strobe_width = 23
 )
 (
     input           clk,
@@ -35,13 +34,13 @@ module top
     wire enable;
     wire fsm_in, moore_fsm_out, mealy_fsm_out;
 
-    wire [3:0] shift_reg_par_out;
-    assign led = ~ shift_reg_par_out;
+    wire [9:0] shift_reg_par_out;
+    assign led = shift_reg_par_out;
 
-    strobe_gen i_strobe_gen
+    strobe_gen # (shift_strobe_width) i_strobe_gen
         (.strobe (enable), .*);
 
-    shift_reg # (.depth (4)) i_shift_reg
+    shift_reg # (.depth (10)) i_shift_reg
     (
         .en      ( enable            ),
         .seq_in  ( ~ key [1]         ),
