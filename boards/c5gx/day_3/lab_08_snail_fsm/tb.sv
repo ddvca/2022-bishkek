@@ -1,6 +1,7 @@
 module tb;
 
     logic         clk;
+    logic         rst_n;
     logic  [ 3:0] key;
     logic  [ 9:0] sw;
 
@@ -8,9 +9,10 @@ module tb;
     # (.shift_strobe_width (1))
     i_top
     (
-        .clk ( clk ),
-        .key ( key ),
-        .sw  ( sw  )
+        .clk   ( clk   ),
+        .rst_n ( rst_n ),
+        .key   ( key   ),
+        .sw    ( sw    )
     );
 
     initial
@@ -22,9 +24,7 @@ module tb;
     end
 
     logic reset;
-
-    always_comb
-        key [0] = ~ reset;
+    assign rst_n = ~ reset;
 
     initial
     begin
@@ -41,17 +41,17 @@ module tb;
             $dumpvars;
         `endif
 
-        key [1] <= 'b0;
-        sw      <= 'b0;
+        key <= '0;
+        sw  <= '0;
 
         @ (negedge reset);
 
-        repeat (100000)
+        repeat (1000)
         begin
             @ (posedge clk);
 
-            key [1] <= $urandom ();
-            sw      <= $urandom ();
+            key <= $urandom ();
+            sw  <= $urandom ();
         end
 
         `ifdef MODEL_TECH  // Mentor ModelSim and Questa
