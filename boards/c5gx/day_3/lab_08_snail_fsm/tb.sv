@@ -1,7 +1,7 @@
 module tb;
 
     logic         clk;
-    logic  [ 1:0] key;
+    logic  [ 3:0] key;
     logic  [ 9:0] sw;
 
     top
