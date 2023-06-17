@@ -187,7 +187,7 @@ do
     || cp -r -n ../boards/$main_board/day* ../boards/$board
 
   ls -d ../boards/$board/day*/lab*/run/ \
-    | xargs -n 1 cp ../boards/$board/scripts/*
+    | xargs -n 1 cp ../boards/$board/scripts/*.*
 
   for d in ../boards/$board/day*/lab*
   do
