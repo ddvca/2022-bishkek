@@ -7,7 +7,7 @@ set -Eeuo pipefail
 #-----------------------------------------------------------------------------
 
 main_board=omdazz
-all_boards="$main_board de10_lite piswords rzrd zeowaa"
+all_boards="$main_board c5gx de10_lite piswords rzrd zeowaa"
 
 #-----------------------------------------------------------------------------
 
@@ -198,7 +198,7 @@ done
 
 #-----------------------------------------------------------------------------
 
-rm -f ../boards/{de10_lite,zeowaa}/day*/lab*/seven_segment_4_digits.sv
+rm -f ../boards/{c5gx,de10_lite,zeowaa}/day*/lab*/seven_segment_4_digits.sv
 
 #-----------------------------------------------------------------------------
 
