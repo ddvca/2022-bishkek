@@ -2,7 +2,7 @@
 
 # See the decription of these settings in scripts/README.md file
 set -Eeuo pipefail
-# set -x
+set -x
 
 #-----------------------------------------------------------------------------
 
