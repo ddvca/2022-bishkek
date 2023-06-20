@@ -11,9 +11,9 @@ guarded quartus_pgm -l &> cable_list
 CABLE_NAME_1=$(set +o pipefail; grep "1) " cable_list | sed 's/.*1) //')
 CABLE_NAME_2=$(set +o pipefail; grep "2) " cable_list | sed 's/.*2) //')
 
-if [ "$CABLE_NAME_1" ]
+if [ "${CABLE_NAME_1-}" ]
 then
-    if [ "$CABLE_NAME_2" ]
+    if [ "${CABLE_NAME_2-}" ]
     then
         warning "more than one cable is connected: $CABLE_NAME_1 and $CABLE_NAME_2"
     fi
