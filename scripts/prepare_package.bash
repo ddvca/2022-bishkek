@@ -173,10 +173,6 @@ cp ../boards/$main_board/day_1/lab_03_vga/vga.sv \
 cp ../boards/$main_board/day_2/lab_07_note_recognition/seven_segment_4_digits.sv \
    ../boards/$main_board/day_4/lab_11_uart
 
-cp ../boards/$main_board/day_2/lab_07_note_recognition/seven_segment_4_digits.sv \
-   ../boards/$main_board/day_2/lab_07_note_recognition/music_notes.pdf \
-   ../boards/$main_board/day_4/lab_13_note_recognition_new_mic
-
 #-----------------------------------------------------------------------------
 
 for board in $all_boards
