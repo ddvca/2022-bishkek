@@ -1,4 +1,5 @@
 // `define USE_STANDARD_FREQUENCIES
+// `define USE_OBSOLETE_DIGILENT_MIC
 
 module top
 # (
@@ -36,6 +37,8 @@ module top
     //
     //------------------------------------------------------------------------
 
+    `ifdef USE_OBSOLETE_DIGILENT_MIC
+
     wire [15:0] value;
 
     digilent_pmod_mic3_spi_receiver i_microphone
@@ -50,6 +53,61 @@ module top
 
     assign gpio [ 8] = 1'b0;  // GND
     assign gpio [10] = 1'b1;  // VCC
+
+    `else
+
+    wire [23:0] value_24;
+    wire [15:0] value = value_24 [23:8];
+
+    inmp441_mic_i2s_receiver i_microphone
+    (
+        .clk   ( clk       ),
+        .reset ( reset     ),
+        .lr    ( gpio  [5] ),
+        .ws    ( gpio  [3] ),
+        .sck   ( gpio  [1] ),
+        .sd    ( gpio  [0] ),
+        .value ( value_24  )
+    );
+
+    assign gpio [4] = 1'b0;  // GND
+    assign gpio [2] = 1'b1;  // VCC
+
+    `endif
+
+    //------------------------------------------------------------------------
+    //
+    //  Number distribution experiments
+    //
+    //------------------------------------------------------------------------
+
+    `ifndef USE_OBSOLETE_DIGILENT_MIC
+    `ifdef COMMENT_OUT
+
+    logic [31:0] cnt1, cnt2;
+
+    always_ff @ (posedge clk or posedge reset)
+        if (reset)
+        begin
+            cnt1 <= '0;
+            cnt2 <= '0;
+        end
+        else
+        begin
+            if (value_24 [0])
+                cnt1 <= cnt1 + 1'd1;
+            else
+                cnt2 <= cnt2 + 1'd1;
+        end
+
+    seven_segment_4_digits i_7segment
+    (
+        .number ({ cnt1 [31:24], cnt2 [31:24] }),
+        .*
+    );
+
+    `endif
+    `endif
 
     //------------------------------------------------------------------------
     //
@@ -72,7 +130,14 @@ module top
     logic [19:0] counter;
     logic [19:0] distance;
 
+    `ifndef USE_OBSOLETE_DIGILENT_MIC
     localparam [15:0] threshold = 16'h1100;
+    `else
+    localparam [15:0] threshold = 16'h1000;
+    `endif
+
+    // A way to investigate thresholds
+    // wire [15:0] threshold = { ~ key_sw, 12'b0 };
 
     always_ff @ (posedge clk or posedge reset)
         if (reset)
@@ -113,7 +178,11 @@ module top
     //
     //------------------------------------------------------------------------
 
+    `ifndef USE_OBSOLETE_DIGILENT_MIC
     // seven_segment_4_digits i_7segment (.number (distance), .*);
+    `else
+    // seven_segment_4_digits i_7segment (.number (distance [19:4]), .*);
+    `endif
 
     //------------------------------------------------------------------------
     //

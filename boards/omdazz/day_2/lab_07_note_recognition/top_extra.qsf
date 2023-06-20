@@ -1,1 +1,3 @@
 set_global_assignment -name SYSTEMVERILOG_FILE seven_segment_4_digits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE digilent_pmod_mic3_spi_receiver.sv
+set_global_assignment -name SYSTEMVERILOG_FILE inmp441_mic_i2s_receiver.sv
