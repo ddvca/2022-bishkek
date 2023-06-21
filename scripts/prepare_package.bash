@@ -164,6 +164,7 @@ cp ../boards/$main_board/day_1/lab_02_7segment_letter/*.jpg \
    ../boards/$main_board/day_2/lab_06_7segment_word
 
 cp ../boards/$main_board/day_2/lab_07_note_recognition/digilent_pmod_mic3_spi_receiver.sv \
+   ../boards/$main_board/day_2/lab_07_note_recognition/inmp441_mic_i2s_receiver.sv \
    ../boards/$main_board/day_2/lab_07_note_recognition/music_notes.pdf \
    ../boards/$main_board/day_3/lab_09_music_recognition
 
