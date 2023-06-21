@@ -1,4 +1,5 @@
 // `define USE_STANDARD_FREQUENCIES
+// `define USE_OBSOLETE_DIGILENT_MIC
 
 module top
 # (
@@ -35,6 +36,8 @@ module top
     //
     //------------------------------------------------------------------------
 
+    `ifdef USE_OBSOLETE_DIGILENT_MIC
+
     wire [15:0] value;
 
     digilent_pmod_mic3_spi_receiver i_microphone
@@ -49,6 +52,27 @@ module top
 
     assign gpio [ 8] = 1'b0;  // GND
     assign gpio [10] = 1'b1;  // VCC
+
+    `else
+
+    wire [23:0] value_24;
+    wire [15:0] value = value_24 [23:8];
+
+    inmp441_mic_i2s_receiver i_microphone
+    (
+        .clk   ( clk       ),
+        .reset ( reset     ),
+        .lr    ( gpio  [5] ),
+        .ws    ( gpio  [3] ),
+        .sck   ( gpio  [1] ),
+        .sd    ( gpio  [0] ),
+        .value ( value_24  )
+    );
+
+    assign gpio [4] = 1'b0;  // GND
+    assign gpio [2] = 1'b1;  // VCC
+
+    `endif
 
     //------------------------------------------------------------------------
     //
