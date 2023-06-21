@@ -77,40 +77,6 @@ module top
 
     //------------------------------------------------------------------------
     //
-    //  Number distribution experiments
-    //
-    //------------------------------------------------------------------------
-
-    `ifndef USE_OBSOLETE_DIGILENT_MIC
-    `ifdef COMMENT_OUT
-
-    logic [31:0] cnt1, cnt2;
-
-    always_ff @ (posedge clk or posedge reset)
-        if (reset)
-        begin
-            cnt1 <= '0;
-            cnt2 <= '0;
-        end
-        else
-        begin
-            if (value_24 [0])
-                cnt1 <= cnt1 + 1'd1;
-            else
-                cnt2 <= cnt2 + 1'd1;
-        end
-
-    seven_segment_4_digits i_7segment
-    (
-        .number ({ cnt1 [31:24], cnt2 [31:24] }),
-        .*
-    );
-
-    `endif
-    `endif
-
-    //------------------------------------------------------------------------
-    //
     //  Exercise 1: Uncomment this instantation
     //  to see the value coming from the microphone (in hexadecimal).
     //
@@ -130,11 +96,7 @@ module top
     logic [19:0] counter;
     logic [19:0] distance;
 
-    `ifndef USE_OBSOLETE_DIGILENT_MIC
     localparam [15:0] threshold = 16'h1100;
-    `else
-    localparam [15:0] threshold = 16'h1000;
-    `endif
 
     // A way to investigate thresholds
     // wire [15:0] threshold = { ~ key_sw, 12'b0 };
