@@ -1,5 +1,5 @@
 # 2022-bishkek
-Files for the seminar in Bishkek, Kyrgyzstan
+Files for the seminar in Bishkek, Kyrgyzstan and in Tbilisi, Georgia
 
 ## The articles about the project:
 
