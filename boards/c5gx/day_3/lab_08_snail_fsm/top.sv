@@ -11,10 +11,10 @@ module top
     output  [ 9:0]  led,
     output  [ 7:0]  ledg,
 
-    output  [ 7:0]  hex0,
-    output  [ 7:0]  hex1,
-    output  [ 7:0]  hex2,
-    output  [ 7:0]  hex3,
+    output  [ 6:0]  hex0,
+    output  [ 6:0]  hex1,
+    output  [ 6:0]  hex2,
+    output  [ 6:0]  hex3,
 
     inout   [35:0]  gpio
 );
@@ -61,21 +61,21 @@ module top
     //  |     |
     //  e     c
     //  |     |
-    //   --d--  h
+    //   --d--
     //
     //  0 means light
 
-    logic [7:0] hgfedcba;
+    logic [6:0] gfedcba;
 
     always_comb
       case ({ mealy_fsm_out, moore_fsm_out })
-      2'b00: hgfedcba = 8'b1111_1111;
-      2'b01: hgfedcba = 8'b1001_1100;  // Moore only
-      2'b10: hgfedcba = 8'b1010_0011;  // Mealy only
-      2'b11: hgfedcba = 8'b1000_0000;
+      2'b00: gfedcba = 7'b111_1111;
+      2'b01: gfedcba = 7'b001_1100;  // Moore only
+      2'b10: gfedcba = 7'b010_0011;  // Mealy only
+      2'b11: gfedcba = 7'b000_0000;
       endcase
 
-    assign hex0 = hgfedcba;
+    assign hex0 = gfedcba;
     assign { hex3, hex2, hex1 } = '1;
 
     // Exercise: Implement FSM for recognizing other sequence,

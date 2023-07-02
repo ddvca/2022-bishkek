@@ -94,7 +94,6 @@ set_location_assignment PIN_AE26 -to hex1[3]
 set_location_assignment PIN_AE25 -to hex1[4]
 set_location_assignment PIN_AC19 -to hex1[5]
 set_location_assignment PIN_AF24 -to hex1[6]
-
 set_location_assignment PIN_W20  -to hex2[6]
 set_location_assignment PIN_W21  -to hex2[5]
 set_location_assignment PIN_V20  -to hex2[4]
